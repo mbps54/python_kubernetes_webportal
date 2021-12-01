@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<h2>{{ the_title }}</h2>
+
+<form method='POST' action='/doc1'>
+<table>
+<p>Используйте эту форму для заполнения данных:</p>
+<tr><td>E-mail:</td><td><input name='email' type='TEXT' width='60'></td></tr>
+<tr><td>Фамилия (в род. падеже):</td><td><input name='name1' type='TEXT' value=''></td></tr>
+<tr><td>Имя (в род. падеже):</td><td><input name='name2' type='TEXT' value=''></td></tr>
+<tr><td>Отчество (в род. падеже):</td><td><input name='name3' type='TEXT' value=''></td></tr>
+<tr><td>Цех:</td><td><input name='shop' type='TEXT' width='60'></td></tr>
+<tr><td>Отдел:</td><td><input name='otdel' type='TEXT' value=''></td></tr>
+<tr><td>Группа:</td><td><input name='group' type='TEXT' value=''></td></tr>
+<tr><td>Телефон:</td><td><input name='phone' type='TEXT' value=''></td></tr>
+<tr><td>Кимлик</td><td><input name='kimlik' type='TEXT' width='60'></td></tr>
+</table>
+<p>После ввода всех данных нажмите эту кнопку:</p>
+<p><input value='Готово' type='SUBMIT'></p>
+</form>
+
+{% endblock %}
