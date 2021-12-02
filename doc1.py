@@ -10,6 +10,17 @@ def doc1(data):
     font.name = 'Times New Roman'
     font.size = Pt(12)
 
+    if data['otdel'] == '':
+        pass
+    else:
+        tmp = ", отдел " + data['otdel']
+        data['otdel'] = tmp
+
+    if data['group'] == '':
+        pass
+    else:
+        tmp = ", группа " + data['group']
+        data['group'] = tmp
 
     p1 = document.add_paragraph('Директору по персоналу')
     p1.alignment = 2
@@ -17,7 +28,7 @@ def doc1(data):
     p1.add_run('\nAKKUYU NÜKLEER ANONİM ŞİRKETİ').bold = True
     p1.add_run('\nА.А. Павлюку')
     p1.add_run('\nОт {} {} {}'.format(data['name2'], data['name1'], data['name3']))
-    p1.add_run('\n{} {} {}'.format(data['shop'], data['otdel'], data['group']))
+    p1.add_run('\n{}{}{}'.format(data['shop'], data['otdel'], data['group']))
     p1.add_run('\nКонтактный телефон {}'.format(data['phone']))
     p1.add_run('\nE-mail {}'.format(data['email']))
     p1.add_run('\nID ВНЖ (кимлик) {}'.format(data['kimlik']))

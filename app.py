@@ -19,10 +19,10 @@ def checkName(name):
         return False
     elif "-" in name:
         for i in name.split('-'):
-            if all(char.isalpha() for char in name):
-                return False
-            else:
+            if all(char.isalpha() for char in i):
                 return True
+            else:
+                return False
     else:
         if all(char.isalpha() for char in name):
             return True
@@ -32,7 +32,15 @@ def checkName(name):
 def checkDep(name):
     if "-" in name:
         for i in name.split('-'):
-            if not all(char.isalpha() for char in name):
+            if not all(char.isalpha() for char in i):
+                return False
+            else:
+                return True
+    if " " in name:
+        for i in name.split(' '):
+            if  all(char.isalpha() for char in i):
+                return True
+            else:
                 return False
     else:
         if all(char.isalpha() for char in name):
@@ -43,7 +51,7 @@ def checkDep(name):
 def checkPhone(phone):
     if phone == '':
         return False
-    elif (len(phone) == 11 or len(phone) == 12 or len(phone) == 4) and phone.isdigit():
+    elif (len(phone) == 11 or len(phone) == 12 or len(phone) == 10 or len(phone) == 4) and phone.isdigit():
         return True
     else:
         return False
@@ -105,6 +113,7 @@ def get_data() -> 'html':
     data['group'] = request.form['group'].capitalize()
     data['phone'] = request.form['phone']
     data['kimlik'] = request.form['kimlik']
+    
     title = 'Заявление на отпуск'
     result = data_validation_1(data)
     if result == True:
@@ -145,5 +154,5 @@ def download_file():
 	return send_file(path, as_attachment=True)
 
 if __name__ == '__main__':
-    app.run(debug=True, host='localhost', port=5000)
+    app.run(debug=True, host='0.0.0.0', port=5000)
 
