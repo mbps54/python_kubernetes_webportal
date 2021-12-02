@@ -1,7 +1,6 @@
 from docx import Document
 from docx.shared import Pt
 from docx.shared import Cm
-import click
 
 def doc1(data):
     document = Document()
@@ -18,7 +17,7 @@ def doc1(data):
     p1.add_run('\nAKKUYU NÜKLEER ANONİM ŞİRKETİ').bold = True
     p1.add_run('\nА.А. Павлюку')
     p1.add_run('\nОт {} {} {}'.format(data['name2'], data['name1'], data['name3']))
-    p1.add_run('\n{}, {}, {}'.format(data['shop'], data['otdel'], data['group']))
+    p1.add_run('\n{} {} {}'.format(data['shop'], data['otdel'], data['group']))
     p1.add_run('\nКонтактный телефон {}'.format(data['phone']))
     p1.add_run('\nE-mail {}'.format(data['email']))
     p1.add_run('\nID ВНЖ (кимлик) {}'.format(data['kimlik']))

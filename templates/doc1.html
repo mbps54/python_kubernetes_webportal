@@ -2,20 +2,21 @@
 
 {% block body %}
 
-<h2>{{ the_title }}</h2>
+<h2>{{ the_title }}</h2> <p>{{ the_error }}</p>
+
 
 <form method='POST' action='/doc1'>
 <table>
 <p>Используйте эту форму для заполнения данных:</p>
-<tr><td>E-mail:</td><td><input name='email' type='TEXT' width='60'></td></tr>
-<tr><td>Фамилия (в род. падеже):</td><td><input name='name1' type='TEXT' value=''></td></tr>
-<tr><td>Имя (в род. падеже):</td><td><input name='name2' type='TEXT' value=''></td></tr>
-<tr><td>Отчество (в род. падеже):</td><td><input name='name3' type='TEXT' value=''></td></tr>
-<tr><td>Цех:</td><td><input name='shop' type='TEXT' width='60'></td></tr>
-<tr><td>Отдел:</td><td><input name='otdel' type='TEXT' value=''></td></tr>
-<tr><td>Группа:</td><td><input name='group' type='TEXT' value=''></td></tr>
-<tr><td>Телефон:</td><td><input name='phone' type='TEXT' value=''></td></tr>
-<tr><td>Кимлик</td><td><input name='kimlik' type='TEXT' width='60'></td></tr>
+<tr><td>E-mail:</td><td><input name='email' type='text' value="{{ the_email }}" placeholder='example@akkuyu.com' width='60'></td></tr>
+<tr><td>Фамилия (в род. падеже):</td><td><input name='name1' type='text' value="{{ the_name1 }}" placeholder='Иванова' width='60'></td></tr>
+<tr><td>Имя (в род. падеже):</td><td><input name='name2' type='text' value="{{ the_name2 }}" placeholder='Ивана' width='60'></td></tr>
+<tr><td>Отчество (в род. падеже):</td><td><input name='name3' type='text' value="{{ the_name3 }}" placeholder='Ивановича' width='60'></td></tr>
+<tr><td>Цех:</td><td><input name='shop' type='text' value="{{ the_shop }}" placeholder='ЦПЧ' width='60' ></td></tr>
+<tr><td>Отдел:</td><td><input name='otdel' type='text' value="{{ the_otdel }}" placeholder='Обеспечения чаем' width='60'></td></tr>
+<tr><td>Группа:</td><td><input name='group' type='text' value="{{ the_group }}" placeholder='Заваривания чая' width='60'></td></tr>
+<tr><td>Телефон:</td><td><input name='phone' type='text' value="{{ the_phone }}" placeholder='9XXX' width='60'></td></tr>
+<tr><td>Кимлик:</td><td><input name='kimlik' type='text' value="{{ the_kimlik }}" placeholder='99XXXXXXXXXXXX'  width='60'></td></tr>
 </table>
 <p>После ввода всех данных нажмите эту кнопку:</p>
 <p><input value='Готово' type='SUBMIT'></p>
