@@ -267,21 +267,22 @@ def doc1(data):
     table2 = create_table(document, headers2, records_table_2)
     set_col_widths_2(table2)
 
-    hotel = data['hotel']
-    hoteldate = data['hotel_date']
-    p5 = document.add_paragraph()
-    p5.style = style
-    p5.add_run('                В соответствии с п.3.2.3 Политики по релокации персонала ')
-    p5.add_run('AKKUYU NÜKLEER ANONİM ŞİRKETİ ')
-    p5.alignment = 0
-    p5.add_run(f' прошу забронировать гостиницу ')
-    p5.add_run(f'{hotel}').bold = True
-    p5.add_run(f'.\n')
-    p5.add_run(f'Дата заселения в гостиницу ')
-    p5.add_run(f'{hoteldate}').bold = True
-    p5.add_run(f' до момента переезда на постоянную квартиру, но не более 30 календарных дней в рамках '
-               f'установленных лимитов.')
-    p5.paragraph_format.space_before = Pt(10)
+    if data['hotel_date'] != '' and data['hotel'] != '':
+        hotel = data['hotel']
+        hoteldate = data['hotel_date']
+        p5 = document.add_paragraph()
+        p5.style = style
+        p5.add_run('                В соответствии с п.3.2.3 Политики по релокации персонала ')
+        p5.add_run('AKKUYU NÜKLEER ANONİM ŞİRKETİ ')
+        p5.alignment = 0
+        p5.add_run(f' прошу забронировать гостиницу ')
+        p5.add_run(f'{hotel}').bold = True
+        p5.add_run(f'.\n')
+        p5.add_run(f'Дата заселения в гостиницу ')
+        p5.add_run(f'{hoteldate}').bold = True
+        p5.add_run(f' до момента переезда на постоянную квартиру, но не более 30 календарных дней в рамках '
+                   f'установленных лимитов.')
+        p5.paragraph_format.space_before = Pt(10)
 
     if data['supruga_brak_number'] != '' or data['child1_svidetelstvo_data'] != '':
         p6 = document.add_paragraph()

@@ -49,19 +49,25 @@ def checkKimlik(kimlik):
 
 def data_validation_1(data):
     if not checkEmail(data['email']):
-        data['error'] = 'Ошибка ввода данных в поле E-mail: {}'.format(data['email'])
+        data['error'] = 'Ошибка ввода данных в поле "E-mail": {}'.format(data['email'])
         return data
     elif not checkName(data['name1']):
-        data['error'] = 'Ошибка ввода данных в поле Фамилия: {}'.format(data['name1'])
+        data['error'] = 'Ошибка ввода данных в поле "Фамилия": {}'.format(data['name1'])
         return data
     elif not checkName(data['name2']):
-        data['error'] = 'Ошибка ввода данных в поле Имя: {}'.format(data['name2'])
+        data['error'] = 'Ошибка ввода данных в поле "Имя": {}'.format(data['name2'])
+        return data
+    elif not checkName(data['rabotnik_name1']):
+        data['error'] = 'Ошибка ввода данных в поле "Работник. Фамилия": {}'.format(data['name1'])
+        return data
+    elif not checkName(data['rabotnik_name2']):
+        data['error'] = 'Ошибка ввода данных в поле "Работник. Имя": {}'.format(data['name2'])
         return data
     elif not checkPhone(data['phone']):
-        data['error'] = 'Ошибка ввода данных в поле Телефон: {}'.format(data['phone'])
+        data['error'] = 'Ошибка ввода данных в поле "Телефон": {}'.format(data['phone'])
         return data
     elif not checkKimlik(data['kimlik']):
-        data['error'] = 'Ошибка ввода данных в поле Кимлик: {}'.format(data['kimlik'])
+        data['error'] = 'Ошибка ввода данных в поле "Кимлик": {}'.format(data['kimlik'])
         return data
     else:
         return True
