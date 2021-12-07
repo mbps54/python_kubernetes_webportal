@@ -187,7 +187,7 @@ def doc1(data):
     records_table_2 = [[data['departure'], data['arrival']]]
 
     records_table = []
-    if data['rabotnik_name1'] != '':
+    if data['rabotnik_zagran'] != '':
         status = 'Работник'
         fio = str(data['rabotnik_name1'] + '\n' + data['rabotnik_name2'] + '\n' + data['rabotnik_name3'])
         firstlastname = str(data['rabotnik_name_lat1'] +'\n' + data['rabotnik_name_lat2'])
