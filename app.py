@@ -167,6 +167,7 @@ def get_data() -> 'html':
     title = 'Заявление 1'
 
     if data['child5_svidetelstvo_data'] == 'test':
+        print('test')
         data = {'email': 'i.ivanov@akkuyu.comn',
                 'name1': 'Иванова',
                 'name2': 'Ивана',
