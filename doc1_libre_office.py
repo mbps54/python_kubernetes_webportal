@@ -415,9 +415,9 @@ def doc1_libre_office(data):
         os.makedirs(os.path.expanduser("./files/doc1/"))
     except:
         pass
-    document.save('./files/doc1/document_libre_office.docx')
+    document.save('./files/doc1/document_.docx')
     subprocess.run(
-        ["doc2pdf", "./files/doc1/document_libre_office.docx" "./files/doc1/document.pdf"],
+        ["doc2pdf", "./files/doc1/document_.docx"],
         stdout=subprocess.DEVNULL,
         stderr=subprocess.DEVNULL,
         encoding="utf-8",
