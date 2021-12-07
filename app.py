@@ -164,7 +164,7 @@ def get_data() -> 'html':
     data['hotel'] = request.form['hotel']
 
 
-    title = 'Заявление 1'
+    title = 'Релокация. Заявление на билеты и гостиницу'
 
     if data['child5_svidetelstvo_data'] == 'test':
         print('test')
@@ -359,7 +359,7 @@ def get_data() -> 'html':
 
 @app.route('/doc1')
 def entry_page() -> 'html':
-    title = 'Заявление на отпуск'
+    title = 'Релокация. Заявление на билеты и гостиницу'
     return render_template('doc1.html',
                             the_title = title,
                             the_error = '')
