@@ -40,7 +40,7 @@ def checkPhone(phone):
 
 def checkKimlik(kimlik):
     if kimlik == '':
-        return False
+        return True
     elif len(kimlik) == 11 and kimlik.isdigit():
         return True
     else:
