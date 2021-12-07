@@ -3,6 +3,7 @@ from docx import Document
 from docx.shared import Pt
 from docx.shared import Cm
 from doc1 import doc1
+from doc1_libre_office import doc1_libre_office
 import re
 
 def checkEmail(email):
@@ -265,6 +266,7 @@ def get_data() -> 'html':
     result = data_validation_1(data)
     if result == True:
         result = str(doc1(data))
+        result_libre_office = str(doc1_libre_office(data))
         return render_template('results.html',
                                 the_title = title)
     else:

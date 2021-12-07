@@ -1,4 +1,4 @@
-
+import os
 from docx import Document
 from docx.shared import Pt
 from docx.shared import Cm
@@ -421,7 +421,10 @@ def doc1(data):
     table3.autofit = False
     table3.style = 'Table Grid'
 
-
+    try:
+        os.makedirs(os.path.expanduser("./files/doc1/"))
+    except:
+        pass
     document.save('./files/doc1/document.docx')
 
 #doc1(data)
