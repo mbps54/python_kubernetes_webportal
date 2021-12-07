@@ -155,11 +155,11 @@ def doc1(data):
             wifechildren = ', и следующим членам моей семьи (несовершеннолетние дети)'
     else:
         if data['supruga_name1'] != '' and data['child1_name1'] != '':
-            wifechildren = 'следующим членам моей семьи (супруг/супруга и несовершеннолетние дети)'
+            wifechildren = ' следующим членам моей семьи (супруг/супруга и несовершеннолетние дети)'
         elif data['supruga_name1'] != '' and data['child1_name1'] == '':
-            wifechildren = 'следующим членам моей семьи (супруг/супруга)'
+            wifechildren = ' следующим членам моей семьи (супруг/супруга)'
         elif data['supruga_name1'] == '' and data['child1_name1'] != '':
-            wifechildren = 'следующим членам моей семьи (несовершеннолетние дети)'
+            wifechildren = ' следующим членам моей семьи (несовершеннолетние дети)'
 
     p1 = document.add_paragraph('Директору по персоналу')
     p1.alignment = 2
