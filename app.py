@@ -165,6 +165,70 @@ def get_data() -> 'html':
 
 
     title = 'Заявление 1'
+
+    if data['child5_name1'] == 'test':
+        data = {'email': 'i.ivanov@akkuyu.comn',
+                'name1': 'Иванова',
+                'name2': 'Ивана',
+                'name3': 'Ивановича',
+                'shop': 'ЦПЧ',
+                'phone': '9922',
+                'kimlik': '99123456789',
+
+                'rabotnik_name1': 'Иванов',
+                'rabotnik_name2': 'Иван',
+                'rabotnik_name3': 'Иванович',
+                'rabotnik_name_lat1': 'Ivan',
+                'rabotnik_name_lat2': 'Ivanov',
+                'rabotnik_birthdate': '01.01.2000',
+                'rabotnik_zagran': '99 44332211',
+                'rabotnik_zagran_srok': '01.01.2030',
+
+                'supruga_name1': 'Николаева',
+                'supruga_name2': 'Ольга',
+                'supruga_name3': 'Милайловна',
+                'supruga_name_lat1': 'Olga',
+                'supruga_name_lat2': 'Mikhailovna',
+                'supruga_birthdate': '02.02.2002',
+                'supruga_zagran': '99 11223344',
+                'supruga_zagran_srok': '01.01.2030',
+                'supruga_brak_number': '99873VX72',
+                'supruga_brak_data': '01.01.2020',
+
+                'child1_name1': 'Иванов',
+                'child1_name2': 'Никита',
+                'child1_name3': 'Иванович',
+                'child1_name_lat1': 'Nikita',
+                'child1_name_lat2': 'Ivanov',
+                'child1_birthdate': '01.05.2020',
+                'child1_zagran': '99 11223344',
+                'child1_zagran_srok': '01.01.2024',
+                'child1_svidetelstvo_number': '99873V-X72',
+                'child1_svidetelstvo_data': '20.05.2020',
+
+                'child2_name1': 'Иванова',
+                'child2_name2': 'Марья',
+                'child2_name3': 'Ивановна',
+                'child2_name_lat1': 'Maria',
+                'child2_name_lat2': 'Ivanova',
+                'child2_birthdate': '01.05.2021',
+                'child2_zagran': '99 22334455',
+                'child2_zagran_srok': '01.01.2025',
+                'child2_svidetelstvo_number': '992323V-Y72',
+                'child2_svidetelstvo_data': '20.03.2021',
+
+                'child3_name1': '',
+                'child4_name1': '',
+                'child5_name1': '',
+
+                'ticket_date': '20.12.2021',
+                'hotel_date': '21.12.2021',
+                'departure': 'Санкт-Петербург',
+                'arrival': 'Адана',
+                'hotel': 'Park Inn Tasucu by Radisson',
+                }
+
+
     result = data_validation_1(data)
     if result == True:
         result = str(doc1(data))
@@ -283,5 +347,5 @@ def download_file():
 	return send_file(path, as_attachment=True)
 
 if __name__ == '__main__':
-    app.run(debug=True, host='127.0.0.1', port=5000)
+    app.run(debug=True, host='10.0.44.15', port=5000)
 
