@@ -15,14 +15,14 @@
 
 <form method='POST' action='/doc1'>
 <table>
-<p>Используйте эту форму для заполнения данных:</p>
+<p>Используйте эту форму для заполнения данных (* обязательные поля):</p>
 <h3>{{ the_error }}</h3>
-<tr><td>E-mail:</td><td><input name='email' type='text' value="{{ the_email }}" placeholder='example@akkuyu.com' width='60'></td></tr>
-<tr><td>Фамилия (в род. падеже):</td><td><input name='name1' type='text' value="{{ the_name1 }}" placeholder='Иванова' width='60'></td></tr>
-<tr><td>Имя (в род. падеже):</td><td><input name='name2' type='text' value="{{ the_name2 }}" placeholder='Ивана' width='60'></td></tr>
+<tr><td>E-mail*:</td><td><input name='email' type='text' value="{{ the_email }}" placeholder='example@akkuyu.com' width='60'></td></tr>
+<tr><td>Фамилия (в род. падеже)*:</td><td><input name='name1' type='text' value="{{ the_name1 }}" placeholder='Иванова' width='60'></td></tr>
+<tr><td>Имя (в род. падеже)*:</td><td><input name='name2' type='text' value="{{ the_name2 }}" placeholder='Ивана' width='60'></td></tr>
 <tr><td>Отчество (в род. падеже):</td><td><input name='name3' type='text' value="{{ the_name3 }}" placeholder='Ивановича' width='60'></td></tr>
-<tr><td>Цех/Отдел/Группа:</td><td><input name='shop' type='text' value="{{ the_shop }}" placeholder='ЦПЧ' width='60' ></td></tr>
-<tr><td>Телефон:</td><td><input name='phone' type='text' value="{{ the_phone }}" placeholder='9XXX' width='60'></td></tr>
+<tr><td>Цех/Отдел/Группа*:</td><td><input name='shop' type='text' value="{{ the_shop }}" placeholder='ЦПЧ' width='60' ></td></tr>
+<tr><td>Телефон (рабочий или мобильный)*:</td><td><input name='phone' type='text' value="{{ the_phone }}" placeholder='9XXX' width='60'></td></tr>
 <tr><td>Кимлик (11 цифр):</td><td><input name='kimlik' type='text' value="{{ the_kimlik }}" placeholder='99XXXXXXXXXXXX'  width='60'></td></tr>
 
 <tr><td>Дата авиабилета(ов):</td><td><input name='ticket_date' type='text' value="{{ the_ticket_date }}" placeholder='ДД.ММ.ГГГГ' width='60'></td></tr>

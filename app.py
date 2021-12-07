@@ -57,9 +57,6 @@ def data_validation_1(data):
     elif not checkName(data['name2']):
         data['error'] = 'Ошибка ввода данных в поле Имя: {}'.format(data['name2'])
         return data
-    elif not checkName(data['name3']):
-        data['error'] = 'Ошибка ввода данных в поле Отчество: {}'.format(data['name3'])
-        return data
     elif not checkPhone(data['phone']):
         data['error'] = 'Ошибка ввода данных в поле Телефон: {}'.format(data['phone'])
         return data
