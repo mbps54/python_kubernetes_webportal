@@ -166,7 +166,7 @@ def get_data() -> 'html':
 
     title = 'Заявление 1'
 
-    if data['child5_name1'] == 'test':
+    if data['child5_svidetelstvo_data'] == 'test':
         data = {'email': 'i.ivanov@akkuyu.comn',
                 'name1': 'Иванова',
                 'name2': 'Ивана',
@@ -218,8 +218,37 @@ def get_data() -> 'html':
                 'child2_svidetelstvo_data': '20.03.2021',
 
                 'child3_name1': '',
+                'child3_name2': '',
+                'child3_name3': '',
+                'child3_name_lat1': '',
+                'child3_name_lat2': '',
+                'child3_birthdate': '',
+                'child3_zagran': '',
+                'child3_zagran_srok': '',
+                'child3_svidetelstvo_number': '',
+                'child3_svidetelstvo_data': '',
+
                 'child4_name1': '',
+                'child4_name2': '',
+                'child4_name3': '',
+                'child4_name_lat1': '',
+                'child4_name_lat2': '',
+                'child4_birthdate': '',
+                'child4_zagran': '',
+                'child4_zagran_srok': '',
+                'child4_svidetelstvo_number': '',
+                'child4_svidetelstvo_data': '',
+
                 'child5_name1': '',
+                'child5_name2': '',
+                'child5_name3': '',
+                'child5_name_lat1': '',
+                'child5_name_lat2': '',
+                'child5_birthdate': '',
+                'child5_zagran': '',
+                'child5_zagran_srok': '',
+                'child5_svidetelstvo_number': '',
+                'child5_svidetelstvo_data': '',
 
                 'ticket_date': '20.12.2021',
                 'hotel_date': '21.12.2021',
