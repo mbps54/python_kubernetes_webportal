@@ -146,13 +146,20 @@ def doc1(data):
     font.name = 'Times New Roman'
     font.size = Pt(12)
 
-
-    if data['supruga_name1'] != '' and data['child1_name1'] != '':
-        wifechildren = ', и следующим членам моей семьи (супруг/супруга и несовершеннолетние дети)'
-    elif data['supruga_name1'] != '' and data['child1_name1'] == '':
-        wifechildren = ', и следующим членам моей семьи (супруг/супруга)'
-    elif data['supruga_name1'] == '' and data['child1_name1'] != '':
-        wifechildren = ', и следующим членам моей семьи (несовершеннолетние дети)'
+    if data['rabotnik_zagran'] != '':
+        if data['supruga_name1'] != '' and data['child1_name1'] != '':
+            wifechildren = ', и следующим членам моей семьи (супруг/супруга и несовершеннолетние дети)'
+        elif data['supruga_name1'] != '' and data['child1_name1'] == '':
+            wifechildren = ', и следующим членам моей семьи (супруг/супруга)'
+        elif data['supruga_name1'] == '' and data['child1_name1'] != '':
+            wifechildren = ', и следующим членам моей семьи (несовершеннолетние дети)'
+    else:
+        if data['supruga_name1'] != '' and data['child1_name1'] != '':
+            wifechildren = 'следующим членам моей семьи (супруг/супруга и несовершеннолетние дети)'
+        elif data['supruga_name1'] != '' and data['child1_name1'] == '':
+            wifechildren = 'следующим членам моей семьи (супруг/супруга)'
+        elif data['supruga_name1'] == '' and data['child1_name1'] != '':
+            wifechildren = 'следующим членам моей семьи (несовершеннолетние дети)'
 
     p1 = document.add_paragraph('Директору по персоналу')
     p1.alignment = 2
@@ -176,10 +183,16 @@ def doc1(data):
     p3.add_run('                В соответствии с п.3.2.1 Политики по релокации персонала ').bold = False
     p3.add_run('AKKUYU NÜKLEER A. Ş.').bold = False
     p3.alignment = 0
-    p3.add_run(
-                f', прошу предоставить мне оплачиваемый билет на самолет/поезд'
-                f' к месту моей работы{wifechildren}:'
-              ).bold = False
+    if data['rabotnik_zagran'] != '':
+        p3.add_run(
+                    f', прошу предоставить мне оплачиваемый билет на самолет/поезд'
+                    f' к месту моей работы{wifechildren}:'
+                  ).bold = False
+    else:
+        p3.add_run(
+                    f', прошу предоставить оплачиваемый билет на самолет/поезд'
+                    f' к месту моей работы{wifechildren}:'
+                  ).bold = False
 
     headers = ('Статус члена семьи', 'Ф.И.О.', 'First Name,\nLast Name',
                'Дата рождения', 'N загран-\nпаспорта', 'Срок действия\nзагранпаспорта')
