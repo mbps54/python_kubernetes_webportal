@@ -381,6 +381,11 @@ def download_file():
 	path = "files/doc1/document.docx".format(dir)
 	return send_file(path, as_attachment=True)
 
+@app.route('/download2')
+def download_file_2():
+	path = "files/doc1/document_.pdf".format(dir)
+	return send_file(path, as_attachment=True)
+
 if __name__ == '__main__':
     app.run(debug=True, host='10.0.44.15', port=5000)
 
