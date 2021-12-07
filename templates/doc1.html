@@ -2,20 +2,13 @@
 
 {% block body %}
 
-<h2>{{ the_title }}</h2> <p>{{ the_error }}</p>
+<h2>{{ the_title }}</h2>
+
 <nav>
   <ul>
     <li>
       <!-- link one -->
-      <a href="http://testserver/doc1"> Релокация. Заявление на билеты и гостиницу </a>
-    </li>
-    <li>
-      <!-- link two -->
-      <a href="http://testserver/doc2"> Заявление на ... </a>
-    </li>
-    <li>
-      <!-- link three -->
-      <a href="http://testserver/doc3"> Заявление на ... </a>
+      <a href="http://testserver/"> Главное меню </a>
     </li>
   </ul>
 </nav>
@@ -23,6 +16,7 @@
 <form method='POST' action='/doc1'>
 <table>
 <p>Используйте эту форму для заполнения данных:</p>
+<h1>{{ the_error }}</h1>
 <tr><td>E-mail:</td><td><input name='email' type='text' value="{{ the_email }}" placeholder='example@akkuyu.com' width='60'></td></tr>
 <tr><td>Фамилия (в род. падеже):</td><td><input name='name1' type='text' value="{{ the_name1 }}" placeholder='Иванова' width='60'></td></tr>
 <tr><td>Имя (в род. падеже):</td><td><input name='name2' type='text' value="{{ the_name2 }}" placeholder='Ивана' width='60'></td></tr>
