@@ -280,7 +280,10 @@ def get_data() -> 'html':
         result = str(doc1(data))
         doc1_libre_office(data)
         return render_template('results.html',
-                                the_title = title)
+                                the_title = title,
+                                the_SERVER_PUB_NAME_IP = SERVER_PUB_NAME_IP,
+                                the_SERVER_PUB_PORT = SERVER_PUB_PORT,
+                              )
     else:
         return render_template('doc1.html',
                                 the_title = title,
