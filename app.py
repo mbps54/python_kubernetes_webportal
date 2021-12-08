@@ -5,10 +5,23 @@ from docx.shared import Cm
 from doc1 import doc1
 from doc1_libre_office import doc1_libre_office
 import re
+import os
+
+SERVER_NAME_IP = str(os.environ.get("SERVER_NAME_IP"))
+SERVER_PORT = str(os.environ.get("SERVER_PORT"))
+SERVER_PUB_NAME_IP = str(os.environ.get("SERVER_PUB_NAME_IP"))
+SERVER_PUB_PORT = str(os.environ.get("SERVER_PUB_PORT"))
+
+'''
+example
+export SERVER_NAME_IP='10.0.44.15'
+export SERVER_PORT='5000'
+export SERVER_PUB_NAME_IP='testserver'
+export SERVER_PUB_PORT='80'
+'''
 
 def checkEmail(email):
     regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
-    #regex = r'\b[A-Za-z0-9._%+-]+@akkuyu\.com\b'
     if(re.fullmatch(regex, email)):
         return True
     else:
@@ -167,7 +180,6 @@ def get_data() -> 'html':
     data['arrival'] = request.form['arrival']
     data['hotel'] = request.form['hotel']
 
-
     title = 'Релокация. Заявление на билеты и гостиницу'
 
     if data['child5_svidetelstvo_data'] == 'test':
@@ -266,7 +278,7 @@ def get_data() -> 'html':
     result = data_validation_1(data)
     if result == True:
         result = str(doc1(data))
-        result_libre_office = str(doc1_libre_office(data))
+        doc1_libre_office(data)
         return render_template('results.html',
                                 the_title = title)
     else:
@@ -387,5 +399,4 @@ def download_file_2():
 	return send_file(path, as_attachment=True)
 
 if __name__ == '__main__':
-    app.run(debug=True, host='10.0.44.15', port=5000)
-
+    app.run(debug=True, host=SERVER_NAME_IP, port=SERVER_PORT)
