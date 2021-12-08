@@ -4,6 +4,7 @@ from docx.shared import Pt
 from docx.shared import Cm
 from datetime import datetime
 from docx.enum.table import WD_ROW_HEIGHT_RULE
+from docx.enum.table import WD_ALIGN_VERTICAL
 
 '''
 data = {'email': 'i.ivanov@akkuyu.comn',
@@ -111,6 +112,7 @@ def set_col_widths_3(table):
     for row in table.rows:
         for cell in row.cells:
             paragraphs = cell.paragraphs
+            cell.vertical_alignment = WD_ALIGN_VERTICAL.CENTER
             for paragraph in paragraphs:
                 paragraph.alignment = 0
                 for run in paragraph.runs:
@@ -411,7 +413,7 @@ def doc1(data):
     table3 = footer.add_table(0, 3, Cm(6))
 
     row_cells = table3.add_row().cells
-    row_cells[0].text = str('\nPL-01-04-06/05-01/01')
+    row_cells[0].text = str('PL-01-04-06/05-01/01')
     row_cells[1].text = str('Первый въезд иностранного работника (билеты, гостиница, виза, багаж, подъемные, переезд семьи, компенсация НДФЛ)')
     row_cells[2].text = str('Члены семьи работника: супруг/супруга, действующий законный брак, несовершеннолетние дети до 18 лет')
     table3.allow_autofit = False
