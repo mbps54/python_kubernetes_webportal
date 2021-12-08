@@ -16,7 +16,7 @@
 <form method='POST' action='/doc1'>
 <table>
 <p>Используйте эту форму для заполнения данных (* обязательные поля):</p>
-<h3>{{ the_error }}</h3>
+<h3 style="color:Red">{{ the_error }}</h3>
 <tr><td>E-mail*:</td><td><input name='email' type='text' value="{{ the_email }}" placeholder='example@akkuyu.com' width='60'></td></tr>
 <tr><td>Фамилия (в род. падеже)*:</td><td><input name='name1' type='text' value="{{ the_name1 }}" placeholder='Иванова' width='60'></td></tr>
 <tr><td>Имя (в род. падеже)*:</td><td><input name='name2' type='text' value="{{ the_name2 }}" placeholder='Ивана' width='60'></td></tr>
@@ -108,8 +108,9 @@
 <tr><td>Ребенок5. Дата свидетельства о рождении:</td><td><input name='child5_svidetelstvo_data' type='text' value="{{ the_child5_svidetelstvo_data }}" placeholder='' width='60'></td></tr>
 
 </table>
-<p>После ввода всех данных нажмите эту кнопку:</p>
+<p> </p>
 <p><input value='Готово' type='SUBMIT'></p>
+  <input type="checkbox" id="test1" name="test1" value="true">
+  <label for="test1"> Автоматически заполнить форму для теста</label><br>
 </form>
-
 {% endblock %}

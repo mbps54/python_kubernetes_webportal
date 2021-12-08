@@ -14,10 +14,10 @@ SERVER_PUB_PORT = str(os.environ.get("SERVER_PUB_PORT"))
 print(SERVER_NAME_IP)
 '''
 example
-export SERVER_NAME_IP='10.0.44.15'
+export SERVER_NAME_IP='127.0.0.1'
 export SERVER_PORT='5000'
-export SERVER_PUB_NAME_IP='testserver'
-export SERVER_PUB_PORT='80'
+export SERVER_PUB_NAME_IP='127.0.0.1'
+export SERVER_PUB_PORT='5000'
 '''
 
 def checkEmail(email):
@@ -179,10 +179,11 @@ def get_data() -> 'html':
     data['departure'] = request.form['departure']
     data['arrival'] = request.form['arrival']
     data['hotel'] = request.form['hotel']
+    check = request.form.get('test1', default=False, type=bool)
 
     title = 'Релокация. Заявление на билеты и гостиницу'
 
-    if data['child5_svidetelstvo_data'] == 'test':
+    if check:
         print('test')
         data = {'email': 'i.ivanov@akkuyu.com',
                 'name1': 'Иванова',
