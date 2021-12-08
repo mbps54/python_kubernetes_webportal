@@ -106,7 +106,7 @@ def set_col_widths_3(table):
                 for run in paragraph.runs:
                     font = run.font
                     font.size= Pt(9)
-                    font.name= 'Liberation Sans Narrow'
+                    font.name= 'Numbus Sans Narrow' 
 
 
 def create_table(document, headers, rows, style='Table Grid'):
