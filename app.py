@@ -372,6 +372,8 @@ def get_data() -> 'html':
                                 the_departure = result['departure'],
                                 the_arrival = result['arrival'],
                                 the_hotel = result['hotel'],
+                                the_SERVER_PUB_NAME_IP = SERVER_PUB_NAME_IP,
+                                the_SERVER_PUB_PORT = SERVER_PUB_PORT,
                                 )
 
 @app.route('/doc1')
@@ -379,14 +381,20 @@ def entry_page() -> 'html':
     title = 'Релокация. Заявление на билеты и гостиницу'
     return render_template('doc1.html',
                             the_title = title,
-                            the_error = '')
+                            the_error = '',
+                            the_SERVER_PUB_NAME_IP = SERVER_PUB_NAME_IP,
+                            the_SERVER_PUB_PORT = SERVER_PUB_PORT,
+                          )
 
 
 @app.route('/')
 def entry():
     title = 'Автоматизация заявлений'
     return render_template('entry.html',
-                            the_title = title)
+                            the_title = title
+                            the_SERVER_PUB_NAME_IP = SERVER_PUB_NAME_IP,
+                            the_SERVER_PUB_PORT = SERVER_PUB_PORT,
+                          )
 
 @app.route('/download1')
 def download_file():
