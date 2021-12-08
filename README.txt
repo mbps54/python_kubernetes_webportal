@@ -5,7 +5,7 @@ docker build . -t web_doc_app:1.0
 
 1b. Push container to hub (optional)
 docker images | grep web_doc_app
-docker tag 2f80d327e125 mbps54/web_doc_app:1.0
+docker tag 03f1d9fa704d mbps54/web_doc_app:1.0
 docker push mbps54/web_doc_app:1.0
 
 2. Run a locally generated container
