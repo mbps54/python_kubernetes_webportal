@@ -391,7 +391,7 @@ def entry_page() -> 'html':
 def entry():
     title = 'Автоматизация заявлений'
     return render_template('entry.html',
-                            the_title = title
+                            the_title = title,
                             the_SERVER_PUB_NAME_IP = SERVER_PUB_NAME_IP,
                             the_SERVER_PUB_PORT = SERVER_PUB_PORT,
                           )
