@@ -397,12 +397,12 @@ def entry():
                           )
 
 @app.route('/download1')
-def download_file():
+def download_file_doc():
 	path = "files/doc1/document.docx".format(dir)
 	return send_file(path, as_attachment=True)
 
 @app.route('/download2')
-def download_file_2():
+def download_file_pdf():
 	path = "files/doc1/document_.pdf".format(dir)
 	return send_file(path, as_attachment=True)
 
