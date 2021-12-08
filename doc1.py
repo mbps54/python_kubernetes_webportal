@@ -299,7 +299,7 @@ def doc1(data):
 
     if data['supruga_brak_number'] != '' or data['child1_svidetelstvo_data'] != '':
         p6 = document.add_paragraph()
-        tmp = p6.add_run('Приложения (при необходимости, для подтверждения права предоставления льготы):')
+        tmp = p6.add_run('Приложения (для подтверждения права предоставления льготы):')
         tmp.font.size = Pt(11)
         tmp.italic = True
         p6.alignment = 0

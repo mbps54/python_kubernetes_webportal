@@ -106,7 +106,7 @@ def set_col_widths_3(table):
                 for run in paragraph.runs:
                     font = run.font
                     font.size= Pt(9)
-                    font.name= 'Arial Narrow'
+                    font.name= 'Liberation Sans Narrow'
 
 
 def create_table(document, headers, rows, style='Table Grid'):
@@ -289,7 +289,7 @@ def doc1_libre_office(data):
 
     if data['supruga_brak_number'] != '' or data['child1_svidetelstvo_data'] != '':
         p6 = document.add_paragraph()
-        tmp = p6.add_run('Приложения (при необходимости, для подтверждения права предоставления льготы):')
+        tmp = p6.add_run('Приложения (для подтверждения права предоставления льготы):')
         tmp.font.size = Pt(11)
         tmp.italic = True
         p6.alignment = 0
