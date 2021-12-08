@@ -5,13 +5,15 @@
 <h2>{{ the_title }}</h2>
 
 <nav>
-  <ul>
-    <li>
-      <!-- link one -->
-      <a href="http://{{ the_SERVER_PUB_NAME_IP }}:{{ the_SERVER_PUB_PORT }}/"> Главное меню </a>
+<ul>
+    {% for item in nav.top %}
+    <li class="{{ 'active' if item.is_active else '' }}">
+        <a href="{{ item.url }}">{{ item.label }}</a>
     </li>
-  </ul>
+    {% endfor %}
+</ul>
 </nav>
+
 
 <form method='POST' action='/doc1'>
 <table>

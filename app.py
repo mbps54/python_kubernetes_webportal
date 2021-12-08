@@ -7,6 +7,20 @@ from doc1_libre_office import doc1_libre_office
 import re
 import os
 
+################################################################################
+from flask_navigation import Navigation
+app = Flask(__name__)
+nav = Navigation(app)
+
+nav.Bar('top', [
+    nav.Item('Главное меню', 'entry'),
+    nav.Item('Релокация. Заявление на билеты и гостиницу', 'get_data'),
+    nav.Item('Заявление на ...', 'entry'),
+    nav.Item('Заявление на ...', 'entry'),
+    ])
+
+################################################################################
+
 SERVER_NAME_IP = str(os.environ.get("SERVER_NAME_IP"))
 SERVER_PORT = str(os.environ.get("SERVER_PORT"))
 SERVER_PUB_NAME_IP = str(os.environ.get("SERVER_PUB_NAME_IP"))
@@ -20,12 +34,16 @@ export SERVER_PUB_NAME_IP='127.0.0.1'
 export SERVER_PUB_PORT='5000'
 '''
 
+
+
+
 def checkEmail(email):
     regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
     if(re.fullmatch(regex, email)):
         return True
     else:
         return False
+
 
 def checkName(name):
     name.replace(" ", "")
@@ -51,6 +69,7 @@ def checkPhone(phone):
         return True
     else:
         return False
+
 
 def checkKimlik(kimlik):
     if kimlik == '':
@@ -86,7 +105,6 @@ def data_validation_1(data):
     else:
         return True
 
-app = Flask(__name__)
 
 @app.route('/doc1', methods=['POST'])
 def get_data() -> 'html':
@@ -380,6 +398,7 @@ def get_data() -> 'html':
                                 the_SERVER_PUB_PORT = SERVER_PUB_PORT,
                                 )
 
+
 @app.route('/doc1')
 def entry_page() -> 'html':
     title = 'Релокация. Заявление на билеты и гостиницу'
@@ -400,10 +419,12 @@ def entry():
                             the_SERVER_PUB_PORT = SERVER_PUB_PORT,
                           )
 
+
 @app.route('/download1')
 def download_file_doc():
 	path = "files/doc1/document.docx".format(dir)
 	return send_file(path, as_attachment=True)
+
 
 @app.route('/download2')
 def download_file_pdf():
@@ -412,3 +433,4 @@ def download_file_pdf():
 
 if __name__ == '__main__':
     app.run(debug=True, host=SERVER_NAME_IP, port=SERVER_PORT)
+

@@ -1,0 +1,36 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-web-doc-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: web-doc-app
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: web-doc-app
+    spec:
+      containers:
+      - image: mbps54/web_doc_app:1.0
+        name: web-doc-app
+        env:
+          - name: SERVER_NAME_IP
+            value: '0.0.0.0'
+          - name: SERVER_PORT
+            value: '5000'
+        resources:
+          requests:
+            cpu: 500m
+            memory: 500Mi
+          limits:
+            cpu: 500m
+            memory: 500Mi
+...

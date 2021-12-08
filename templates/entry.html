@@ -5,20 +5,14 @@
 <h2>{{ the_title }}</h2>
 
 <nav>
-  <ul>
-    <li>
-      <!-- link one -->
-      <a href="http://{{ the_SERVER_PUB_NAME_IP }}:{{ the_SERVER_PUB_PORT }}/doc1"> Релокация. Заявление на билеты и гостиницу </a>
+<ul>
+    {% for item in nav.top %}
+    <li class="{{ 'active' if item.is_active else '' }}">
+        <a href="{{ item.url }}">{{ item.label }}</a>
     </li>
-    <li>
-      <!-- link two -->
-      <a href="http://{{ the_SERVER_PUB_NAME_IP }}:{{ the_SERVER_PUB_PORT }}/doc2"> Заявление на ... </a>
-    </li>
-    <li>
-      <!-- link three -->
-      <a href="http://{{ the_SERVER_PUB_NAME_IP }}:{{ the_SERVER_PUB_PORT }}/doc3"> Заявление на ... </a>
-    </li>
-  </ul>
+    {% endfor %}
+</ul>
 </nav>
+
 
 {% endblock %}
