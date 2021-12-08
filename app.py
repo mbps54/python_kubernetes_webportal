@@ -11,7 +11,7 @@ SERVER_NAME_IP = str(os.environ.get("SERVER_NAME_IP"))
 SERVER_PORT = str(os.environ.get("SERVER_PORT"))
 SERVER_PUB_NAME_IP = str(os.environ.get("SERVER_PUB_NAME_IP"))
 SERVER_PUB_PORT = str(os.environ.get("SERVER_PUB_PORT"))
-
+print(SERVER_NAME_IP)
 '''
 example
 export SERVER_NAME_IP='10.0.44.15'
