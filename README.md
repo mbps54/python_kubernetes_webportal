@@ -5,7 +5,7 @@ Here is a Web App for documents generation. Contains:
 4. Docker image also available on hub.docker.com/mbps54/web_doc_app:2.0
 
 Usage:
-1.Python
+1. Python
 #apt-get update && apt-get install -y \
     python3=3.8.2-0ubuntu2 \
     python3-pip=20.0.2-5ubuntu1.6 \

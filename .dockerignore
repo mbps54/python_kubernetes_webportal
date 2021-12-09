@@ -1,6 +1,6 @@
-__pycache__
-.mypy_cache
+./app/__pycache__
+./app/.mypy_cache
+./Kubernetes/
 .gitignore
 Dockerfile
-./Kubernetes/
-README.txt
+README.md

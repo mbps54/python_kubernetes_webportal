@@ -12,7 +12,7 @@ RUN set -ex && apt-get update && apt-get install -y \
 COPY requirements.txt /app/
 RUN pip install -r /app/requirements.txt
 
-COPY . /app/
+COPY ./app/ /app/
 RUN  chmod +x /app/app.py
 
 WORKDIR /app
