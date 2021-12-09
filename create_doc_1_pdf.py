@@ -380,8 +380,7 @@ def create_doc_1_pdf(data: dict) -> None:
 
 ###############################  CONVERT TO PDF  ###############################
     subprocess.run(
-        ["doc2pdf",
-         "./files/doc1/document_pdf.docx"],
+        ["doc2pdf", "./files/doc1/document_pdf.docx"],
         stdout=subprocess.DEVNULL,
         stderr=subprocess.DEVNULL,
         encoding="utf-8",
