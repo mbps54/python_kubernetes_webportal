@@ -15,20 +15,20 @@ Usage:
 #python3 app.py
 
 2.Create Docker image
-2.1 Build an image\n
-#docker build . -t web_doc_app:2.0\n
-2.1. Push container to hub (optional)\n
-#docker images | grep web_doc_app\n
-#docker tag 17c3a4fabafd mbps54/web_doc_app:2.0\n
-#docker push mbps54/web_doc_app:2.0\n
+2.1 Build an image
+#docker build . -t web_doc_app:2.0
+2.1. Push container to hub (optional)
+#docker images | grep web_doc_app
+#docker tag 17c3a4fabafd mbps54/web_doc_app:2.0
+#docker push mbps54/web_doc_app:2.0
 
-3.Run locally created Docker imange\n
-3.1 Run a locally generated container\n
-#docker run -it -p 5000:5000 web_doc_app:2.0\n
-or\n
-#docker run -it -e SERVER_NAME_IP='0.0.0.0' -p 5000:5000\n
+3.Run locally created Docker imange
+3.1 Run a locally generated container
+#docker run -it -p 5000:5000 web_doc_app:2.0
+or
+#docker run -it -e SERVER_NAME_IP='0.0.0.0' -p 5000:5000
 
-3.2 Run Docker imange from hub.docker.com\n
-#docker run -it -p 5000:5000 mbps54/web_doc_app:2.0\n
-or\n
+3.2 Run Docker imange from hub.docker.com
+#docker run -it -p 5000:5000 mbps54/web_doc_app:2.0
+or
 #docker run -it -e SERVER_NAME_IP='0.0.0.0' -p 5000:5000 mbps54/web_doc_app:2.0
