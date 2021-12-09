@@ -1,0 +1,6 @@
+__pycache__
+.mypy_cache
+.gitignore
+Dockerfile
+./Kubernetes/
+README.txt

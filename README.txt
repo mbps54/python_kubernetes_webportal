@@ -5,22 +5,29 @@ docker build . -t web_doc_app:1.0
 
 1b. Push container to hub (optional)
 docker images | grep web_doc_app
-docker tag 03f1d9fa704d mbps54/web_doc_app:1.0
+docker tag XXXXXXXXXXXXX mbps54/web_doc_app:1.0
 docker push mbps54/web_doc_app:1.0
 
-2. Run a locally generated container
+2a. Run a locally generated container
 
 docker run -it \
--e SERVER_NAME_IP='0.0.0.0' \
--e SERVER_PORT='5000' \
 -p 5000:5000 \
 mbps54/web_doc_app:1.0
 
+2b. Run a locally generated container
+-e SERVER_NAME_IP='0.0.0.0' \
+-p 5000:5000 \
+mbps54/web_doc_app:1.0
 
-3. Run a container from hub.docker.com
+3a. Run a container from hub.docker.com
 docker run -it \
--e SERVER_NAME_IP='127.0.0.1' \
--e SERVER_PORT='5000' \
+-e SERVER_NAME_IP='0.0.0.0' \
+-p 5000:5000 \
+mbps54/web_doc_app:1.0
+
+3b. Run a container from hub.docker.com
+docker run -it \
+-p 5000:5000 \
 mbps54/web_doc_app:1.0
 
 4. Local environments for Python app (launch not from container)

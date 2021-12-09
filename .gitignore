@@ -2,3 +2,4 @@ __pycache__
 ./files/
 *.pdf
 *.docx
+.mypy_cache
