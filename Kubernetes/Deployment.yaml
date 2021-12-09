@@ -19,7 +19,7 @@ spec:
         app: web-doc-app
     spec:
       containers:
-      - image: mbps54/web_doc_app:1.0
+      - image: mbps54/web_doc_app:2.0
         name: web-doc-app
         env:
           - name: SERVER_NAME_IP
