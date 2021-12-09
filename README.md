@@ -19,7 +19,7 @@ Usage:
 #docker build . -t web_doc_app:2.0
 2.1. Push container to hub (optional)
 #docker images | grep web_doc_app
-#docker tag XXXXXXXXXXXXX mbps54/web_doc_app:2.0
+#docker tag 17c3a4fabafd mbps54/web_doc_app:2.0
 #docker push mbps54/web_doc_app:2.0
 
 3. Run locally created Docker imange
