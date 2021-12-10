@@ -14,6 +14,7 @@ apt-get update && apt-get install -y \
     libreoffice=1:6.4.7-0ubuntu0.20.04.2 \
     unoconv=0.7-2
 export SERVER_NAME_IP='0.0.0.0' (optional)
+cd ./app
 python3 app.py
 ```
 
