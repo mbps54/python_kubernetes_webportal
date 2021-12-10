@@ -29,7 +29,7 @@ docker build . -t mbps54/web_doc_app
 ```
 - Push container to hub (optional)
 ```
-docker push mbps54/web_doc_app
+docker push YOUR_NAME/web_doc_app
 ```
 
 3. Run locally created Docker imange
