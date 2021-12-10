@@ -3,7 +3,8 @@
 1. Python and html codes
 2. Dockerfile to make a Docker container
 3. Kubernetes Deployment, Service and Ingress manifests to get up the service
-Docker image available on hub.docker.com/mbps54/web_doc_app
+
+Docker image available on [Docker Hub](hub.docker.com/mbps54/web_doc_app)
 
 ### Usage:
 1. Python
