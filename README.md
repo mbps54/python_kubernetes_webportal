@@ -7,7 +7,7 @@ Python web application allows users to fill in a form ang got a ready document i
 2. Dockerfile to make a Docker container
 3. Kubernetes Deployment, Service and Ingress manifests to get up the service
 
-Docker image available on [Docker Hub](https://hub.docker.com/r/mbps54/web_doc_app)
+Docker image is also available on [Docker Hub](https://hub.docker.com/r/mbps54/web_doc_app)
 
 ### Usage options:
 1. Python
