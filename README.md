@@ -33,7 +33,6 @@ docker push mbps54/web_doc_app
 ```
 
 3. Run locally created Docker imange
--  Run a locally generated container
 ```
 docker run -it -p 5000:5000 web_doc_app
 ```
