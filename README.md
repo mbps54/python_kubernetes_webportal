@@ -9,7 +9,7 @@ Python web application allows users to fill in a form ang got a ready document i
 
 Docker image available on [Docker Hub](https://hub.docker.com/r/mbps54/web_doc_app)
 
-### Usage:
+### Usage options:
 1. Python
 ```
 apt-get update && apt-get install -y \
