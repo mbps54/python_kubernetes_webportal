@@ -21,17 +21,17 @@ python3 app.py
 2. Create Docker image
 2.1 Build an image
 ```
-docker build . -t mbps54/web_doc_app:2.0
+docker build . -t mbps54/web_doc_app
 ```
 2.1. Push container to hub (optional)
 ```
-docker push mbps54/web_doc_app:2.1
+docker push mbps54/web_doc_app
 ```
 
 3. Run locally created Docker imange
 3.1 Run a locally generated container
 ```
-docker run -it -p 5000:5000 web_doc_app:2.0
+docker run -it -p 5000:5000 web_doc_app
 ```
 or
 ```
@@ -40,9 +40,9 @@ docker run -it -e SERVER_NAME_IP='0.0.0.0' -p 5000:5000
 
 4. Run Docker imange from hub.docker.com
 ```
-docker run -it -p 5000:5000 mbps54/web_doc_app:2.0
+docker run -it -p 5000:5000 mbps54/web_doc_app
 ```
 or
 ```
-docker run -it -e SERVER_NAME_IP='0.0.0.0' -p 5000:5000 mbps54/web_doc_app:2.0
+docker run -it -e SERVER_NAME_IP='0.0.0.0' -p 5000:5000 mbps54/web_doc_app
 ```
