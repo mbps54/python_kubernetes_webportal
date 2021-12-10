@@ -23,17 +23,17 @@ python3 app.py
 ```
 
 2. Create Docker image
-2.1 Build an image
+- Build an image
 ```
 docker build . -t mbps54/web_doc_app
 ```
-2.1. Push container to hub (optional)
+- Push container to hub (optional)
 ```
 docker push mbps54/web_doc_app
 ```
 
 3. Run locally created Docker imange
-3.1 Run a locally generated container
+-  Run a locally generated container
 ```
 docker run -it -p 5000:5000 web_doc_app
 ```
