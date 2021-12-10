@@ -4,7 +4,7 @@ kind: Deployment
 metadata:
   name: deployment-web-doc-app
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: web-doc-app
@@ -19,7 +19,7 @@ spec:
         app: web-doc-app
     spec:
       containers:
-      - image: mbps54/web_doc_app:2.0
+      - image: mbps54/web_doc_app:2.1
         name: web-doc-app
         env:
           - name: SERVER_NAME_IP
