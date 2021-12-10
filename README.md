@@ -1,4 +1,7 @@
 ## Web App for automatic documents generation (docx and pdf)
+### Description
+Python web application allows users to fill in a form ang got a ready document in .docx and .pdf formats, based in input parameters.
+
 ### This git direcory contains:
 1. Python and html codes
 2. Dockerfile to make a Docker container
