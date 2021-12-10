@@ -1,4 +1,4 @@
-## Web App for automatic documents (docx and pdf) generation
+## Web App for automatic documents generation (docx and pdf)
 ### This git direcory contains:
 1. Python and html codes
 2. Dockerfile to make a Docker container
