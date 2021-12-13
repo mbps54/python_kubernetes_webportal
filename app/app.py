@@ -321,7 +321,7 @@ def download_file_doc():
 
 @app.route("/download_pdfs")
 def download_file_pdf():
-    path = "files/doc1/document_pdf.pdf".format(dir)
+    path = "files/doc1/document.pdf".format(dir)
     return send_file(path, as_attachment=True)
 
 

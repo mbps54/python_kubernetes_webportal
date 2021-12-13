@@ -25,6 +25,7 @@ def create_doc_1_pdf(data: dict) -> None:
     font.size = Pt(12)
 
 ###########################        TEXT IFs         ############################
+    text = ''
     if data['rabotnik_zagran'] != '':
         if data['supruga_name1'] != '' and data['child1_name1'] != '':
             text = ', и следующим членам моей семьи (супруг/супруга и несовершеннолетние дети)'
@@ -385,5 +386,14 @@ def create_doc_1_pdf(data: dict) -> None:
         stderr=subprocess.DEVNULL,
         encoding="utf-8",
     )
+###############################    RENAME FILE   ###############################
+    subprocess.run(
+        ["mv", "./files/doc1/document_pdf.pdf",
+         "./files/doc1/document.pdf"],
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
+        encoding="utf-8",
+    )
+###############################        END       ###############################
     return(None)
 
