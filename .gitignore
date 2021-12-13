@@ -1,7 +1,7 @@
 ./app/files/
 *.pdf
 *.docx
-./app/__pycache__
+./app/__pycache__/
 app/__pycache__
 ./app/.mypy_cache
 .DS_Store
