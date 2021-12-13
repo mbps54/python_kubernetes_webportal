@@ -316,9 +316,9 @@ def create_doc_1(data: dict) -> None:
             tmp.italic = True
 
 ###############################    PARAGRAPH 7   ###############################
-    p7 = document.add_paragraph()
-    p7.paragraph_format.space_before = Pt(10)
-    p7.add_run('Подтверждаю достоверность документов, обосновывающих семейный статус.')
+        p7 = document.add_paragraph()
+        p7.paragraph_format.space_before = Pt(10)
+        p7.add_run('Подтверждаю достоверность документов, обосновывающих семейный статус.')
 
 ###############################    PARAGRAPH 9   ###############################
     fio = (
