@@ -65,9 +65,9 @@ jobs:
           script: |
                 cd web_doc_app
                 git pull origin master
-                sudo docker pull mbps54/web_doc_app:latest
-                sudo docker stop $(docker ps -aq)
-                sudo docker rm $(docker ps -aq)
-                sudo docker rmi $(docker images -q)
-                sudo docker run -d -p 8000:5000 mbps54/web_doc_app
+                docker stop $(docker ps -aq)
+                docker rm $(docker ps -aq)
+                docker rmi $(docker images -q)
+                docker pull mbps54/web_doc_app:latest
+                docker run -d -p 8000:5000 mbps54/web_doc_app
 
