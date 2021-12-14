@@ -1,0 +1,37 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  check_yaml_syntax:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    
+    - name: check files
+      run: ls -la ./app/data
+        
+    - name: yaml-lint
+      uses: ibiqlik/action-yamllint@v3
+      with:
+        file_or_dir: ./app/data
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag mbps54/web_doc_app:latest
+    - name: Test the Docker image
+      run: docker run -it -p 5000:5000 mbps54/web_doc_app:latest && curl http://localhost:5000
+    - name: Login to Docker Registry
+      run: docker login "$DOCKER_REGISTRY" -u "$DOCKER_USERNAME" --password-stdin <<< "$DOCKER_PASSWORD"
+      env:
+        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        DOCKER_REGISTRY: ${{ secrets.DOCKER_REGISTRY }}
+    - name: Push the Docker image
+      run: docker push mbps54/web_doc_app:latest
