@@ -29,16 +29,16 @@ docker build . -t mbps54/web_doc_app
 ```
 - Push container to hub (optional)
 ```
-docker push YOUR_NAME/web_doc_app
+docker push mbps54/web_doc_app
 ```
 
 3. Run locally created Docker imange
 ```
-docker run -it -p 5000:5000 web_doc_app
+docker run -it -p 5000:5000 mbps54/web_doc_app
 ```
 or
 ```
-docker run -it -e SERVER_NAME_IP='0.0.0.0' -p 5000:5000
+docker run -it -e SERVER_NAME_IP='0.0.0.0' -p 5000:5000 mbps54/web_doc_app
 ```
 
 4. Run Docker imange from hub.docker.com
