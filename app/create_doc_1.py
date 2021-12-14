@@ -1,5 +1,4 @@
 #!/usr/bin/python3
-# -*- coding: utf-8 -*-
 ########################### IMPORT GENERAL MODULES  ############################
 import os
 from docx import Document

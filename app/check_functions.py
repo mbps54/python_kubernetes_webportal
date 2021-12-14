@@ -1,10 +1,10 @@
 #!/usr/bin/python3
-# -*- coding: utf-8 -*-
 
-# IMPORT MODULES
+########################### IMPORT GENERAL MODULES  ############################
 import re
 
 
+###########################       CHECK EMAIL       ############################
 def check_email(email: str) -> bool:
     email.replace(" ", "")
     regex = r"\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b"
@@ -14,6 +14,7 @@ def check_email(email: str) -> bool:
         return False
 
 
+###########################       CHECK NAME        ############################
 def check_name(name: str) -> bool:
     name.replace(" ", "")
     if name == "":
@@ -32,18 +33,21 @@ def check_name(name: str) -> bool:
     return False
 
 
+###########################       CHECK PHONE       ############################
 def check_phone(phone: str) -> bool:
-    phone.replace(" ", "")
+    phone = phone.replace(" ", "")
+    phone = phone.replace("+", "")
     if phone == "":
         return False
     elif (
-        len(phone) == 10 or len(phone) == 11 or len(phone) == 12 or len(phone) == 4
+        (len(phone) > 9 and len(phone) < 15) or len(phone) == 4
     ) and phone.isdigit():
         return True
     else:
         return False
 
 
+###########################      CHECK KIMLIK       ############################
 def check_kimlik(kimlik: str) -> bool:
     kimlik.replace(" ", "")
     if kimlik == "":
