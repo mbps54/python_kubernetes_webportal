@@ -35,7 +35,7 @@ jobs:
         run: docker run -d -p 5000:5000 mbps54/web_doc_app:latest
 
       - name: Test the Docker image
-        run: curl http://localhost:5000
+        run: curl localhost:5000
 
       - name: Login to Docker Registry
         run: docker login -u "$DOCKER_USERNAME" --password-stdin <<< "$DOCKER_PASSWORD"
