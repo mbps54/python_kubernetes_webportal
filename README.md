@@ -1,4 +1,5 @@
 ## Web App for automatic documents generation (docx and pdf)
+Status:<br><img src="https://github.com/mbps54/web_doc_app/actions/workflows/ci-process.yaml/badge.svg"><br>
 ### Description
 Python web application allows users to fill in a form ang got a ready document in .docx and .pdf formats, based in input parameters.
 
