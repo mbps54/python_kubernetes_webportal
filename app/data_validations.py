@@ -1,5 +1,4 @@
 #!/usr/bin/python3
-# -*- coding: utf-8 -*-
 ########################### IMPORT GENERAL MODULES  ############################
 from typing import Union
 

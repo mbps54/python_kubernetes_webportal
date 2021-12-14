@@ -1,5 +1,4 @@
 #!/usr/bin/python3
-# -*- coding: utf-8 -*-
 ########################### IMPORT GENERAL MODULES  ############################
 from docx.shared import Pt
 from docx.shared import Cm
