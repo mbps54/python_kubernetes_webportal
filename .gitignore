@@ -2,7 +2,11 @@
 *.pdf
 *.docx
 ./app/__pycache__/
+/app/__pycache__/
+./app/__pycache__
 /app/__pycache__
+app/__pycache__
+app/__pycache__/
 __pycache__/
 *.py[cod]
 ./app/.mypy_cache
