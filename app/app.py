@@ -308,7 +308,7 @@ def get_data_2():
                                 the_title=title,
                                 the_oklad=data['oklad'],
                                 the_isn=data['isn'],
-                                the_indincome=data['indincome']
+                                the_indincome=data['indincome'],
                                 the_extra=data['extra'],
                                 the_zp_extra=result['zp_extra'],
                                 the_ezp=result['ezp'],
