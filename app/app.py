@@ -293,4 +293,4 @@ def check_zp():
         pass
 
 if __name__ == "__main__":
-    app.run(debug=True, host=SERVER_NAME_IP, port=5000)
+    app.run(debug=True, host=SERVER_NAME_IP, port=8000)
