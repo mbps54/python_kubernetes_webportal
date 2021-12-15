@@ -258,6 +258,15 @@ def entry_page_2():
 @app.route("/doc2", methods=["POST"])
 def get_data_2():
     data = {}
+
+    data["oklad"] = 0
+    data["isn"] = 0
+    data["extra"] = 0
+    data["targetkpi"] = 0
+    data["CURRENT_USDRUB"] = 74
+    data["CURRENT_USDTRY"] = 14
+    data["CURRENT_TRYRUB"] = 5
+
     data["oklad"] = request.form["oklad"]
     data["isn"] = request.form["isn"]
     data["extra"] = request.form["extra"]
