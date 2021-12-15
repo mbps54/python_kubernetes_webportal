@@ -1,25 +1,8 @@
 #!/usr/bin/python3
 from pprint import pprint
 
-#############################        BASE VARS     #############################
-#BASE_USDTRY = 8.64
-#BASE_USDRUB = 75
-#PROCENT = 0.185
-#Kk = 1
-#KPI = 1
-#
-##############################         CURRENCY     #############################
-#CURRENT_USDRUB = 75.0
-#CURRENT_USDTRY = 13.5
-#CURRENT_TRYRUB = 5.1
-#
+
 ##############################       USER INPUT     #############################
-#oklad = 5000
-#isn = 3439
-#extra = 1000
-#targetkpi = 15000
-
-
 data = {}
 data['BASE_USDTRY'] = 8.64
 data['BASE_USDRUB'] = 74
@@ -91,9 +74,9 @@ def zp(data):
     result['bonus_dop'] = bonus_dop
 
 #############################        RESULT        #############################
-    #pprint(result)
     return result
 
+'''
 i = zp(data)
 
 print(f"\nЗАРПЛАТА\n"
@@ -113,3 +96,4 @@ print(f"\nЗАРПЛАТА\n"
       f"Итого к начислению: {i['bonus_RUB']} RUB\n"
       f"Итого к начислению: {i['bonus_USD']} USD\n"
     )
+'''
