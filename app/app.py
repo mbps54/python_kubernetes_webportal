@@ -251,8 +251,8 @@ def download_file_pdf():
     return send_file(path, as_attachment=True)
 
 ###########################        WEB PAGE 2       ############################
-@app.route("/doc1", methods=["POST"])
-def get_data():
+@app.route("/doc2", methods=["POST"])
+def check_zp():
     data = {}
     data["oklad"] = request.form["oklad"]
     data["isn"] = request.form["isn"]
@@ -273,7 +273,7 @@ def get_data():
     result = data_validation_2(data)
     if result == True:
         result = zp(data)
-        return render_template("results_zp.html",
+        return render_template("results2.html",
                                 the_title=title,
                                 the_oklad=data['oklad'],
                                 the_isn=data['isn'],
