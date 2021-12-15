@@ -69,5 +69,4 @@ jobs:
                 docker rm $(docker ps -aq)
                 docker rmi $(docker images -q)
                 docker pull mbps54/web_doc_app:latest
-                docker run -d -p 8000:5000 mbps54/web_doc_app
-
+                docker run -d -p 8000:5000 mbps54/web_doc_app:latest
