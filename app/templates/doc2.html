@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<h2>{{ the_title }}</h2>
+
+<nav>
+<ul>
+    {% for item in nav.top %}
+    <li class="{{ 'active' if item.is_active else '' }}">
+        <a href="{{ item.url }}">{{ item.label }}</a>
+    </li>
+    {% endfor %}
+</ul>
+</nav>
+
+
+<form method='POST' action='/doc1'>
+<table>
+<p>Используйте эту форму для заполнения данных:</p>
+<h3 style="color:Red">{{ the_error }}</h3>
+<tr><td colspan="2"; style="font-weight:bold; text-align: center;">Данные дохода</td><td></td>
+<tr><td>Оклад:</td><td><input name='oklad' type='text' value="{{ the_oklad }}" placeholder='5000' width='60'></td></tr>
+<tr><td>ИСН:</td><td><input name='isn' type='text' value="{{ the_isn }}" placeholder='3439' width='60'></td></tr>
+<tr><td>Доплата (совмещение и пр.):</td><td><input name='extra' type='text' value="{{ the_extra }}" placeholder='15000' width='60'></td></tr>
+
+<tr><td colspan="2"; style="font-weight:bold; text-align: center;">Данные курсов валют</td><td></td>
+<tr><td>USD/RUB:</td><td><input name='CURRENT_USDRUB' type='text' value="{{ the_CURRENT_USDRUB }}" placeholder='74' width='60'></td></tr>
+<tr><td>USD/TRY:</td><td><input name='CURRENT_USDTRY' type='text' value="{{ the_CURRENT_USDTR }}" placeholder='14' width='60'></td></tr>
+<tr><td>TRY/RUB:</td><td><input name='CURRENT_TRYRUB' type='text' value="{{ the_CURRENT_TRYRUB }}" placeholder='5' width='60'></td></tr>
+
+
+</table>
+<p> </p>
+<p><input value='Готово' type='SUBMIT'></p>
+</form>
+{% endblock %}
