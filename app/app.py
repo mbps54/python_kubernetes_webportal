@@ -21,7 +21,7 @@ nav.Bar(
     [
         nav.Item("Главное меню", "entry"),
         nav.Item("Релокация. Заявление на билеты и гостиницу", "get_data"),
-        nav.Item("Рассчет дохода", "check_zp"),
+        nav.Item("Рассчет дохода", "get_data_2"),
         nav.Item("Заявление на ...", "entry"),
     ],
 )
@@ -232,7 +232,6 @@ def entry_page():
     title = "Релокация. Заявление на билеты и гостиницу"
     return render_template("doc1.html", the_title=title, the_error="")
 
-
 @app.route("/")
 def entry():
     title = "Автоматизация заявлений"
@@ -251,8 +250,13 @@ def download_file_pdf():
     return send_file(path, as_attachment=True)
 
 ###########################        WEB PAGE 2       ############################
+@app.route("/doc2")
+def entry_page_2():
+    title = "Рассчет дохода"
+    return render_template("doc2.html", the_title=title, the_error="")
+
 @app.route("/doc2", methods=["POST"])
-def check_zp():
+def get_data_2():
     data = {}
     data["oklad"] = request.form["oklad"]
     data["isn"] = request.form["isn"]
