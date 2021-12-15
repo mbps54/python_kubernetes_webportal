@@ -264,8 +264,8 @@ def get_data_2():
     data["extra"] = 0
     data["targetkpi"] = 0
     data["CURRENT_USDRUB"] = 74
-    data["CURRENT_USDTRY"] = 14
-    data["CURRENT_TRYRUB"] = 5
+    data["CURRENT_USDTRY"] = 14.8
+    data["CURRENT_TRYRUB"] = (data["CURRENT_USDRUB"])/(data["CURRENT_USDTRY"])
 
     try:
         data["oklad"] = int(request.form["oklad"])
