@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<h2>{{ the_title }}</h2>
+
+<nav>
+<ul>
+    {% for item in nav.top %}
+    <li class="{{ 'active' if item.is_active else '' }}">
+        <a href="{{ item.url }}">{{ item.label }}</a>
+    </li>
+    {% endfor %}
+</ul>
+</nav>
+
+<p>Данные дохода с учетом новой системы оплаты:</p>
+ЗАРПЛАТА
+Оклад: {{ the_oklad }}
+ИСН: {{ the_шыт }} TRY
+Инд. выплата: {{ the_extra }} TRY
+Эквивалент заработной платы: {{ the_ezp }} У.Е.
+Доплата за совмещение (и пр.): {{ the_zp_extra }} TRY
+Доплата до эквивалента: {{ the_zp_extra }} TRY
+Итого к начислению в TRY: {{ the_zp_TRY }}
+Итого по курсу в RUB: {{ the_zp_RUB }}
+Итого по курсу в USD: {{ the_zp_USD }}
+
+ПРЕМИЯ
+Эквивалент целевого размера годовой премии: {{ the_ebonus }} У.Е.
+Доплата до эквивалента: {{ the_bonus_dop }} TRY
+Итого к начислению в TRY: {{ the_bonus_TRY }}
+Итого по курсу в RUB: {{ the_bonus_RUB }}
+Итого по курсу в USD: {{ the_bonus_USD }}
+
+
+{% endblock %}

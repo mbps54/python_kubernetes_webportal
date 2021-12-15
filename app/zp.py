@@ -2,37 +2,53 @@
 from pprint import pprint
 
 #############################        BASE VARS     #############################
-BASE_USDTRY = 8.64
-BASE_USDRUB = 75
-PROCENT = 0.185
-Kk = 1
-KPI = 1
+#BASE_USDTRY = 8.64
+#BASE_USDRUB = 75
+#PROCENT = 0.185
+#Kk = 1
+#KPI = 1
+#
+##############################         CURRENCY     #############################
+#CURRENT_USDRUB = 75.0
+#CURRENT_USDTRY = 13.5
+#CURRENT_TRYRUB = 5.1
+#
+##############################       USER INPUT     #############################
+#oklad = 5000
+#isn = 3439
+#extra = 1000
+#targetkpi = 15000
 
-#############################         CURRENCY     #############################
-CURRENT_USDRUB = 75.0
-CURRENT_USDTRY = 13.5
-CURRENT_TRYRUB = 5.1
 
-#############################       USER INPUT     #############################
-oklad = 5000
-isn = 3439
-extra = 1000
-targetkpi = 15000
+data = {}
+data['BASE_USDTRY'] = 8.64
+data['BASE_USDRUB'] = 74
+data['PROCENT'] = 0.185
+data['Kk'] = 1
+data['KPI'] = 1
+
+data['CURRENT_USDRUB'] = 74
+data['CURRENT_USDTRY'] = 14
+data['CURRENT_TRYRUB'] = 5
+data['oklad'] = 5000
+data['isn'] = 3439
+data['extra'] = 1000
+data['targetkpi'] = 15000
 
 #############################          MAIN        #############################
-def income(BASE_USDTRY,
-           BASE_USDRUB,
-           PROCENT,
-           Kk,
-           KPI,
-           CURRENT_USDRUB,
-           CURRENT_USDTRY,
-           CURRENT_TRYRUB,
-           oklad,
-           isn,
-           extra,
-           targetkpi
-        ):
+def zp(data):
+    BASE_USDTRY = data['BASE_USDTRY']
+    BASE_USDRUB = data['BASE_USDRUB']
+    PROCENT = data['PROCENT']
+    Kk = data['Kk']
+    KPI = data['KPI']
+    CURRENT_USDRUB = data['CURRENT_USDRUB']
+    CURRENT_USDTRY = data['CURRENT_USDTRY']
+    CURRENT_TRYRUB = data['CURRENT_TRYRUB']
+    oklad = data['oklad']
+    isn = data['isn']
+    extra = data['extra']
+    targetkpi = data['targetkpi']
     result = {}
 #############################      KOEFFICENTS     #############################
     Rk = round((BASE_USDRUB/CURRENT_USDRUB)*Kk, 4)
@@ -75,28 +91,16 @@ def income(BASE_USDTRY,
     result['bonus_dop'] = bonus_dop
 
 #############################        RESULT        #############################
-    pprint(result)
+    #pprint(result)
     return result
 
-i = income(BASE_USDTRY,
-           BASE_USDRUB,
-           PROCENT,
-           Kk,
-           KPI,
-           CURRENT_USDRUB,
-           CURRENT_USDTRY,
-           CURRENT_TRYRUB,
-           oklad,
-           isn,
-           extra,
-           targetkpi
-        )
+i = zp(data)
 
 print(f"\nЗАРПЛАТА\n"
-      f"Оклад: {oklad}\n"
-      f"ИСН: {isn} TRY\n"
+      f"Оклад: {data['oklad']}\n"
+      f"ИСН: {data['isn']} TRY\n"
       f"Инд. выплата: {i['indincome']} TRY\n"
-      f"Доплата за совмещение: {extra} TRY\n"
+      f"Доплата за совмещение: {data['extra']} TRY\n"
       f"Доплата до эквивалента: {i['zp_extra']} TRY\n"
       f"Эквивалент заработной платы: {i['ezp']} У.Е.\n"
       f"Итого к начислению: {i['zp_TRY']} TRY\n"
@@ -109,4 +113,3 @@ print(f"\nЗАРПЛАТА\n"
       f"Итого к начислению: {i['bonus_RUB']} RUB\n"
       f"Итого к начислению: {i['bonus_USD']} USD\n"
     )
-

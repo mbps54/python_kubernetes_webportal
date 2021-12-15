@@ -33,3 +33,8 @@ def data_validation_1(data: dict) -> Union[bool, dict]:
         return data
     else:
         return True
+
+
+###########################  VALIDATION FUNCTION 2  ############################
+def data_validation_2(data: dict) -> bool:
+    return True

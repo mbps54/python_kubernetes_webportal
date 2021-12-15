@@ -10,6 +10,8 @@ from random import randrange
 from create_doc_1 import create_doc_1
 from create_doc_1_pdf import create_doc_1_pdf
 from data_validations import data_validation_1
+from data_validations import data_validation_2
+from zp import zp
 
 ###########################        NAVIGATION       ############################
 app = Flask(__name__)
@@ -19,7 +21,7 @@ nav.Bar(
     [
         nav.Item("Главное меню", "entry"),
         nav.Item("Релокация. Заявление на билеты и гостиницу", "get_data"),
-        nav.Item("Заявление на ...", "entry"),
+        nav.Item("Рассчет дохода", " check_zp"),
         nav.Item("Заявление на ...", "entry"),
     ],
 )
@@ -29,7 +31,7 @@ SERVER_NAME_IP = str(os.environ.get("SERVER_NAME_IP"))
 if SERVER_NAME_IP == "None":
     SERVER_NAME_IP = "0.0.0.0"
 
-###########################         WEB PAGE        ############################
+###########################        WEB PAGE 1       ############################
 @app.route("/doc1", methods=["POST"])
 def get_data():
     data = {}
@@ -248,6 +250,47 @@ def download_file_pdf():
     path = "files/doc1/document.pdf".format(dir)
     return send_file(path, as_attachment=True)
 
+###########################        WEB PAGE 2       ############################
+@app.route("/doc1", methods=["POST"])
+def get_data():
+    data = {}
+    data["oklad"] = request.form["oklad"]
+    data["isn"] = request.form["isn"]
+    data["extra"] = request.form["extra"]
+    data["targetkpi"] = request.form["targetkpi"]
+    data["CURRENT_USDRUB"] = request.form["CURRENT_USDRUB"]
+    data["CURRENT_USDTRY"] = request.form["CURRENT_USDTRY"]
+    data["CURRENT_TRYRUB"] = request.form["CURRENT_TRYRUB"]
+
+    data['BASE_USDTRY'] = 8.64
+    data['BASE_USDRUB'] = 74
+    data['PROCENT'] = 0.185
+    data['Kk'] = 1
+    data['KPI'] = 1
+
+    title = "Рассчет дохода"
+
+    result = data_validation_2(data)
+    if result == True:
+        result = zp(data)
+        return render_template("results_zp.html",
+                                the_title=title,
+                                the_oklad=data['oklad'],
+                                the_isn=data['isn'],
+                                the_extra=data['extra'],
+                                the_zp_extra=result['zp_extra'],
+                                the_ezp=result['ezp'],
+                                the_zp_TRY=result['zp_TRY'],
+                                the_zp_RUB=result['zp_RUB'],
+                                the_zp_USD=result['zp_USD'],
+                                the_ebonus=result['ebonus'],
+                                the_bonus_dop=result['bonus_dop'],
+                                the_bonus_TRY=result['bonus_TRY'],
+                                the_bonus_RUB=result['bonus_RUB'],
+                                the_bonus_USD=result['bonus_USD'],
+                                )
+    else:
+        pass
 
 if __name__ == "__main__":
     app.run(debug=True, host=SERVER_NAME_IP, port=5000)
