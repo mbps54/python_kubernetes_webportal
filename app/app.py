@@ -267,13 +267,34 @@ def get_data_2():
     data["CURRENT_USDTRY"] = 14
     data["CURRENT_TRYRUB"] = 5
 
-    data["oklad"] = int(request.form["oklad"])
-    data["isn"] = int(request.form["isn"])
-    data["extra"] = int(request.form["extra"])
-    data["targetkpi"] = int(request.form["targetkpi"])
-    data["CURRENT_USDRUB"] = int(request.form["CURRENT_USDRUB"])
-    data["CURRENT_USDTRY"] = int(request.form["CURRENT_USDTRY"])
-    data["CURRENT_TRYRUB"] = int(request.form["CURRENT_TRYRUB"])
+    try:
+        data["oklad"] = int(request.form["oklad"])
+    except:
+        pass
+    try:
+        data["isn"] = int(request.form["isn"])
+    except:
+        pass
+    try:
+        data["extra"] = int(request.form["extra"])
+    except:
+        pass
+    try:
+        data["targetkpi"] = int(request.form["targetkpi"])
+    except:
+        pass
+    try:
+        data["CURRENT_USDRUB"] = int(request.form["CURRENT_USDRUB"])
+    except:
+        pass
+    try:
+        data["CURRENT_USDTRY"] = int(request.form["CURRENT_USDTRY"])
+    except:
+        pass
+    try:
+        data["CURRENT_TRYRUB"] = int(request.form["CURRENT_TRYRUB"])
+    except:
+        pass
 
     data['BASE_USDTRY'] = 8.64
     data['BASE_USDRUB'] = 74
