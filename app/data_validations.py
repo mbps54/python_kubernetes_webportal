@@ -8,6 +8,8 @@ from check_functions import check_name
 from check_functions import check_phone
 from check_functions import check_kimlik
 
+from check_functions import check_digit
+
 ###########################  VALIDATION FUNCTION 1  ############################
 def data_validation_1(data: dict) -> Union[bool, dict]:
     if not check_email(data["email"]):
@@ -37,4 +39,23 @@ def data_validation_1(data: dict) -> Union[bool, dict]:
 
 ###########################  VALIDATION FUNCTION 2  ############################
 def data_validation_2(data: dict) -> bool:
-    return True
+    if not check_digit(data["oklad"]):
+        data["error"] = f'Ошибка ввода данных "Оклад": {data["oklad"]}'
+        return data
+    elif not check_digit(data["isn"]):
+        data["error"] = f'Ошибка ввода данных "ИСН": {data["isn"]}'
+        return data
+    elif not check_digit(data["extra"]):
+        data["error"] = f'Ошибка ввода данных "Доплата": {data["extra"]}'
+        return data
+    elif not check_digit(data["targetkpi"]):
+        data["error"] = f'Ошибка ввода данных "Целевой размер премии": {data["targetkpi"]}'
+        return data
+    elif not check_digit(data["CURRENT_USDRUB"]):
+        data["error"] = f'Ошибка ввода данных "курс USD/RUB": {data["CURRENT_USDRUB"]}'
+        return data
+    elif not check_digit(data["CURRENT_USDTRY"]):
+        data["error"] = f'Ошибка ввода данных "курс USD/TRY": {data["CURRENT_USDTRY"]}'
+        return data
+    else:
+        return True

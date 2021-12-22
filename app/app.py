@@ -333,7 +333,17 @@ def get_data_2():
                                 the_bonus_USD=result['bonus_USD'],
                                 )
     else:
-        pass
+        return render_template(
+            "doc2.html",
+            the_title=title,
+            the_error=result["error"],
+            the_oklad=result["oklad"],
+            the_isn=result["isn"],
+            the_extra=result["extra"],
+            the_targetkpi=result["targetkpi"],
+            the_CURRENT_USDRUB=result["CURRENT_USDRUB"],
+            the_CURRENT_USDTRY=result["CURRENT_USDTRY"],
+        )
 
 if __name__ == "__main__":
     app.run(debug=True, host=SERVER_NAME_IP, port=8000)
