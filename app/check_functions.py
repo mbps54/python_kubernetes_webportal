@@ -58,14 +58,6 @@ def check_kimlik(kimlik: str) -> bool:
         return False
 
 def check_digit(inpt: str) -> bool:
-    try:
-        inpt = int(inpt)
-    except:
-        pass
-    try:
-        inpt = float(inpt)
-    except:
-        pass
     if inpt == "":
         return True
     elif isinstance(inpt, int):
