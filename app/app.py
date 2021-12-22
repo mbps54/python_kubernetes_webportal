@@ -294,7 +294,7 @@ def get_data_2():
 
     data["CURRENT_TRYRUB"] = (data["CURRENT_USDRUB"])/(data["CURRENT_USDTRY"])
     data['BASE_USDTRY'] = 8.64
-    data['BASE_USDRUB'] = 74
+    data['BASE_USDRUB'] = 74.89
     data['PROCENT'] = 0.185
     data['Kk'] = 1
     data['KPI'] = 1

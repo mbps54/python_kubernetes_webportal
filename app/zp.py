@@ -4,8 +4,9 @@ from pprint import pprint
 
 ##############################       USER INPUT     #############################
 data = {}
+'''
 data['BASE_USDTRY'] = 8.64
-data['BASE_USDRUB'] = 74
+data['BASE_USDRUB'] = 74.89
 data['PROCENT'] = 0.185
 data['Kk'] = 1
 data['KPI'] = 1
@@ -17,6 +18,7 @@ data['oklad'] = 5000
 data['isn'] = 3439
 data['extra'] = 1000
 data['targetkpi'] = 15000
+'''
 
 #############################          MAIN        #############################
 def zp(data):
@@ -75,25 +77,3 @@ def zp(data):
 
 #############################        RESULT        #############################
     return result
-
-'''
-i = zp(data)
-
-print(f"\nЗАРПЛАТА\n"
-      f"Оклад: {data['oklad']}\n"
-      f"ИСН: {data['isn']} TRY\n"
-      f"Инд. выплата: {i['indincome']} TRY\n"
-      f"Доплата за совмещение: {data['extra']} TRY\n"
-      f"Доплата до эквивалента: {i['zp_extra']} TRY\n"
-      f"Эквивалент заработной платы: {i['ezp']} У.Е.\n"
-      f"Итого к начислению: {i['zp_TRY']} TRY\n"
-      f"Итого к начислению: {i['zp_RUB']} RUB\n"
-      f"Итого к начислению: {i['zp_USD']} USD\n\n"
-      f"ПРЕМИЯ\n"
-      f"Эквивалент целевого размера годовой премии: {i['ebonus']} У.Е.\n"
-      f"Доплата до эквивалента: {i['bonus_dop']} TRY\n"
-      f"Итого к начислению: {i['bonus_TRY']} TRY\n"
-      f"Итого к начислению: {i['bonus_RUB']} RUB\n"
-      f"Итого к начислению: {i['bonus_USD']} USD\n"
-    )
-'''
