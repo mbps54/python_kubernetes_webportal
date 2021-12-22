@@ -257,8 +257,6 @@ def entry_page_2():
     c = CurrencyRates()
     forex_usd_rub = round(c.get_rate('USD', 'RUB'), 2)
     forex_usd_try = round(c.get_rate('USD', 'TRY'), 2)
-    print(forex_usd_rub)
-    print(forex_usd_try)
     return render_template("doc2.html", the_title=title, the_error="",
                            the_forex_usd_rub = forex_usd_rub,
                            the_forex_usd_try = forex_usd_try)
@@ -266,22 +264,20 @@ def entry_page_2():
 @app.route("/doc2", methods=["POST"])
 def get_data_2():
     data = {}
-
     data["oklad"] = 0
     data["isn"] = 0
     data["extra"] = 0
     data["targetkpi"] = 0
     c = CurrencyRates()
-    forex_usd_rub = c.get_rate('USD', 'RUB')
-    forex_usd_try = c.get_rate('USD', 'TRY')
-    print(forex_usd_rub)
-    print(forex_usd_try)
+    forex_usd_rub = round(c.get_rate('USD', 'RUB'), 2)
+    forex_usd_try = round(c.get_rate('USD', 'TRY'), 2)
     data["CURRENT_USDRUB"] = forex_usd_rub
     data["CURRENT_USDTRY"] = forex_usd_try
     data["CURRENT_TRYRUB"] = (data["CURRENT_USDRUB"])/(data["CURRENT_USDTRY"])
 
     try:
         data["oklad"] = float(request.form["oklad"].replace(',', '.'))
+        print(data["oklad"]) #temp for test
     except:
         data["oklad"] = 0
     try:
