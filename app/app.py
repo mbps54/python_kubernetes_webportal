@@ -274,7 +274,6 @@ def get_data_2():
     data["CURRENT_USDRUB"] = forex_usd_rub
     data["CURRENT_USDTRY"] = forex_usd_try
     data["CURRENT_TRYRUB"] = (data["CURRENT_USDRUB"])/(data["CURRENT_USDTRY"])
-
     try:
         data["oklad"] = float(request.form["oklad"].replace(',', '.'))
         print(data["oklad"]) #temp for test
@@ -300,11 +299,17 @@ def get_data_2():
         data["CURRENT_USDTRY"] = float(request.form["CURRENT_USDTRY"].replace(',', '.'))
     except:
         data["CURRENT_USDTRY"] = request.form["CURRENT_USDTRY"]
-
     try:
         data["CURRENT_TRYRUB"] = (data["CURRENT_USDRUB"])/(data["CURRENT_USDTRY"])
     except:
         pass
+
+    if data["CURRENT_USDTRY"] = '':
+        data["CURRENT_USDTRY"] = forex_usd_try
+    if data["CURRENT_USDRUB"] = '':
+        data["CURRENT_USDRUB"] = forex_usd_rub
+    data["CURRENT_TRYRUB"] = (data["CURRENT_USDRUB"])/(data["CURRENT_USDTRY"])
+
     data['BASE_USDTRY'] = 8.64
     data['BASE_USDRUB'] = 74.89
     data['PROCENT'] = 0.185
