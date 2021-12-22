@@ -19,7 +19,6 @@
 <p>Текущий курс USD/RUB={{ the_forex_usd_rub }}</p>
 <p>Текущий курс USD/TRY={{ the_forex_usd_try }}</p>
 <table>
-<p>Используйте эту форму для заполнения данных:</p>
 <h3 style="color:Red">{{ the_error }}</h3>
 <tr><td colspan="2"; style="font-weight:bold; text-align: center;">Данные дохода</td><td></td>
 <tr><td>Оклад:</td><td><input name='oklad' type='text' value="{{ the_oklad }}" placeholder='0' width='60'></td></tr>
@@ -34,6 +33,6 @@
 
 </table>
 <p> </p>
-<p><input value='Готово' type='SUBMIT'></p>
+<p><input value='Рассчитать' type='SUBMIT'></p>
 </form>
 {% endblock %}
