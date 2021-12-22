@@ -16,6 +16,8 @@
 
 
 <form method='POST' action='/doc2'>
+<p>Текущий курс USD/TRY {{ forex_usd_try }}</p>
+<p>Текущий курс USD/RUB {{ forex_usd_rub }}</p>
 <table>
 <p>Используйте эту форму для заполнения данных:</p>
 <h3 style="color:Red">{{ the_error }}</h3>
@@ -26,8 +28,8 @@
 <tr><td>Целевой размер премии:</td><td><input name='targetkpi' type='text' value="{{ the_targetkpi }}" placeholder='15000' width='60'></td></tr>
 
 <tr><td colspan="2"; style="font-weight:bold; text-align: center;">Данные курсов валют</td><td></td>
-<tr><td>USD/RUB:</td><td><input name='CURRENT_USDRUB' type='text' value="{{ the_CURRENT_USDRUB }}" placeholder="{{ forex_usd_rub }}" width='60'></td></tr>
-<tr><td>USD/TRY:</td><td><input name='CURRENT_USDTRY' type='text' value="{{ the_CURRENT_USDTRY }}" placeholder="{{ forex_usd_try }}" width='60'></td></tr>
+<tr><td>USD/RUB:</td><td><input name='CURRENT_USDRUB' type='text' value="{{ the_CURRENT_USDRUB }}" placeholder="ввести курс или оставить поле пустым (применится текущий)" width='60'></td></tr>
+<tr><td>USD/TRY:</td><td><input name='CURRENT_USDTRY' type='text' value="{{ the_CURRENT_USDTRY }}" placeholder="ввести курс или оставить поле пустым (применится текущий)" width='60'></td></tr>
 
 
 </table>

@@ -274,21 +274,21 @@ def get_data_2():
     data["CURRENT_TRYRUB"] = (data["CURRENT_USDRUB"])/(data["CURRENT_USDTRY"])
 
     try:
-        data["oklad"] = int(request.form["oklad"])
+        data["oklad"] = float(request.form["oklad"].replace(',', '.'))
     except:
-        pass
+        data["oklad"] = 0
     try:
-        data["isn"] = int(request.form["isn"])
+        data["isn"] = float(request.form["isn"].replace(',', '.'))
     except:
-        pass
+        data["isn"] = 0
     try:
-        data["extra"] = int(request.form["extra"])
+        data["extra"] = float(request.form["extra"].replace(',', '.'))
     except:
-        pass
+        data["extra"] = 0
     try:
-        data["targetkpi"] = int(request.form["targetkpi"])
+        data["targetkpi"] = float(request.form["targetkpi"].replace(',', '.'))
     except:
-        pass
+        data["targetkpi"] = 0
     try:
         data["CURRENT_USDRUB"] = float(request.form["CURRENT_USDRUB"].replace(',', '.'))
         print(data["CURRENT_USDRUB"])
