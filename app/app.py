@@ -255,8 +255,8 @@ def download_file_pdf():
 def entry_page_2():
     title = "Рассчет дохода"
     c = CurrencyRates()
-    forex_usd_rub = c.get_rate('USD', 'RUB')
-    forex_usd_try = c.get_rate('USD', 'TRY')
+    forex_usd_rub = round(c.get_rate('USD', 'RUB'), 2)
+    forex_usd_try = round(c.get_rate('USD', 'TRY'), 2)
     print(forex_usd_rub)
     print(forex_usd_try)
     return render_template("doc2.html", the_title=title, the_error="",
