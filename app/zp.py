@@ -47,6 +47,8 @@ def zp(data):
 #############################           ZP         #############################
     zp_extra = round((ezp*CURRENT_USDTRY*Rk) - bzp + extra*Kv - extra)
     zp_TRY = round(zp_extra + bzp + extra)
+    if zp_TRY < oklad:
+        zp_TRY = oklad
     zp_RUB = round(zp_TRY*CURRENT_TRYRUB)
     zp_USD = round(zp_TRY/CURRENT_USDTRY)
     result['zp_TRY'] = zp_TRY
