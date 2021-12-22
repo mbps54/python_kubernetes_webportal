@@ -58,9 +58,7 @@ def check_kimlik(kimlik: str) -> bool:
         return False
 
 def check_digit(inpt: str) -> bool:
-    if inpt == "":
-        return True
-    elif inpt == 0:
+    if inpt == 0:
         return True
     elif isinstance(inpt, float):
         return True
