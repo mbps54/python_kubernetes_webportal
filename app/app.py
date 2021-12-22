@@ -254,7 +254,13 @@ def download_file_pdf():
 @app.route("/doc2")
 def entry_page_2():
     title = "Рассчет дохода"
-    return render_template("doc2.html", the_title=title, the_error="")
+    forex_usd_rub = c.get_rate('USD', 'RUB')
+    forex_usd_try = c.get_rate('USD', 'TRY')
+    print(forex_usd_rub)
+    print(forex_usd_try)
+    return render_template("doc2.html", the_title=title, the_error="",
+                           the_forex_usd_rub = forex_usd_rub,
+                           the_forex_usd_try = forex_usd_try)
 
 @app.route("/doc2", methods=["POST"])
 def get_data_2():
@@ -265,8 +271,6 @@ def get_data_2():
     data["extra"] = 0
     data["targetkpi"] = 0
     c = CurrencyRates()
-    data["CURRENT_USDRUB"] = c.get_rate('USD', 'RUB')
-    data["CURRENT_USDTRY"] = c.get_rate('USD', 'TRY')
     forex_usd_rub = c.get_rate('USD', 'RUB')
     forex_usd_try = c.get_rate('USD', 'TRY')
     print(forex_usd_rub)
