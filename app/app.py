@@ -5,6 +5,7 @@ import yaml
 from flask import Flask, render_template, request, send_file
 from flask_navigation import Navigation
 from random import randrange
+from forex_python.converter import CurrencyRates
 
 ###########################      IMPORT MODULES     ############################
 from create_doc_1 import create_doc_1
@@ -263,8 +264,13 @@ def get_data_2():
     data["isn"] = 0
     data["extra"] = 0
     data["targetkpi"] = 0
-    data["CURRENT_USDRUB"] = 74
-    data["CURRENT_USDTRY"] = 14.8
+    c = CurrencyRates()
+    data["CURRENT_USDRUB"] = c.get_rate('USD', 'RUB')
+    data["CURRENT_USDTRY"] = c.get_rate('USD', 'TRY')
+    forex_usd_rub = c.get_rate('USD', 'RUB')
+    forex_usd_try = c.get_rate('USD', 'TRY')
+    data["CURRENT_USDRUB"] = forex_usd_rub
+    data["CURRENT_USDTRY"] = forex_usd_try
     data["CURRENT_TRYRUB"] = (data["CURRENT_USDRUB"])/(data["CURRENT_USDTRY"])
 
     try:
@@ -284,11 +290,13 @@ def get_data_2():
     except:
         pass
     try:
-        data["CURRENT_USDRUB"] = int(request.form["CURRENT_USDRUB"])
+        data["CURRENT_USDRUB"] = float(request.form["CURRENT_USDRUB"].replace(',', '.'))
+        print(data["CURRENT_USDRUB"])
     except:
         pass
     try:
-        data["CURRENT_USDTRY"] = int(request.form["CURRENT_USDTRY"])
+        data["CURRENT_USDTRY"] = float(request.form["CURRENT_USDTRY"].replace(',', '.'))
+        print(data["CURRENT_USDTRY"])
     except:
         pass
 
