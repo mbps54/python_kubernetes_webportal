@@ -308,6 +308,12 @@ def get_data_2():
         data["CURRENT_USDTRY"] = forex_usd_try
     if data["CURRENT_USDRUB"] == '':
         data["CURRENT_USDRUB"] = forex_usd_rub
+    if data["isn"] == '':
+        data["isn"] = 0
+    if data["extra"] == '':
+        data["extra"] = 0
+    if data["targetkpi"] == '':
+        data["targetkpi"] = 0
     data["CURRENT_TRYRUB"] = (data["CURRENT_USDRUB"])/(data["CURRENT_USDTRY"])
 
     data['BASE_USDTRY'] = 8.64
