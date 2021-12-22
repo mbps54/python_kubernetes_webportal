@@ -275,9 +275,15 @@ def get_data_2():
     data["CURRENT_USDTRY"] = forex_usd_try
     data["CURRENT_TRYRUB"] = (data["CURRENT_USDRUB"])/(data["CURRENT_USDTRY"])
 
-    data["oklad"] = request.form["oklad"]
-    print(data["oklad"]) #temp for test
-    data["isn"] = request.form["isn"]
+    try:
+        data["oklad"] = float(request.form["oklad"].replace(',', '.'))
+        print(data["oklad"]) #temp for test
+    except:
+        pass
+    try:
+        data["oklad"] = float(request.form["isn"].replace(',', '.'))
+    except:
+        pass
     try:
         data["extra"] = float(request.form["extra"].replace(',', '.'))
     except:
