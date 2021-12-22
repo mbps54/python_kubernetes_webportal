@@ -304,9 +304,9 @@ def get_data_2():
     except:
         pass
 
-    if data["CURRENT_USDTRY"] = '':
+    if data["CURRENT_USDTRY"] == '':
         data["CURRENT_USDTRY"] = forex_usd_try
-    if data["CURRENT_USDRUB"] = '':
+    if data["CURRENT_USDRUB"] == '':
         data["CURRENT_USDRUB"] = forex_usd_rub
     data["CURRENT_TRYRUB"] = (data["CURRENT_USDRUB"])/(data["CURRENT_USDTRY"])
 
