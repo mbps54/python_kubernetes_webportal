@@ -269,6 +269,8 @@ def get_data_2():
     data["CURRENT_USDTRY"] = c.get_rate('USD', 'TRY')
     forex_usd_rub = c.get_rate('USD', 'RUB')
     forex_usd_try = c.get_rate('USD', 'TRY')
+    print(forex_usd_rub)
+    print(forex_usd_try)
     data["CURRENT_USDRUB"] = forex_usd_rub
     data["CURRENT_USDTRY"] = forex_usd_try
     data["CURRENT_TRYRUB"] = (data["CURRENT_USDRUB"])/(data["CURRENT_USDTRY"])
