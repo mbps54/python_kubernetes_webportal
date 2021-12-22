@@ -254,6 +254,7 @@ def download_file_pdf():
 @app.route("/doc2")
 def entry_page_2():
     title = "Рассчет дохода"
+    c = CurrencyRates()
     forex_usd_rub = c.get_rate('USD', 'RUB')
     forex_usd_try = c.get_rate('USD', 'TRY')
     print(forex_usd_rub)
