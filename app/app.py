@@ -301,7 +301,10 @@ def get_data_2():
     except:
         data["CURRENT_USDTRY"] = request.form["CURRENT_USDTRY"]
 
-    data["CURRENT_TRYRUB"] = (data["CURRENT_USDRUB"])/(data["CURRENT_USDTRY"])
+    try:
+        data["CURRENT_TRYRUB"] = (data["CURRENT_USDRUB"])/(data["CURRENT_USDTRY"])
+    except:
+        pass
     data['BASE_USDTRY'] = 8.64
     data['BASE_USDRUB'] = 74.89
     data['PROCENT'] = 0.185
