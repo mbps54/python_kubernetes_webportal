@@ -58,8 +58,6 @@ def check_kimlik(kimlik: str) -> bool:
         return False
 
 def check_digit(inpt: str) -> bool:
-    inpt.replace(" ", "")
-    inpt.replace(",", ".")
     if inpt == "":
         return True
     elif isinstance(inpt, int) or isinstance(inpt, float):
