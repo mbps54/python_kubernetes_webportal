@@ -279,27 +279,25 @@ def get_data_2():
         data["oklad"] = float(request.form["oklad"].replace(',', '.'))
         print(data["oklad"]) #temp for test
     except:
-        data["oklad"] = 0
+        pass
     try:
         data["isn"] = float(request.form["isn"].replace(',', '.'))
     except:
-        data["isn"] = 0
+        pass
     try:
         data["extra"] = float(request.form["extra"].replace(',', '.'))
     except:
-        data["extra"] = 0
+        pass
     try:
         data["targetkpi"] = float(request.form["targetkpi"].replace(',', '.'))
     except:
-        data["targetkpi"] = 0
+        pass
     try:
         data["CURRENT_USDRUB"] = float(request.form["CURRENT_USDRUB"].replace(',', '.'))
-        print(data["CURRENT_USDRUB"])
     except:
         pass
     try:
         data["CURRENT_USDTRY"] = float(request.form["CURRENT_USDTRY"].replace(',', '.'))
-        print(data["CURRENT_USDTRY"])
     except:
         pass
 
