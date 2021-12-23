@@ -254,12 +254,15 @@ def download_file_pdf():
 @app.route("/doc2")
 def entry_page_2():
     title = "Рассчет дохода"
-    c = CurrencyRates()
-    forex_usd_rub = round(c.get_rate('USD', 'RUB'), 2)
-    forex_usd_try = round(c.get_rate('USD', 'TRY'), 2)
+    try:
+        filename_currency = "../temp/rates.yaml"
+        with open(filename_currency) as f:
+            data_currency = yaml.safe_load(f)
+    except:
+        data_currency = {'usdrub': 74, 'usdtry': 10}
     return render_template("doc2.html", the_title=title, the_error="",
-                           the_forex_usd_rub = forex_usd_rub,
-                           the_forex_usd_try = forex_usd_try)
+                           the_forex_usd_rub = data_currency['usdrub'],
+                           the_forex_usd_try = data_currency['usdtry'])
 
 @app.route("/doc2", methods=["POST"])
 def get_data_2():
