@@ -5,11 +5,11 @@ import yaml
 from flask import Flask, render_template, request, send_file
 from flask_navigation import Navigation
 from random import randrange
-#from forex_python.converter import CurrencyRates
+import redis
 
 ###########################      IMPORT MODULES     ############################
-from create_doc_1 import create_doc_1
-from create_doc_1_pdf import create_doc_1_pdf
+#from create_doc_1 import create_doc_1
+#from create_doc_1_pdf import create_doc_1_pdf
 from data_validations import data_validation_1
 from data_validations import data_validation_2
 from zp import zp
@@ -31,6 +31,10 @@ nav.Bar(
 SERVER_NAME_IP = str(os.environ.get("SERVER_NAME_IP"))
 if SERVER_NAME_IP == "None":
     SERVER_NAME_IP = "0.0.0.0"
+
+DB_NAME_IP = str(os.environ.get("DB_NAME_IP"))
+if DB_NAME_IP == "None":
+    DB_NAME_IP = "localhost"
 
 ###########################        WEB PAGE 1       ############################
 @app.route("/doc1", methods=["POST"])
@@ -254,14 +258,18 @@ def download_file_pdf():
 @app.route("/doc2")
 def entry_page_2():
     title = "Рассчет дохода"
+
     try:
-        filename_currency = "../temp/rates.yaml"
-        with open(filename_currency) as f:
-            data_currency = yaml.safe_load(f)
+        r = redis.StrictRedis(DB_NAME_IP, 6379, charset="utf-8", decode_responses=True)
+        data_currency = r.hgetall("rates")
     except:
         data_currency = {'usdrub': 74, 'usdtry': 10}
+    if data_currency == {}:
+        data_currency = {'usdrub': 74, 'usdtry': 10}
+
     usd_rub = round(float(data_currency['usdrub']), 3)
     usd_try = round(float(data_currency['usdtry']), 3)
+
     return render_template("doc2.html", the_title=title, the_error="",
                            the_forex_usd_rub = usd_rub,
                            the_forex_usd_try = usd_try)
@@ -269,45 +277,32 @@ def entry_page_2():
 @app.route("/doc2", methods=["POST"])
 def get_data_2():
     data = {}
+    data['BASE_USDTRY'] = 8.64
+    data['BASE_USDRUB'] = 74.89
+    data['PROCENT'] = 0.185
+    data['Kk'] = 1
+    data['KPI'] = 1
 
     try:
-        filename_currency = "../temp/rates.yaml"
-        with open(filename_currency) as f:
-            data_currency = yaml.safe_load(f)
+        r = redis.StrictRedis(DB_NAME_IP, 6379, charset="utf-8", decode_responses=True)
+        data_currency = r.hgetall("rates")
     except:
-        data_currency = {'usdrub': 75, 'usdtry': 10}
+        data_currency = {'usdrub': 74, 'usdtry': 10}
+    if data_currency == {}:
+        data_currency = {'usdrub': 74, 'usdtry': 10}
 
     usd_rub = round(float(data_currency['usdrub']), 3)
     usd_try = round(float(data_currency['usdtry']), 3)
 
-    data["CURRENT_USDRUB"] = usd_rub
-    data["CURRENT_USDTRY"] = usd_try
-    data["CURRENT_TRYRUB"] = (data["CURRENT_USDRUB"])/(data["CURRENT_USDTRY"])
-    try:
-        data["oklad"] = float(request.form["oklad"].replace(',', '.'))
-        print(data["oklad"]) #temp for test
-    except:
-        data["oklad"] = request.form["oklad"]
-    try:
-        data["isn"] = float(request.form["isn"].replace(',', '.'))
-    except:
-        data["isn"] = request.form["isn"]
-    try:
-        data["extra"] = float(request.form["extra"].replace(',', '.'))
-    except:
-        data["extra"] = request.form["extra"]
-    try:
-        data["targetkpi"] = float(request.form["targetkpi"].replace(',', '.'))
-    except:
-        data["targetkpi"] = request.form["targetkpi"]
-    try:
-        data["CURRENT_USDRUB"] = float(request.form["CURRENT_USDRUB"].replace(',', '.'))
-    except:
-        data["CURRENT_USDRUB"] = request.form["CURRENT_USDRUB"]
-    try:
-        data["CURRENT_USDTRY"] = float(request.form["CURRENT_USDTRY"].replace(',', '.'))
-    except:
-        data["CURRENT_USDTRY"] = request.form["CURRENT_USDTRY"]
+    input_items = ('oklad', 'isn', 'extra', 'targetkpi', 'CURRENT_USDRUB', 'CURRENT_USDTRY')
+    for i in input_items:
+        data[i] = request.form[i]
+
+    for key, value in data.items():
+        try:
+            data[key] = float(str(value).replace(',', '.').replace(' ', ''))
+        except:
+            data[key] = value
 
     if data["CURRENT_USDTRY"] == '':
         data["CURRENT_USDTRY"] = usd_try
@@ -319,19 +314,11 @@ def get_data_2():
         data["extra"] = 0
     if data["targetkpi"] == '':
         data["targetkpi"] = 0
-    data["CURRENT_TRYRUB"] = (data["CURRENT_USDRUB"])/(data["CURRENT_USDTRY"])
-
-    data['BASE_USDTRY'] = 8.64
-    data['BASE_USDRUB'] = 74.89
-    data['PROCENT'] = 0.185
-    data['Kk'] = 1
-    data['KPI'] = 1
 
     title = "Рассчет дохода"
-    print('DATA:\n')
-    print(data)
     result = data_validation_2(data)
     if result == True:
+        data["CURRENT_TRYRUB"] = (data["CURRENT_USDRUB"])/(data["CURRENT_USDTRY"])
         result = zp(data)
         return render_template("results2.html",
                                 the_title=title,

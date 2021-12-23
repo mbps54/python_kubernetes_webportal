@@ -26,16 +26,21 @@ python3 app.py
 2. Create Docker image
 - Build an image
 ```
-docker build . -t mbps54/web_doc_app
+docker build . -t mbps54/web_doc_app:test
+docker build -f Dockerfile2 -t mbps54/currency
 ```
 - Push container to hub (optional)
 ```
 docker push mbps54/web_doc_app
+docker push mbps54/currency
 ```
 
 3. Run locally created Docker imange
 ```
-docker run -it -p 5000:5000 mbps54/web_doc_app
+docker network create -d bridge multi-host-network
+docker run -d -p 6379:6379 --network=multi-host-network redis:latest
+docker run -d -e DB_NAME_IP='redis' --network=multi-host-network mbps54/currency
+docker run -it -p 8000:8000 -e DB_NAME_IP='redis' --network=multi-host-network mbps54/web_doc_app:test
 ```
 or
 ```
