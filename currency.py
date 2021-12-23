@@ -10,3 +10,6 @@ def get_rates():
     n = text_file.write(f'usdrub: {usdrub}\n')
     n = text_file.write(f'usdtry: {usdtry}')
     text_file.close()
+
+if __name__ == "__main__":
+    get_rates()
