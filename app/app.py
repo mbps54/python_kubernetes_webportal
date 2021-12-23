@@ -260,9 +260,11 @@ def entry_page_2():
             data_currency = yaml.safe_load(f)
     except:
         data_currency = {'usdrub': 74, 'usdtry': 10}
+    usd_rub = round(data_currency['usdrub'], 2)
+    usd_try = round(data_currency['usdtry'], 2)
     return render_template("doc2.html", the_title=title, the_error="",
-                           the_forex_usd_rub = round(data_currency['usdrub'], 2),
-                           the_forex_usd_try = round(data_currency['usdtry'], 2))
+                           the_forex_usd_rub = usd_rub,
+                           the_forex_usd_try = usd_try)
 
 @app.route("/doc2", methods=["POST"])
 def get_data_2():
