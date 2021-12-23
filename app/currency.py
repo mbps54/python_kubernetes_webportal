@@ -11,8 +11,8 @@ def get_rates():
     except:
         pass
     text_file = open('../temp/rates.yaml', "w")
-    n = text_file.write(f"---\n'usdrub': '{usdrub}'\n")
-    n = text_file.write(f"'usdtry': '{usdtry}'\n...")
+    n = text_file.write(f"---\n'usdrub': {usdrub}\n")
+    n = text_file.write(f"'usdtry': {usdtry}\n...")
     text_file.close()
 
 if __name__ == "__main__":

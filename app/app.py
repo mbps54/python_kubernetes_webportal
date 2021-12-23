@@ -260,8 +260,8 @@ def entry_page_2():
             data_currency = yaml.safe_load(f)
     except:
         data_currency = {'usdrub': 74, 'usdtry': 10}
-    usd_rub = round(data_currency['usdrub'], 2)
-    usd_try = round(data_currency['usdtry'], 2)
+    usd_rub = round(float(data_currency['usdrub']), 3)
+    usd_try = round(float(data_currency['usdtry']), 3)
     return render_template("doc2.html", the_title=title, the_error="",
                            the_forex_usd_rub = usd_rub,
                            the_forex_usd_try = usd_try)
@@ -279,11 +279,10 @@ def get_data_2():
             data_currency = yaml.safe_load(f)
     except:
         data_currency = {'usdrub': 74, 'usdtry': 10}
-#    c = CurrencyRates()
-#    forex_usd_rub = round(c.get_rate('USD', 'RUB'), 2)
-#    forex_usd_try = round(c.get_rate('USD', 'TRY'), 2)
-    data["CURRENT_USDRUB"] = data_currency['usdrub']
-    data["CURRENT_USDTRY"] = data_currency['usdtry']
+    usd_rub = round(float(data_currency['usdrub']), 3)
+    usd_try = round(float(data_currency['usdtry']), 3)
+    data["CURRENT_USDRUB"] = usd_rub
+    data["CURRENT_USDTRY"] = usd_try
     data["CURRENT_TRYRUB"] = (data["CURRENT_USDRUB"])/(data["CURRENT_USDTRY"])
     try:
         data["oklad"] = float(request.form["oklad"].replace(',', '.'))
