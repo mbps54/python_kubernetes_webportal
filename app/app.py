@@ -330,7 +330,8 @@ def get_data_2():
     data['KPI'] = 1
 
     title = "Рассчет дохода"
-
+    print('DATA:\n')
+    print(data)
     result = data_validation_2(data)
     if result == True:
         result = zp(data)
