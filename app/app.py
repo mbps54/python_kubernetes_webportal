@@ -261,8 +261,8 @@ def entry_page_2():
     except:
         data_currency = {'usdrub': 74, 'usdtry': 10}
     return render_template("doc2.html", the_title=title, the_error="",
-                           the_forex_usd_rub = data_currency['usdrub'],
-                           the_forex_usd_try = data_currency['usdtry'])
+                           the_forex_usd_rub = round(data_currency['usdrub'], 2),
+                           the_forex_usd_try = round(data_currency['usdtry'], 2))
 
 @app.route("/doc2", methods=["POST"])
 def get_data_2():
