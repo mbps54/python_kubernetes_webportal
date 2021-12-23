@@ -270,8 +270,8 @@ def get_data_2():
     data["targetkpi"] = 0
     try:
         filename_currency = "../temp/rates.yaml"
-            with open(filename_currency) as f:
-                data_currency = yaml.safe_load(f)
+        with open(filename_currency) as f:
+            data_currency = yaml.safe_load(f)
     except:
         data_currency = {'usdrub': 74, 'usdtry': 10}
 #    c = CurrencyRates()
