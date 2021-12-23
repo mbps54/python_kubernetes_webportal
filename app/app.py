@@ -310,11 +310,9 @@ def get_data_2():
         data["CURRENT_USDTRY"] = request.form["CURRENT_USDTRY"]
 
     if data["CURRENT_USDTRY"] == '':
-        data["CURRENT_USDTRY"] = usd_rub
+        data["CURRENT_USDTRY"] = usd_try
     if data["CURRENT_USDRUB"] == '':
-        data["CURRENT_USDRUB"] = usd_try
-    print(usd_rub)
-    print(usd_try)
+        data["CURRENT_USDRUB"] = usd_rub
     if data["isn"] == '':
         data["isn"] = 0
     if data["extra"] == '':
