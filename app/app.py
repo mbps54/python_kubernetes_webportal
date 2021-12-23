@@ -5,7 +5,7 @@ import yaml
 from flask import Flask, render_template, request, send_file
 from flask_navigation import Navigation
 from random import randrange
-from forex_python.converter import CurrencyRates
+#from forex_python.converter import CurrencyRates
 
 ###########################      IMPORT MODULES     ############################
 from create_doc_1 import create_doc_1
@@ -268,11 +268,17 @@ def get_data_2():
     data["isn"] = 0
     data["extra"] = 0
     data["targetkpi"] = 0
-    c = CurrencyRates()
-    forex_usd_rub = round(c.get_rate('USD', 'RUB'), 2)
-    forex_usd_try = round(c.get_rate('USD', 'TRY'), 2)
-    data["CURRENT_USDRUB"] = forex_usd_rub
-    data["CURRENT_USDTRY"] = forex_usd_try
+    try:
+        filename_currency = "../temp/rates.yaml"
+            with open(filename_currency) as f:
+                data_currency = yaml.safe_load(f)
+    except:
+        data_currency = {'usdrub': 74, 'usdtry': 10}
+#    c = CurrencyRates()
+#    forex_usd_rub = round(c.get_rate('USD', 'RUB'), 2)
+#    forex_usd_try = round(c.get_rate('USD', 'TRY'), 2)
+    data["CURRENT_USDRUB"] = data_currency['usdrub']
+    data["CURRENT_USDTRY"] = data_currency['usdtry']
     data["CURRENT_TRYRUB"] = (data["CURRENT_USDRUB"])/(data["CURRENT_USDTRY"])
     try:
         data["oklad"] = float(request.form["oklad"].replace(',', '.'))
@@ -305,9 +311,9 @@ def get_data_2():
         pass
 
     if data["CURRENT_USDTRY"] == '':
-        data["CURRENT_USDTRY"] = forex_usd_try
+        data["CURRENT_USDTRY"] = data_currency['usdrub']
     if data["CURRENT_USDRUB"] == '':
-        data["CURRENT_USDRUB"] = forex_usd_rub
+        data["CURRENT_USDRUB"] = data_currency['usdtry']
     if data["isn"] == '':
         data["isn"] = 0
     if data["extra"] == '':
