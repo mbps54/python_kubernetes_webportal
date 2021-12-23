@@ -7,8 +7,8 @@ def get_rates():
     usdrub = ((response.json())['quotes'])['USDRUB']
     usdtry = ((response.json())['quotes'])['USDRUB']
     text_file = open('rates.yaml', "w")
-    n = text_file.write(f'usdrub: {usdrub}\n')
-    n = text_file.write(f'usdtry: {usdtry}')
+    n = text_file.write(f"---\n'usdrub': '{usdrub}'\n")
+    n = text_file.write(f"'usdtry': '{usdtry}'\n...")
     text_file.close()
 
 if __name__ == "__main__":
