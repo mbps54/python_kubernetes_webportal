@@ -269,18 +269,17 @@ def entry_page_2():
 @app.route("/doc2", methods=["POST"])
 def get_data_2():
     data = {}
-    data["oklad"] = 0
-    data["isn"] = 0
-    data["extra"] = 0
-    data["targetkpi"] = 0
+
     try:
         filename_currency = "../temp/rates.yaml"
         with open(filename_currency) as f:
             data_currency = yaml.safe_load(f)
     except:
-        data_currency = {'usdrub': 74, 'usdtry': 10}
+        data_currency = {'usdrub': 75, 'usdtry': 10}
+
     usd_rub = round(float(data_currency['usdrub']), 3)
     usd_try = round(float(data_currency['usdtry']), 3)
+
     data["CURRENT_USDRUB"] = usd_rub
     data["CURRENT_USDTRY"] = usd_try
     data["CURRENT_TRYRUB"] = (data["CURRENT_USDRUB"])/(data["CURRENT_USDTRY"])
@@ -309,10 +308,6 @@ def get_data_2():
         data["CURRENT_USDTRY"] = float(request.form["CURRENT_USDTRY"].replace(',', '.'))
     except:
         data["CURRENT_USDTRY"] = request.form["CURRENT_USDTRY"]
-    try:
-        data["CURRENT_TRYRUB"] = (data["CURRENT_USDRUB"])/(data["CURRENT_USDTRY"])
-    except:
-        pass
 
     if data["CURRENT_USDTRY"] == '':
         data["CURRENT_USDTRY"] = usd_rub
