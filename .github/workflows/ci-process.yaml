@@ -12,13 +12,15 @@ jobs:
     steps:
     - uses: actions/checkout@v1
 
-    - name: check files
-      run: ls -la ./app-web/app/data
-
-    - name: yaml-lint
+    - name: Check yaml syntax for Application
       uses: ibiqlik/action-yamllint@v3
       with:
         file_or_dir: ./app-web/app/data
+
+    - name: Check yaml syntax for Kubernetes
+      uses: ibiqlik/action-yamllint@v3
+      with:
+        file_or_dir: ./Kubernetes
 
   build_docker_images:
     needs: [check_yaml_syntax]
@@ -80,7 +82,7 @@ jobs:
                 docker rmi $(docker images -q)
                 docker pull redis:latest
                 docker pull mbps54/app-exchange:latest
-                docker pull app-web:latest
+                docker pull mbps54/app-web:latest
                 docker network create -d bridge multi-host-network
                 docker run -d -p 6379:6379 --network=multi-host-network redis:latest
                 docker run -d -e DB_NAME_IP='redis' -e CRON_SCHEDULE='0 9,11,13,15,17 X X 1-5' --network=multi-host-network mbps54/app-exchange:latest

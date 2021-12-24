@@ -16,6 +16,6 @@ COPY ./app/ /app/
 RUN  chmod +x /app/app-web.py
 
 WORKDIR /app
-EXPOSE 5000
+EXPOSE 8000
 
 ENTRYPOINT ["python3", "app-web.py"]
