@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 ########################### IMPORT GENERAL MODULES  ############################
 import os
-import subprocess
 from docx import Document
 from docx.shared import Pt
 from docx.shared import Cm
@@ -11,10 +10,10 @@ from docx.enum.table import WD_ALIGN_VERTICAL
 
 ###########################      IMPORT MODULES     ############################
 from functions.documents_functions import create_table
-from functions.documents_functions import set_table_params_lo
+from functions.documents_functions import set_table_params
 
 ###########################   CREATE DOC FUNCTION   ############################
-def create_doc_1_pdf(data: dict) -> None:
+def create_doc_1_doc(data: dict) -> None:
     document = Document()
 
     ###########################      DEFAULT STYLE      ############################
@@ -204,7 +203,7 @@ def create_doc_1_pdf(data: dict) -> None:
     table_1 = create_table(document, headers_1, records_table_1)
     table_1.allow_autofit = False
     table_1.autofit = False
-    set_table_params_lo(
+    set_table_params(
         table=table_1,
         widths=(Cm(2.3), Cm(3.5), Cm(3.5), Cm(2.5), Cm(2.4), Cm(2.7)),
         fontname="Times New Roman",
@@ -222,7 +221,7 @@ def create_doc_1_pdf(data: dict) -> None:
     headers_2 = ("ГОРОД ОТПРАВЛЕНИЯ", "ГОРОД ПРИБЫТИЯ")
     records_table_2 = [[data["departure"], data["arrival"]]]
     table_2 = create_table(document, headers_2, records_table_2)
-    set_table_params_lo(
+    set_table_params(
         table=table_2,
         widths=(Cm(8.4), Cm(8.4)),
         fontname="Times New Roman",
@@ -372,12 +371,12 @@ def create_doc_1_pdf(data: dict) -> None:
         "действующий законный брак, несовершеннолетние "
         "дети до 18 лет"
     )
-    set_table_params_lo(
+    set_table_params(
         table=table_3,
         widths=(Cm(3.5), Cm(7.5), Cm(5.8)),
         height=Cm(1.4),
         heightrule=WD_ROW_HEIGHT_RULE.EXACTLY,
-        fontname="Nimbus Sans Narrow",
+        fontname="Arial Narrow",
         fontsize=Pt(9),
         alignment=0,
         verticalalignment=WD_ALIGN_VERTICAL.CENTER,
@@ -391,21 +390,5 @@ def create_doc_1_pdf(data: dict) -> None:
         os.makedirs(os.path.expanduser("./files/doc1/"))
     except:
         pass
-    document.save("./files/doc1/document_pdf.docx")
-
-    ###############################  CONVERT TO PDF  ###############################
-    subprocess.run(
-        ["doc2pdf", "./files/doc1/document_pdf.docx"],
-        stdout=subprocess.DEVNULL,
-        stderr=subprocess.DEVNULL,
-        encoding="utf-8",
-    )
-    ###############################    RENAME FILE   ###############################
-    subprocess.run(
-        ["mv", "./files/doc1/document_pdf.pdf", "./files/doc1/document.pdf"],
-        stdout=subprocess.DEVNULL,
-        stderr=subprocess.DEVNULL,
-        encoding="utf-8",
-    )
-    ###############################        END       ###############################
+    document.save("./files/doc1/document.docx")
     return None

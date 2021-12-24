@@ -16,4 +16,6 @@ spec:
         env:
           - name: DB_NAME_IP
             value: 'app-redis'
+          - name: API_KEY
+            value: 'ca0cdd8c332da1840ec1e46a16ece7'
 ...

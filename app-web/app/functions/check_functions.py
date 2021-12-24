@@ -39,9 +39,7 @@ def check_phone(phone: str) -> bool:
     phone = phone.replace("+", "")
     if phone == "":
         return False
-    elif (
-        (len(phone) > 9 and len(phone) < 15) or len(phone) == 4
-    ) and phone.isdigit():
+    elif ((len(phone) > 9 and len(phone) < 15) or len(phone) == 4) and phone.isdigit():
         return True
     else:
         return False
@@ -56,6 +54,7 @@ def check_kimlik(kimlik: str) -> bool:
         return True
     else:
         return False
+
 
 def check_digit(inpt: str) -> bool:
     if inpt == 0:

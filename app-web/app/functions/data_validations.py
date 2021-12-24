@@ -37,7 +37,7 @@ def data_validation_1(data: dict) -> Union[bool, dict]:
 
 
 ###########################  VALIDATION FUNCTION 2  ############################
-def data_validation_2(data: dict) -> bool:
+def data_validation_2(data: dict) -> Union[bool, dict]:
     if not check_digit(data["oklad"]):
         data["error"] = f'Ошибка ввода данных "Оклад": {data["oklad"]}'
         return data
@@ -48,7 +48,9 @@ def data_validation_2(data: dict) -> bool:
         data["error"] = f'Ошибка ввода данных "Доплата": {data["extra"]}'
         return data
     elif not check_digit(data["targetkpi"]):
-        data["error"] = f'Ошибка ввода данных "Целевой размер премии": {data["targetkpi"]}'
+        data[
+            "error"
+        ] = f'Ошибка ввода данных "Целевой размер премии": {data["targetkpi"]}'
         return data
     elif not check_digit(data["CURRENT_USDRUB"]):
         data["error"] = f'Ошибка ввода данных "курс USD/RUB": {data["CURRENT_USDRUB"]}'

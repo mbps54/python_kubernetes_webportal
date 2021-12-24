@@ -8,8 +8,8 @@ from random import randrange
 import redis
 
 ###########################      IMPORT MODULES     ############################
-from functions.create_doc_1 import create_doc_1
 from functions.create_doc_1_pdf import create_doc_1_pdf
+from functions.create_doc_1_doc import create_doc_1_doc
 from functions.data_validations import data_validation_1
 from functions.data_validations import data_validation_2
 from functions.zp import zp
@@ -138,12 +138,11 @@ def get_data():
         with open(filename) as f:
             data = yaml.safe_load(f)
 
-
     result = data_validation_1(data)
     if result == True:
-        result = str(create_doc_1(data))
+        result = str(create_doc_1_doc(data))
         create_doc_1_pdf(data)
-        return render_template("results.html", the_title=title)
+        return render_template("results1.html", the_title=title)
     else:
         return render_template(
             "doc1.html",
@@ -237,6 +236,7 @@ def entry_page():
     title = "Релокация. Заявление на билеты и гостиницу"
     return render_template("doc1.html", the_title=title, the_error="")
 
+
 @app.route("/")
 def entry():
     title = "Автоматизация заявлений"
@@ -245,14 +245,15 @@ def entry():
 
 @app.route("/download_docx")
 def download_file_doc():
-    path = "files/doc1/document.docx".format(dir)
+    path = "files/doc1/document.docx"
     return send_file(path, as_attachment=True)
 
 
 @app.route("/download_pdfs")
 def download_file_pdf():
-    path = "files/doc1/document.pdf".format(dir)
+    path = "files/doc1/document.pdf"
     return send_file(path, as_attachment=True)
+
 
 ###########################        WEB PAGE 2       ############################
 @app.route("/doc2")
@@ -263,80 +264,93 @@ def entry_page_2():
         r = redis.StrictRedis(DB_NAME_IP, 6379, charset="utf-8", decode_responses=True)
         data_currency = r.hgetall("rates")
     except:
-        data_currency = {'usdrub': 74, 'usdtry': 10}
+        data_currency = {"usdrub": 74, "usdtry": 10}
     if data_currency == {}:
-        data_currency = {'usdrub': 74, 'usdtry': 10}
+        data_currency = {"usdrub": 74, "usdtry": 10}
 
-    usd_rub = round(float(data_currency['usdrub']), 3)
-    usd_try = round(float(data_currency['usdtry']), 3)
+    usd_rub = round(float(data_currency["usdrub"]), 3)
+    usd_try = round(float(data_currency["usdtry"]), 3)
 
-    return render_template("doc2.html", the_title=title, the_error="",
-                           the_forex_usd_rub = usd_rub,
-                           the_forex_usd_try = usd_try)
+    return render_template(
+        "doc2.html",
+        the_title=title,
+        the_error="",
+        the_forex_usd_rub=usd_rub,
+        the_forex_usd_try=usd_try,
+    )
+
 
 @app.route("/doc2", methods=["POST"])
 def get_data_2():
     data = {}
-    data['BASE_USDTRY'] = 8.64
-    data['BASE_USDRUB'] = 74.89
-    data['PROCENT'] = 0.185
-    data['Kk'] = 1
-    data['KPI'] = 1
+    data["BASE_USDTRY"] = 8.64
+    data["BASE_USDRUB"] = 74.89
+    data["PROCENT"] = 0.185
+    data["Kk"] = 1
+    data["KPI"] = 1
 
     try:
         r = redis.StrictRedis(DB_NAME_IP, 6379, charset="utf-8", decode_responses=True)
         data_currency = r.hgetall("rates")
     except:
-        data_currency = {'usdrub': 74, 'usdtry': 10}
+        data_currency = {"usdrub": 74, "usdtry": 10}
     if data_currency == {}:
-        data_currency = {'usdrub': 74, 'usdtry': 10}
+        data_currency = {"usdrub": 74, "usdtry": 10}
 
-    usd_rub = round(float(data_currency['usdrub']), 3)
-    usd_try = round(float(data_currency['usdtry']), 3)
+    usd_rub = round(float(data_currency["usdrub"]), 3)
+    usd_try = round(float(data_currency["usdtry"]), 3)
 
-    input_items = ('oklad', 'isn', 'extra', 'targetkpi', 'CURRENT_USDRUB', 'CURRENT_USDTRY')
+    input_items = (
+        "oklad",
+        "isn",
+        "extra",
+        "targetkpi",
+        "CURRENT_USDRUB",
+        "CURRENT_USDTRY",
+    )
     for i in input_items:
         data[i] = request.form[i]
 
     for key, value in data.items():
         try:
-            data[key] = float(str(value).replace(',', '.').replace(' ', ''))
+            data[key] = float(str(value).replace(",", ".").replace(" ", ""))
         except:
             data[key] = value
 
-    if data["CURRENT_USDTRY"] == '':
+    if data["CURRENT_USDTRY"] == "":
         data["CURRENT_USDTRY"] = usd_try
-    if data["CURRENT_USDRUB"] == '':
+    if data["CURRENT_USDRUB"] == "":
         data["CURRENT_USDRUB"] = usd_rub
-    if data["isn"] == '':
+    if data["isn"] == "":
         data["isn"] = 0
-    if data["extra"] == '':
+    if data["extra"] == "":
         data["extra"] = 0
-    if data["targetkpi"] == '':
+    if data["targetkpi"] == "":
         data["targetkpi"] = 0
 
     title = "Рассчет дохода"
     result = data_validation_2(data)
     if result == True:
-        data["CURRENT_TRYRUB"] = (data["CURRENT_USDRUB"])/(data["CURRENT_USDTRY"])
+        data["CURRENT_TRYRUB"] = (data["CURRENT_USDRUB"]) / (data["CURRENT_USDTRY"])
         result = zp(data)
-        return render_template("results2.html",
-                                the_title=title,
-                                the_oklad=data['oklad'],
-                                the_isn=data['isn'],
-                                the_indincome=result['indincome'],
-                                the_extra=data['extra'],
-                                the_zp_extra=result['zp_extra'],
-                                the_ezp=result['ezp'],
-                                the_zp_TRY=result['zp_TRY'],
-                                the_zp_RUB=result['zp_RUB'],
-                                the_zp_USD=result['zp_USD'],
-                                the_ebonus=result['ebonus'],
-                                the_bonus_dop=result['bonus_dop'],
-                                the_bonus_TRY=result['bonus_TRY'],
-                                the_bonus_RUB=result['bonus_RUB'],
-                                the_bonus_USD=result['bonus_USD'],
-                                )
+        return render_template(
+            "results2.html",
+            the_title=title,
+            the_oklad=data["oklad"],
+            the_isn=data["isn"],
+            the_indincome=result["indincome"],
+            the_extra=data["extra"],
+            the_zp_extra=result["zp_extra"],
+            the_ezp=result["ezp"],
+            the_zp_TRY=result["zp_TRY"],
+            the_zp_RUB=result["zp_RUB"],
+            the_zp_USD=result["zp_USD"],
+            the_ebonus=result["ebonus"],
+            the_bonus_dop=result["bonus_dop"],
+            the_bonus_TRY=result["bonus_TRY"],
+            the_bonus_RUB=result["bonus_RUB"],
+            the_bonus_USD=result["bonus_USD"],
+        )
     else:
         return render_template(
             "doc2.html",
@@ -349,6 +363,7 @@ def get_data_2():
             the_CURRENT_USDRUB=result["CURRENT_USDRUB"],
             the_CURRENT_USDTRY=result["CURRENT_USDTRY"],
         )
+
 
 if __name__ == "__main__":
     app.run(debug=True, host=SERVER_NAME_IP, port=8000)

@@ -51,7 +51,54 @@ docker run -it -p 8000:8000 -e DB_NAME_IP='redis' --network=multi-host-network m
 cd Kubernetes
 kubectl apply -f Service.yaml
 kubectl apply -f Ingress.yaml
+kubectl apply -f Deployment_db.yaml
 kubectl apply -f Job.yaml
 kubectl apply -f Deployment.yaml
 kubectl apply -f CronJob.yaml
+```
+
+6. Tree
+```
+.
+├── app-exchange
+│   ├── app
+│   │   └── app-exchange.py
+│   ├── Dockerfile
+│   └── requirements.txt
+├── app-web
+│   ├── app
+│   │   ├── app-web.py
+│   │   ├── data
+│   │   │   ├── test0.yaml
+│   │   │   ├── test1.yaml
+│   │   │   ├── test2.yaml
+│   │   │   ├── test3.yaml
+│   │   │   └── test4.yaml
+│   │   ├── functions
+│   │   │   ├── check_functions.py
+│   │   │   ├── create_doc_1_doc.py
+│   │   │   ├── create_doc_1_pdf.py
+│   │   │   ├── data_validations.py
+│   │   │   ├── documents_functions.py
+│   │   │   └── zp.py
+│   │   ├── static
+│   │   │   └── hf.css
+│   │   └── templates
+│   │       ├── base.html
+│   │       ├── doc1.html
+│   │       ├── doc2.html
+│   │       ├── entry.html
+│   │       ├── results1.html
+│   │       └── results2.html
+│   ├── Dockerfile
+│   └── requirements.txt
+├── Kubernetes
+│   ├── CronJob.yaml
+│   ├── Deployment_db.yaml
+│   ├── Deployment.yaml
+│   ├── Ingress.yaml
+│   ├── Job.yaml
+│   └── Service.yaml
+└── README.md
+
 ```

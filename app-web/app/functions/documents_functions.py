@@ -6,7 +6,7 @@ from docx.enum.table import WD_ROW_HEIGHT_RULE
 from docx.enum.table import WD_ALIGN_VERTICAL
 
 ###########################  CREATE TABLE FUNCTION  ############################
-def create_table(document, headers, rows, style='Table Grid'):
+def create_table(document, headers, rows, style="Table Grid"):
     cols_number = len(headers)
     table = document.add_table(rows=1, cols=cols_number)
     table.style = style
@@ -19,15 +19,18 @@ def create_table(document, headers, rows, style='Table Grid'):
             row_cells[i].text = str(row[i])
     return table
 
+
 ###########################  TABLE PARAM FUNCTION   ############################
-def set_table_params(table,
-                     widths = False,
-                     height = False,
-                     heightrule = False,
-                     fontname = 'Times New Roman',
-                     fontsize = Pt(12),
-                     alignment = 0,
-                     verticalalignment = False):
+def set_table_params(
+    table,
+    widths=False,
+    height=False,
+    heightrule=False,
+    fontname="Times New Roman",
+    fontsize=Pt(12),
+    alignment=0,
+    verticalalignment=False,
+):
     for row in table.rows:
         if widths:
             for idx, width in enumerate(widths):
@@ -51,15 +54,18 @@ def set_table_params(table,
                     if fontsize:
                         font.size = fontsize
 
+
 ########################### TABLE PARAM FUNCTION LO ############################
-def set_table_params_lo(table,
-                        widths = False,
-                        height = False,
-                        heightrule = False,
-                        fontname = 'Times New Roman',
-                        fontsize = Pt(12),
-                        alignment = 0,
-                        verticalalignment = False):
+def set_table_params_lo(
+    table,
+    widths=False,
+    height=False,
+    heightrule=False,
+    fontname="Times New Roman",
+    fontsize=Pt(12),
+    alignment=0,
+    verticalalignment=False,
+):
     for row in table.rows:
         if widths:
             for idx, col in enumerate(table.columns):
