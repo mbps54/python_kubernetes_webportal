@@ -44,7 +44,7 @@ jobs:
         run: docker run -d -e DB_NAME_IP='redis' --network=multi-host-network mbps54/app-exchange:latest
 
       - name: Start the Docker image 1
-        run: docker run -it -p 8000:8000 -e DB_NAME_IP='redis' --network=multi-host-network mbps54/app-web:latest
+        run: docker run -d -p 8000:8000 -e DB_NAME_IP='redis' --network=multi-host-network mbps54/app-web:latest
 
 #      - name: curl
 #        uses: wei/curl@master
