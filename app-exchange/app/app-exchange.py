@@ -10,8 +10,6 @@ if DB_NAME_IP == "None":
     DB_NAME_IP = "localhost"
 
 API_KEY = str(os.environ.get("API_KEY"))
-if DB_NAME_IP == "None":
-    API_KEY = "ca0cdd8c332da1840ec1e46a16ece7"
 
 ###########################      MAIN FUNCTION      ############################
 def get_rates():
