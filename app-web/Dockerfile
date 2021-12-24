@@ -13,9 +13,9 @@ COPY requirements.txt /app/
 RUN pip install -r /app/requirements.txt
 
 COPY ./app/ /app/
-RUN  chmod +x /app/app.py
+RUN  chmod +x /app/app-web.py
 
 WORKDIR /app
 EXPOSE 5000
 
-ENTRYPOINT ["python3", "app.py"]
+ENTRYPOINT ["python3", "app-web.py"]

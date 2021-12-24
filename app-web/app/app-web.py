@@ -8,11 +8,11 @@ from random import randrange
 import redis
 
 ###########################      IMPORT MODULES     ############################
-#from create_doc_1 import create_doc_1
-#from create_doc_1_pdf import create_doc_1_pdf
-from data_validations import data_validation_1
-from data_validations import data_validation_2
-from zp import zp
+from functions.create_doc_1 import create_doc_1
+from functions.create_doc_1_pdf import create_doc_1_pdf
+from functions.data_validations import data_validation_1
+from functions.data_validations import data_validation_2
+from functions.zp import zp
 
 ###########################        NAVIGATION       ############################
 app = Flask(__name__)

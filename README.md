@@ -26,32 +26,32 @@ python3 app.py
 2. Create Docker image
 - Build an image
 ```
-docker build . -t mbps54/web_doc_app:test
-docker build -f Dockerfile2 -t mbps54/currency
+cd app-web
+docker build . -t mbps54/app-web:latest
+
+cd app-exchange
+docker build . -t mbps54/app-exchange:latest
 ```
 - Push container to hub (optional)
 ```
-docker push mbps54/web_doc_app
-docker push mbps54/currency
+docker push mbps54/app-web:latest
+docker push mbps54/app-exchange:latest
 ```
 
 3. Run locally created Docker imange
 ```
 docker network create -d bridge multi-host-network
 docker run -d -p 6379:6379 --network=multi-host-network redis:latest
-docker run -d -e DB_NAME_IP='redis' --network=multi-host-network mbps54/currency
-docker run -it -p 8000:8000 -e DB_NAME_IP='redis' --network=multi-host-network mbps54/web_doc_app:test
-```
-or
-```
-docker run -it -e SERVER_NAME_IP='0.0.0.0' -p 5000:5000 mbps54/web_doc_app
+docker run -d -e DB_NAME_IP='redis' --network=multi-host-network mbps54/app-exchange:latest
+docker run -it -p 8000:8000 -e DB_NAME_IP='redis' --network=multi-host-network mbps54/app-web:latest
 ```
 
-4. Run Docker imange from hub.docker.com
+4. Run on K8S cluster
 ```
-docker run -it -p 5000:5000 mbps54/web_doc_app
-```
-or
-```
-docker run -it -e SERVER_NAME_IP='0.0.0.0' -p 5000:5000 mbps54/web_doc_app
+cd Kubernetes
+kubectl apply -f Service.yaml
+kubectl apply -f Ingress.yaml
+kubectl apply -f Job.yaml
+kubectl apply -f Deployment.yaml
+kubectl apply -f CronJob.yaml
 ```

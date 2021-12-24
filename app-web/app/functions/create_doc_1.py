@@ -9,8 +9,8 @@ from docx.enum.table import WD_ROW_HEIGHT_RULE
 from docx.enum.table import WD_ALIGN_VERTICAL
 
 ###########################      IMPORT MODULES     ############################
-from documents_functions import create_table
-from documents_functions import set_table_params
+from functions.documents_functions import create_table
+from functions.documents_functions import set_table_params
 
 ###########################   CREATE DOC FUNCTION   ############################
 def create_doc_1(data: dict) -> None:

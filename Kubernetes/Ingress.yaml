@@ -11,6 +11,7 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: web-doc-app
+            name: app-web
             port:
-              number: 5000
+              number: 8000
+...

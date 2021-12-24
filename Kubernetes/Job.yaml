@@ -1,0 +1,19 @@
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: job-app-exchange
+spec:
+  template:
+    metadata:
+      labels:
+        app: job-app-exchange
+    spec:
+      restartPolicy: OnFailure
+      containers:
+      - image: mbps54/app-exchange:latest
+        name: job-app-exchange
+        env:
+          - name: DB_NAME_IP
+            value: 'app-redis'
+...

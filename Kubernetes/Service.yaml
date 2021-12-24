@@ -2,12 +2,26 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: web-doc-app
+  name: app-web
 spec:
   ports:
   - port: 80
-    targetPort: 5000
+    targetPort: 8000
   selector:
-    app: web-doc-app
+    app: app-web
+  type: ClusterIP
+...
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-redis
+spec:
+  ports:
+  - port: 6379
+    targetPort: 6379
+  selector:
+    app: app-redis
   type: ClusterIP
 ...

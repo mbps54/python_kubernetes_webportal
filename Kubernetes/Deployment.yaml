@@ -2,12 +2,12 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: deployment-web-doc-app
+  name: deployment-app-web
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: web-doc-app
+      app: app-web
   strategy:
     rollingUpdate:
       maxSurge: 1
@@ -16,14 +16,18 @@ spec:
   template:
     metadata:
       labels:
-        app: web-doc-app
+        app: app-web
     spec:
       containers:
-      - image: mbps54/web_doc_app:1.0.0
-        name: web-doc-app
+      - image: mbps54/app-web:latest
+        name: app-web
+        ports:
+        - containerPort: 8000
         env:
           - name: SERVER_NAME_IP
             value: '0.0.0.0'
+          - name: DB_NAME_IP
+            value: 'app-redis'
         resources:
           requests:
             cpu: 1000m
@@ -35,7 +39,7 @@ spec:
           failureThreshold: 3
           httpGet:
             path: /
-            port: 5000
+            port: 8000
           periodSeconds: 10
           successThreshold: 1
           timeoutSeconds: 1
@@ -43,7 +47,7 @@ spec:
           failureThreshold: 3
           httpGet:
             path: /
-            port: 5000
+            port: 8000
           periodSeconds: 10
           successThreshold: 1
           timeoutSeconds: 1
@@ -51,7 +55,7 @@ spec:
         startupProbe:
           httpGet:
             path: /
-            port: 5000
+            port: 8000
           failureThreshold: 20
           periodSeconds: 10
 ...

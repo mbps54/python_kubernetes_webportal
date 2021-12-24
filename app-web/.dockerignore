@@ -1,0 +1,7 @@
+./app/__pycache__
+./app/.mypy_cache
+./Kubernetes/
+.gitignore
+.DS_Store
+Dockerfile
+README.md

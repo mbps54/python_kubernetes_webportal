@@ -1,0 +1,29 @@
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: cronjob-app-exchange
+spec:
+  schedule: "0 9,11,13,15,17 * * 1-5"
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          labels:
+            app: cronjob-app-exchange
+        spec:
+          restartPolicy: OnFailure
+          containers:
+          - image: mbps54/app-exchange:latest
+            name: cronjob-app-exchange
+            env:
+            - name: DB_NAME_IP
+              value: 'app-redis'
+            resources:
+              requests:
+                cpu: 50m
+                memory: 100Mi
+              limits:
+                cpu: 100m
+                memory: 100Mi
+...

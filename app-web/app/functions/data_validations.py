@@ -3,12 +3,11 @@
 from typing import Union
 
 ###########################      IMPORT MODULES     ############################
-from check_functions import check_email
-from check_functions import check_name
-from check_functions import check_phone
-from check_functions import check_kimlik
-
-from check_functions import check_digit
+from functions.check_functions import check_email
+from functions.check_functions import check_name
+from functions.check_functions import check_phone
+from functions.check_functions import check_kimlik
+from functions.check_functions import check_digit
 
 ###########################  VALIDATION FUNCTION 1  ############################
 def data_validation_1(data: dict) -> Union[bool, dict]:
