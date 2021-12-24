@@ -29,10 +29,10 @@ jobs:
         run: echo "*.yaml files are OK"
 
       - name: Build the Docker image 1
-        run: docker build . -f app-web/Dockerfile --file Dockerfile --tag mbps54/app-web:latest
+        run: docker build . -f ./app-web/Dockerfile --file Dockerfile --tag mbps54/app-web:latest
 
       - name: Build the Docker image 2
-        run: docker build . -f app-exchange/Dockerfile --file Dockerfile --tag mbps54/app-exchange:latest
+        run: docker build . -f ./app-exchange/Dockerfile --file Dockerfile --tag mbps54/app-exchange:latest
 
       - name: Create Docker Network
         run: docker network create -d bridge multi-host-network
