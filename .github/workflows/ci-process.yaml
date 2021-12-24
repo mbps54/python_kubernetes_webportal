@@ -64,7 +64,7 @@ jobs:
         run: docker push mbps54/app-exchange:latest
 
   deploy_on_aws:
-    needs: [build_docker_image]
+    needs: [build_docker_images]
     runs-on: ubuntu-latest
     steps:
       - name: Print result
