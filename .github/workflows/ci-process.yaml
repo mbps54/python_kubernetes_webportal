@@ -13,14 +13,14 @@ jobs:
     - uses: actions/checkout@v1
 
     - name: check files
-      run: ls -la ./app/data
+      run: ls -la ./app-web/app/data
 
     - name: yaml-lint
       uses: ibiqlik/action-yamllint@v3
       with:
-        file_or_dir: ./app/data
+        file_or_dir: ./app-web/app/data
 
-  build_docker_image:
+  build_docker_images:
     needs: [check_yaml_syntax]
     runs-on: ubuntu-latest
     steps:
@@ -28,16 +28,29 @@ jobs:
       - name: Print result
         run: echo "*.yaml files are OK"
 
-      - name: Build the Docker image
-        run: docker build . --file Dockerfile --tag mbps54/web_doc_app:latest
+      - name: Build the Docker image 1
+        run: docker build . -f app-web/Dockerfile --file Dockerfile --tag mbps54/app-web:latest
 
-      - name: Start the Docker image
-        run: docker run -d -p 5000:5000 mbps54/web_doc_app:latest
+      - name: Build the Docker image 2
+        run: docker build . -f app-exchange/Dockerfile --file Dockerfile --tag mbps54/app-exchange:latest
+
+      - name: Create Docker Network
+        run: docker network create -d bridge multi-host-network
+
+      - name: Start the DB
+        run: docker network create -d bridge multi-host-network
+        run: docker run -d -p 6379:6379 --network=multi-host-network redis:latest
+
+      - name: Start the Docker image 1
+        run: docker run -d -e DB_NAME_IP='redis' --network=multi-host-network mbps54/app-exchange:latest
+
+      - name: Start the Docker image 1
+        run: docker run -it -p 8000:8000 -e DB_NAME_IP='redis' --network=multi-host-network mbps54/app-web:latest
 
 #      - name: curl
 #        uses: wei/curl@master
 #        with:
-#          args: http://localhost:5000
+#          args: http://localhost:8000
 
       - name: Login to Docker Registry
         run: docker login -u "$DOCKER_USERNAME" --password-stdin <<< "$DOCKER_PASSWORD"
@@ -45,8 +58,11 @@ jobs:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Push the Docker image
-        run: docker push mbps54/web_doc_app:latest
+      - name: Push the Docker image 1
+        run: docker push mbps54/app-web:latest
+
+      - name: Push the Docker image 2
+        run: docker push mbps54/app-exchange:latest
 
   deploy_on_aws:
     needs: [build_docker_image]
@@ -68,5 +84,10 @@ jobs:
                 docker stop $(docker ps -aq)
                 docker rm $(docker ps -aq)
                 docker rmi $(docker images -q)
-                docker pull mbps54/web_doc_app:latest
-                docker run -d -p 8000:5000 mbps54/web_doc_app:latest
+                docker pull redis:latest
+                docker pull mbps54/app-exchange:latest
+                docker pull app-web:latest
+                docker network create -d bridge multi-host-network
+                docker run -d -p 6379:6379 --network=multi-host-network redis:latest
+                docker run -d -e DB_NAME_IP='redis' --network=multi-host-network mbps54/app-exchange:latest
+                docker run -d -p 8000:8000 -e DB_NAME_IP='redis' --network=multi-host-network mbps54/app-web:latest
