@@ -37,13 +37,13 @@ jobs:
       - name: Create Docker Network
         run: docker network create -d bridge multi-host-network
 
-      - name: Start the DB
+      - name: Run Database
         run: docker run -d -p 6379:6379 --network=multi-host-network redis:latest
 
-      - name: Start the Docker image 1
+      - name: Run Docker image 1
         run: docker run -d -e DB_NAME_IP='redis' --network=multi-host-network mbps54/app-exchange:latest
 
-      - name: Start the Docker image 1
+      - name: Run Docker image 1
         run: docker run -d -p 8000:8000 -e DB_NAME_IP='redis' --network=multi-host-network mbps54/app-web:latest
 
 #      - name: curl
@@ -57,10 +57,10 @@ jobs:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Push the Docker image 1
+      - name: Push Docker image 1
         run: docker push mbps54/app-web:latest
 
-      - name: Push the Docker image 2
+      - name: Push Docker image 2
         run: docker push mbps54/app-exchange:latest
 
   deploy_on_aws:
@@ -85,5 +85,5 @@ jobs:
                 docker pull mbps54/app-web:latest
                 docker network create -d bridge multi-host-network
                 docker run -d -p 6379:6379 --network=multi-host-network redis:latest
-                docker run -d -e DB_NAME_IP='redis' -e CRON_SCHEDULE='0 9,11,13,15,17 X X 1-5' --network=multi-host-network mbps54/app-exchange:latest
+                docker run -d -e DB_NAME_IP='redis' -e CRON_SCHEDULE='0 9,11,13,15,17 X X 1-5' -e API_KEY='ca0cdd8c332da1840ec1e46a16ece708' --network=multi-host-network mbps54/app-exchange:latest
                 docker run -d -p 8000:8000 -e DB_NAME_IP='redis' --network=multi-host-network mbps54/app-web:latest
