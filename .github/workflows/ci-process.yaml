@@ -38,7 +38,6 @@ jobs:
         run: docker network create -d bridge multi-host-network
 
       - name: Start the DB
-        run: docker network create -d bridge multi-host-network
         run: docker run -d -p 6379:6379 --network=multi-host-network redis:latest
 
       - name: Start the Docker image 1
