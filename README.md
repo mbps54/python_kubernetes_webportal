@@ -59,11 +59,11 @@ kubectl apply -f CronJob.yaml
 
 6. Tree
 ```
-.
 ├── app-exchange
 │   ├── app
 │   │   └── app-exchange.py
 │   ├── Dockerfile
+│   ├── .dockerignore
 │   └── requirements.txt
 ├── app-web
 │   ├── app
@@ -91,7 +91,12 @@ kubectl apply -f CronJob.yaml
 │   │       ├── results1.html
 │   │       └── results2.html
 │   ├── Dockerfile
+│   ├── .dockerignore
 │   └── requirements.txt
+├── .github
+│   └── workflows
+│       └── ci-process.yaml
+├── .gitignore
 ├── Kubernetes
 │   ├── CronJob.yaml
 │   ├── Deployment_db.yaml
