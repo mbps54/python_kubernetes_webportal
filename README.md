@@ -50,16 +50,20 @@ docker network create -d bridge multi-host-network
 docker run -d \
            -p 6379:6379 \
            --network=multi-host-network \
+           --name app-redis \
            redis:latest
 docker run -d \
-           --env DB_NAME_IP='redis' \
-           --env CRON_SCHEDULE='0 9,11,13,15,17 X X 1-5' \
+           -e DB_NAME_IP='app-redis' \
+           -e API_KEY='ca0cdd8c332da1840ec1e46a16ece708' \
+           -e CRON_SCHEDULE='0 9,11,13,15,17 X X 1-5' \
            --network=multi-host-network \
+           --name app-exchange \
            mbps54/app-exchange:latest
 docker run -d \
-           -e DB_NAME_IP='redis' \
+           -e DB_NAME_IP='app-redis' \
            -p 8000:8000 \
            --network=multi-host-network \
+           --name app-web \
            mbps54/app-web:latest
 ```
 
