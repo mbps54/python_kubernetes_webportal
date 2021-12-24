@@ -57,7 +57,7 @@ kubectl apply -f Deployment.yaml
 kubectl apply -f CronJob.yaml
 ```
 
-6. Tree
+6. tree -a -I ".git"
 ```
 ├── app-exchange
 │   ├── app
