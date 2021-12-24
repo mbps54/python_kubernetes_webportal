@@ -14,18 +14,18 @@ spec:
         spec:
           restartPolicy: OnFailure
           containers:
-          - image: mbps54/app-exchange:latest
-            name: cronjob-app-exchange
-            env:
-            - name: DB_NAME_IP
-              value: 'app-redis'
-            - name: API_KEY
-              value: 'ca0cdd8c332da1840ec1e46a16ece7'
-            resources:
-              requests:
-                cpu: 50m
-                memory: 100Mi
-              limits:
-                cpu: 100m
-                memory: 100Mi
+            - image: mbps54/app-exchange:latest
+              name: cronjob-app-exchange
+              env:
+                - name: DB_NAME_IP
+                  value: 'app-redis'
+                - name: API_KEY
+                  value: 'ca0cdd8c332da1840ec1e46a16ece7'
+              resources:
+                requests:
+                  cpu: 50m
+                  memory: 100Mi
+                limits:
+                  cpu: 100m
+                  memory: 100Mi
 ...
