@@ -41,9 +41,20 @@ docker push mbps54/app-exchange:latest
 3. Run locally created Docker imange
 ```
 docker network create -d bridge multi-host-network
-docker run -d -p 6379:6379 --network=multi-host-network redis:latest
-docker run -d -e DB_NAME_IP='redis' --network=multi-host-network mbps54/app-exchange:latest
-docker run -it -p 8000:8000 -e DB_NAME_IP='redis' --network=multi-host-network mbps54/app-web:latest
+docker run -d \
+           -p 6379:6379 \
+           --network=multi-host-network \
+           redis:latest
+docker run -d \
+           --env DB_NAME_IP='redis' \
+           --env CRON_SCHEDULE='0 9,11,13,15,17 X X 1-5' \
+           --network=multi-host-network \
+           mbps54/app-exchange:latest
+docker run -d \
+           -e DB_NAME_IP='redis' \
+           -p 8000:8000 \
+           --network=multi-host-network \
+           mbps54/app-web:latest
 ```
 
 4. Run on K8S cluster

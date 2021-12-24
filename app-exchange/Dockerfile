@@ -14,6 +14,7 @@ COPY requirements.txt /app/
 RUN pip install -r /app/requirements.txt
 
 COPY ./app/ /app/
+COPY start.sh /app/
 RUN  chmod +x /app/app-exchange.py /app/start.sh
 
 ENTRYPOINT ["/bin/bash", "/app/start.sh"]
