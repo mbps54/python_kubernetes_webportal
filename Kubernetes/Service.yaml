@@ -5,8 +5,8 @@ metadata:
   name: app-web
 spec:
   ports:
-  - port: 80
-    targetPort: 8000
+    - port: 80
+      targetPort: 8000
   selector:
     app: app-web
   type: ClusterIP
@@ -19,8 +19,8 @@ metadata:
   name: app-redis
 spec:
   ports:
-  - port: 6379
-    targetPort: 6379
+    - port: 6379
+      targetPort: 6379
   selector:
     app: app-redis
   type: ClusterIP

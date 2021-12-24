@@ -19,43 +19,43 @@ spec:
         app: app-web
     spec:
       containers:
-      - image: mbps54/app-web:latest
-        name: app-web
-        ports:
-        - containerPort: 8000
-        env:
-          - name: SERVER_NAME_IP
-            value: '0.0.0.0'
-          - name: DB_NAME_IP
-            value: 'app-redis'
-        resources:
-          requests:
-            cpu: 1000m
-            memory: 1000Mi
-          limits:
-            cpu: 1000m
-            memory: 1000Mi
-        readinessProbe:
-          failureThreshold: 3
-          httpGet:
-            path: /
-            port: 8000
-          periodSeconds: 10
-          successThreshold: 1
-          timeoutSeconds: 1
-        livenessProbe:
-          failureThreshold: 3
-          httpGet:
-            path: /
-            port: 8000
-          periodSeconds: 10
-          successThreshold: 1
-          timeoutSeconds: 1
-          initialDelaySeconds: 20
-        startupProbe:
-          httpGet:
-            path: /
-            port: 8000
-          failureThreshold: 20
-          periodSeconds: 10
+        - image: mbps54/app-web:latest
+          name: app-web
+          ports:
+            - containerPort: 8000
+          env:
+            - name: SERVER_NAME_IP
+              value: '0.0.0.0'
+            - name: DB_NAME_IP
+              value: 'app-redis'
+          resources:
+            requests:
+              cpu: 1000m
+              memory: 1000Mi
+            limits:
+              cpu: 1000m
+              memory: 1000Mi
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /
+              port: 8000
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /
+              port: 8000
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+            initialDelaySeconds: 20
+          startupProbe:
+            httpGet:
+              path: /
+              port: 8000
+            failureThreshold: 20
+            periodSeconds: 10
 ...

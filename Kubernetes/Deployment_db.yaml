@@ -19,15 +19,15 @@ spec:
         app: app-redis
     spec:
       containers:
-      - image: redis:latest
-        name: app-redis
-        ports:
-        - containerPort: 6379
-        resources:
-          requests:
-            cpu: 50m
-            memory: 100Mi
-          limits:
-            cpu: 100m
-            memory: 100Mi
+        - image: redis:latest
+          name: app-redis
+          ports:
+            - containerPort: 6379
+          resources:
+            requests:
+              cpu: 50m
+              memory: 100Mi
+            limits:
+              cpu: 100m
+              memory: 100Mi
 ...
