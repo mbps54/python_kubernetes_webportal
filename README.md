@@ -54,7 +54,7 @@ docker run -d \
            redis:latest
 docker run -d \
            -e DB_NAME_IP='app-redis' \
-           -e API_KEY='ca0cdd8c332da1840ec1e46a16ece708' \
+           -e API_KEY='ca0cdd8c332da1840ec1e46a16ece7' \
            -e CRON_SCHEDULE='0 9,11,13,15,17 X X 1-5' \
            --network=multi-host-network \
            --name app-exchange \
