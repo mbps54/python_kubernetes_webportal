@@ -341,6 +341,7 @@ def get_data_2():
             the_indincome=result["indincome"],
             the_extra=data["extra"],
             the_zp_extra=result["zp_extra"],
+            the_zp_extra_2=result["extra_2"]
             the_ezp=result["ezp"],
             the_zp_TRY=result["zp_TRY"],
             the_zp_RUB=result["zp_RUB"],

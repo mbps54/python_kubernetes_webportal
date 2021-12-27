@@ -17,6 +17,7 @@ data['extra'] = 1000
 data['targetkpi'] = 15000
 """
 
+
 #############################          MAIN        #############################
 def zp(data):
     BASE_USDTRY = data["BASE_USDTRY"]
@@ -44,6 +45,7 @@ def zp(data):
     #############################           ZP         #############################
     zp_extra = round((ezp * CURRENT_USDTRY * Rk) - bzp + extra * Kv - extra)
     zp_TRY = round(zp_extra + bzp + extra)
+    extra_2 = extra*Kv
     if zp_TRY < oklad:
         zp_TRY = oklad
     zp_RUB = round(zp_TRY * CURRENT_TRYRUB)
@@ -56,6 +58,9 @@ def zp(data):
     result["ezp"] = ezp
     result["indincome"] = indincome
     result["zp_extra"] = zp_extra
+    result["extra_2"] = extra_2
+    result["Kv"] = Kv
+    result["Rk"] = Rk
 
     #############################         EBONUS       #############################
     indbonus = round(targetkpi * PROCENT)
