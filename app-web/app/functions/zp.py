@@ -28,10 +28,10 @@ def zp(data):
     CURRENT_USDRUB = data["CURRENT_USDRUB"]
     CURRENT_USDTRY = data["CURRENT_USDTRY"]
     CURRENT_TRYRUB = data["CURRENT_TRYRUB"]
-    oklad = extra
-    isn = data["isn"]
-    extra = data["extra"]
-    targetkpi = data["targetkpi"]
+    oklad = round(data['oklad'])
+    isn = round(data["isn"])
+    extra = round(data["extra"])
+    targetkpi = round(data["targetkpi"])
     result = {}
     #############################      KOEFFICENTS     #############################
     Rk = round((BASE_USDRUB / CURRENT_USDRUB) * Kk, 4)
@@ -43,13 +43,13 @@ def zp(data):
     ezp = round(bzp / BASE_USDTRY)
 
     #############################           ZP         #############################
-    zp_extra = round((ezp * CURRENT_USDTRY * Rk) - bzp + extra * Kv - extra)
+    zp_extra = round((ezp * CURRENT_USDTRY * Rk) - bzp)
     if zp_extra < 0:
         zp_extra = 0
-    zp_TRY = round(zp_extra + bzp + extra)
-    extra_2 = extra*Kv
+    extra_2 = round(extra*Kv)
     if extra_2 < extra:
         extra_2 = extra
+    zp_TRY = round(zp_extra + bzp + extra_2)
     zp_RUB = round(zp_TRY * CURRENT_TRYRUB)
     zp_USD = round(zp_TRY / CURRENT_USDTRY)
     result["zp_TRY"] = zp_TRY
@@ -81,6 +81,7 @@ def zp(data):
     result["ebonus"] = ebonus
     result["indbonus"] = indbonus
     result["bonus_dop"] = bonus_dop
+    result["bonus_plus"] = indbonus + bonus_dop
 
     #############################        RESULT        #############################
     return result

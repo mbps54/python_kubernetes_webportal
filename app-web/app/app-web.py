@@ -321,6 +321,8 @@ def get_data_2():
         data["CURRENT_USDTRY"] = usd_try
     if data["CURRENT_USDRUB"] == "":
         data["CURRENT_USDRUB"] = usd_rub
+    if data["oklad"] == "":
+        data["oklad"] = 0
     if data["isn"] == "":
         data["isn"] = 0
     if data["extra"] == "":
@@ -341,13 +343,13 @@ def get_data_2():
             the_indincome=result["indincome"],
             the_extra=data["extra"],
             the_zp_extra=result["zp_extra"],
-            the_zp_extra_2=result["extra_2"],
+            the_extra_2=result["extra_2"],
             the_ezp=result["ezp"],
             the_zp_TRY=result["zp_TRY"],
             the_zp_RUB=result["zp_RUB"],
             the_zp_USD=result["zp_USD"],
             the_ebonus=result["ebonus"],
-            the_bonus_dop=result["bonus_dop"],
+            the_bonus_plus=result["bonus_plus"],
             the_bonus_TRY=result["bonus_TRY"],
             the_bonus_RUB=result["bonus_RUB"],
             the_bonus_USD=result["bonus_USD"],
