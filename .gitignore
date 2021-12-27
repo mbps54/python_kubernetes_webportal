@@ -6,3 +6,5 @@
 __pycache__/
 *.py[cod]
 ./.DS_Store
+app-web/app/.mypy_cache
+app-web/app/.mypy_cache/*
