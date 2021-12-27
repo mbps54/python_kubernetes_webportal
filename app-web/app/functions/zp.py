@@ -49,7 +49,7 @@ def zp(data):
     extra_2 = round(extra*Kv)
     if extra_2 < extra:
         extra_2 = extra
-    zp_TRY = round(zp_extra + bzp + extra_2)
+    zp_TRY = round(zp_extra + bzp)
     zp_RUB = round(zp_TRY * CURRENT_TRYRUB)
     zp_USD = round(zp_TRY / CURRENT_USDTRY)
     result["zp_TRY"] = zp_TRY
@@ -72,6 +72,10 @@ def zp(data):
     bonus_dop = round(
         (ebonus * KPI * CURRENT_USDTRY * Rk) - (targetkpi + indbonus) * KPI
     )
+    if indbonus < 0:
+        indbonus = 0
+    if bonus_dop < 0:
+        bonus_dop = 0
     bonus_TRY = round(targetkpi + indbonus + bonus_dop)
     bonus_RUB = round(bonus_TRY * CURRENT_TRYRUB)
     bonus_USD = round(bonus_TRY / CURRENT_USDTRY)
@@ -85,3 +89,4 @@ def zp(data):
 
     #############################        RESULT        #############################
     return result
+
