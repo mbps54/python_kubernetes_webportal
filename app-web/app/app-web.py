@@ -333,21 +333,30 @@ def get_data_2():
     title = "Рассчет дохода"
     result = data_validation_2(data)
     if result == True:
-        data["CURRENT_TRYRUB"] = (data["CURRENT_USDRUB"]) / (data["CURRENT_USDTRY"])
+        data["CURRENT_TRYRUB"] = round((data["CURRENT_USDRUB"]) / (data["CURRENT_USDTRY"]), 3)
         result = zp(data)
         return render_template(
             "results2.html",
-            the_title=title,
-            the_oklad=data["oklad"],
-            the_isn=data["isn"],
-            the_indincome=result["indincome"],
-            the_extra=data["extra"],
-            the_zp_extra=result["zp_extra"],
-            the_extra_2=result["extra_2"],
-            the_ezp=result["ezp"],
-            the_zp_TRY=result["zp_TRY"],
-            the_zp_RUB=result["zp_RUB"],
-            the_zp_USD=result["zp_USD"],
+            the_title = title,
+            the_oklad = data["oklad"],
+            the_isn = data["isn"],
+            the_extra = data["extra"],
+            the_targetkpi = data["targetkpi"],
+            the_usd_try = data["CURRENT_USDTRY"],
+            the_usd_rub = data["CURRENT_USDRUB"],
+            the_try_rub = data["CURRENT_TRYRUB"],
+
+            the_ezp = result["ezp"],
+            the_indincome = result["indincome"],
+            the_zp_extra = result["zp_extra"],
+            the_zp_TRY = result["zp_TRY"],
+            the_zp_RUB = result["zp_RUB"],
+            the_zp_USD = result["zp_USD"],
+
+            the_extra_2_try = result["extra_2"],
+            the_extra_2_usd = round(the_extra_2_try * the_usd_try),
+            the_extra_2_rub = round(the_extra_2_try * the_try_rub),
+
             the_ebonus=result["ebonus"],
             the_bonus_plus=result["bonus_plus"],
             the_bonus_TRY=result["bonus_TRY"],
