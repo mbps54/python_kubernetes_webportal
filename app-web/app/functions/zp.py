@@ -28,7 +28,7 @@ def zp(data):
     CURRENT_USDRUB = data["CURRENT_USDRUB"]
     CURRENT_USDTRY = data["CURRENT_USDTRY"]
     CURRENT_TRYRUB = data["CURRENT_TRYRUB"]
-    oklad = data["oklad"]
+    oklad = extra
     isn = data["isn"]
     extra = data["extra"]
     targetkpi = data["targetkpi"]
@@ -44,10 +44,12 @@ def zp(data):
 
     #############################           ZP         #############################
     zp_extra = round((ezp * CURRENT_USDTRY * Rk) - bzp + extra * Kv - extra)
+    if zp_extra < 0:
+        zp_extra = 0
     zp_TRY = round(zp_extra + bzp + extra)
     extra_2 = extra*Kv
-    if zp_TRY < oklad:
-        zp_TRY = oklad
+    if extra_2 < extra:
+        extra_2 = extra
     zp_RUB = round(zp_TRY * CURRENT_TRYRUB)
     zp_USD = round(zp_TRY / CURRENT_USDTRY)
     result["zp_TRY"] = zp_TRY
