@@ -46,5 +46,8 @@
 <p>Итого по курсу в RUB: {{ the_bonus_RUB }}</p>
 <p>Итого по курсу в USD: {{ the_bonus_USD }}</p>
 
+<p>
+	<a href="{{ url_for('.download_file_pdf2') }}">Скачать результат</a>
+</p>
 
 {% endblock %}

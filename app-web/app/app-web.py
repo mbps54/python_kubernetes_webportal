@@ -10,6 +10,7 @@ import redis
 ###########################      IMPORT MODULES     ############################
 from functions.create_doc_1_pdf import create_doc_1_pdf
 from functions.create_doc_1_doc import create_doc_1_doc
+from functions.create_doc_2_pdf import create_doc_2_pdf
 from functions.data_validations import data_validation_1
 from functions.data_validations import data_validation_2
 from functions.zp import zp
@@ -342,6 +343,10 @@ def get_data_2():
         extra_2_try = result["extra_2"]
         extra_2_usd = round((extra_2_try / data["CURRENT_USDTRY"]))
         extra_2_rub = round(extra_2_try * data["CURRENT_TRYRUB"])
+        result['extra_2_try'] = extra_2_try
+        result['extra_2_rub'] = extra_2_rub
+        result['extra_2_usd'] = extra_2_usd
+        create_doc_2_pdf(data, result)
         return render_template(
             "results2.html",
             the_title = title,
@@ -362,8 +367,8 @@ def get_data_2():
             the_extra_2_usd = extra_2_usd,
             the_extra_2_rub = extra_2_rub,
             the_ebonus = result["ebonus"],
-            the_bonus_dop = result["bonus_dop"],
             the_indbonus = result["indbonus"],
+            the_bonus_dop = result["bonus_dop"],
             the_bonus_TRY = result["bonus_TRY"],
             the_bonus_RUB = result["bonus_RUB"],
             the_bonus_USD = result["bonus_USD"],
@@ -381,6 +386,10 @@ def get_data_2():
             the_CURRENT_USDTRY=result["CURRENT_USDTRY"],
         )
 
+@app.route("/download_pdf2")
+def download_file_pdf2():
+    path = "files/doc2/document.pdf"
+    return send_file(path, as_attachment=True)
 
 if __name__ == "__main__":
     app.run(debug=True, host=SERVER_NAME_IP, port=8000)
