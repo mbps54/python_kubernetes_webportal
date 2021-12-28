@@ -44,7 +44,7 @@ def create_doc_2_pdf(data: dict, result: dict) -> None:
     records_table_1.append(['Оклад (в TRY)', f"{data['oklad']} TRY"])
     records_table_1.append(['ИСН (инд. стимулирующая надбавка)', f"{data['isn']} TRY"])
     records_table_1.append(['Доплата (совмещение и пр.)', f"{data['extra']} TRY"])
-    records_table_1.append(['Целевой размер премии', f"{data['targetkpi']} TRY"])
+    records_table_1.append(['Целевой размер премии по КПЭ', f"{data['targetkpi']} TRY"])
     records_table_1.append(['Корректирующий коэффициент (Кк)', data["Kk"]])
     records_table_1.append(['Рассчетный коэффициент (Рк), влияние курса RUB/USD и Кк', result["Rk"]])
     records_table_1.append(['Валютный коэффициент (Кв), влияние курса TRY/USD и Рк', result["Kv"]])
@@ -52,7 +52,7 @@ def create_doc_2_pdf(data: dict, result: dict) -> None:
 
     records_table_1.append(['Курс USD/RUB', data["CURRENT_USDRUB"]])
     records_table_1.append(['Курс USD/TRY', data["CURRENT_USDTRY"]])
-    records_table_1.append(['Курс TRY/RUB', data["CURRENT_TRYRUB"]])
+    records_table_1.append(['Курс TRY/RUB', f"{data["CURRENT_TRYRUB"]} (кросс-курс рассчитан автоматически)"])
 
     table_1 = create_table(document, headers_1, records_table_1)
     table_1.allow_autofit = False
@@ -84,7 +84,7 @@ def create_doc_2_pdf(data: dict, result: dict) -> None:
     records_table_2.append(['Оклад', '', data['oklad'], '', ''])
     records_table_2.append(['ИСН (инд. стимулирующая надбавка)', '', data['isn'], '', ''])
     records_table_2.append(['Индексирующая выплата', '', result["indincome"], '', ''])
-    records_table_2.append(['Доплата до эквивалента', '', result["zp_extra"], '', ''])
+    records_table_2.append(['Дополнительная доплата до эквивалента', '', result["zp_extra"], '', ''])
     records_table_2.append(['Итого к начислению', '', result["zp_TRY"], result["zp_RUB"], result["zp_USD"]])
 
     table_2 = create_table(document, headers_2, records_table_2)
@@ -142,8 +142,8 @@ def create_doc_2_pdf(data: dict, result: dict) -> None:
         'USD',
     )
     records_table_4 = []
-    records_table_4.append(['Эквивалент целевого размера премии', result['ebonus'], '', '', ''])
-    records_table_4.append(['Целевой размер премии', '', data['targetkpi'], '', ''])
+    records_table_4.append(['Эквивалент целевого размера премии по КПЭ', result['ebonus'], '', '', ''])
+    records_table_4.append(['Целевой размер премии по КПЭ', '', data['targetkpi'], '', ''])
     records_table_4.append(['Индексирующая выплата', '', result["indbonus"], '', ''])
     records_table_4.append(['Доплата до эквивалента', '', result["bonus_dop"], '', ''])
     records_table_4.append(['Индексирующая выплата', '', result["bonus_TRY"], result["bonus_RUB"], result["bonus_USD"]])
