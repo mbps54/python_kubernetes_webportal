@@ -130,7 +130,7 @@ def create_doc_2_pdf(data: dict, result: dict) -> None:
     p5 = document.add_paragraph()
     p5.style = style
     p5.alignment = 1
-    p5.add_run(f"Премия").bold = True
+    p5.add_run(f"Премия по КПЭ").bold = True
     p5.paragraph_format.space_before = Pt(12)
 
     ###############################      TABLE 4      ###############################
@@ -145,7 +145,7 @@ def create_doc_2_pdf(data: dict, result: dict) -> None:
     records_table_4.append(['Эквивалент целевого размера премии по КПЭ', result['ebonus'], '', '', ''])
     records_table_4.append(['Целевой размер премии по КПЭ', '', data['targetkpi'], '', ''])
     records_table_4.append(['Индексирующая выплата', '', result["indbonus"], '', ''])
-    records_table_4.append(['Доплата до эквивалента', '', result["bonus_dop"], '', ''])
+    records_table_4.append(['Дополнительная доплата до эквивалента', '', result["bonus_dop"], '', ''])
     records_table_4.append(['Итого к начислению', '', result["bonus_TRY"], result["bonus_RUB"], result["bonus_USD"]])
 
     table_4 = create_table(document, headers_4, records_table_4)
