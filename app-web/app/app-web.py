@@ -22,9 +22,8 @@ nav.Bar(
     "top",
     [
         nav.Item("Главное меню", "entry"),
+        nav.Item("Рассчет дохода", "get_data_2")
         nav.Item("Релокация. Заявление на билеты и гостиницу", "get_data"),
-        nav.Item("Рассчет дохода", "get_data_2"),
-        nav.Item("Заявление на ...", "entry"),
     ],
 )
 
