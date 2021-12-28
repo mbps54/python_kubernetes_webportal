@@ -52,7 +52,7 @@ def create_doc_2_pdf(data: dict, result: dict) -> None:
 
     records_table_1.append(['Курс USD/RUB', data["CURRENT_USDRUB"]])
     records_table_1.append(['Курс USD/TRY', data["CURRENT_USDTRY"]])
-    records_table_1.append(['Курс TRY/RUB', f"{data['CURRENT_TRYRUB']} (кросс-курс рассчитан автоматически)"])
+    records_table_1.append(['Курс TRY/RUB (кросс-курс рассчитан автоматически)', data['CURRENT_TRYRUB']])
 
     table_1 = create_table(document, headers_1, records_table_1)
     table_1.allow_autofit = False
