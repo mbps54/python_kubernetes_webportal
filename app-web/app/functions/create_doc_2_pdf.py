@@ -146,7 +146,7 @@ def create_doc_2_pdf(data: dict, result: dict) -> None:
     records_table_4.append(['Целевой размер премии по КПЭ', '', data['targetkpi'], '', ''])
     records_table_4.append(['Индексирующая выплата', '', result["indbonus"], '', ''])
     records_table_4.append(['Доплата до эквивалента', '', result["bonus_dop"], '', ''])
-    records_table_4.append(['Индексирующая выплата', '', result["bonus_TRY"], result["bonus_RUB"], result["bonus_USD"]])
+    records_table_4.append(['Итого к начислению', '', result["bonus_TRY"], result["bonus_RUB"], result["bonus_USD"]])
 
     table_4 = create_table(document, headers_4, records_table_4)
     table_4.allow_autofit = False
