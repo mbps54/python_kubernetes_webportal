@@ -362,7 +362,7 @@ def get_data_2():
             the_extra_2_usd = extra_2_usd,
             the_extra_2_rub = extra_2_rub,
             the_ebonus = result["ebonus"],
-            the_bonus_plus = result["bonus_dop"],
+            the_bonus_dop = result["bonus_dop"],
             the_indbonus = result["indbonus"],
             the_bonus_TRY = result["bonus_TRY"],
             the_bonus_RUB = result["bonus_RUB"],

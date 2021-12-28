@@ -8,3 +8,7 @@ __pycache__/
 ./.DS_Store
 app-web/app/.mypy_cache
 app-web/app/.mypy_cache/*
+!**/__pycache__/
+pycache/
+/pycache/
+
