@@ -1,7 +1,6 @@
 ./app/files/
-!web-portal.pdf
-!/Diagram/*.pdf
 *.pdf
+!web-portal.pdf
 *.docx
 ./app-web/app/.mypy_cache/*
 ./app-web/app/.mypy_cache
