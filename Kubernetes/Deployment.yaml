@@ -30,10 +30,10 @@ spec:
               value: 'app-redis'
           resources:
             requests:
-              cpu: 1000m
-              memory: 1000Mi
+              cpu: 500m
+              memory: 500Mi
             limits:
-              cpu: 1000m
+              cpu: 500m
               memory: 1000Mi
           readinessProbe:
             failureThreshold: 3
