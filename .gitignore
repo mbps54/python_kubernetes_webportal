@@ -1,4 +1,5 @@
 ./app/files/
+!web-portal.pdf
 !/Diagram/*.pdf
 *.pdf
 *.docx
