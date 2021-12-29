@@ -68,6 +68,7 @@ docker run -d \
 ```
 
 3. Run Docker containes on Kubernetes cluster
+Detailed K8S info in /Diagram/web-portal.pdf
 ```
 cd Kubernetes
 kubectl apply -f Service.yaml
