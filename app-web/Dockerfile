@@ -18,4 +18,6 @@ RUN  chmod +x /app/app-web.py
 WORKDIR /app
 EXPOSE 8000
 
+RUN echo "0 */4 * * * root rm -rf /app/files/" >> /etc/crontab
+
 ENTRYPOINT ["python3", "app-web.py"]
