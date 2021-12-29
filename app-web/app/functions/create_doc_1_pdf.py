@@ -14,7 +14,7 @@ from functions.documents_functions import create_table
 from functions.documents_functions import set_table_params_lo
 
 ###########################   CREATE DOC FUNCTION   ############################
-def create_doc_1_pdf(data: dict) -> None:
+def create_doc_1_pdf(data: dict, user = '') -> None:
     document = Document()
 
     ###########################      DEFAULT STYLE      ############################
@@ -391,18 +391,18 @@ def create_doc_1_pdf(data: dict) -> None:
         os.makedirs(os.path.expanduser("./files/doc1/"))
     except:
         pass
-    document.save("./files/doc1/document_pdf.docx")
+    document.save(f"./files/doc1/document_pdf{user}.docx")
 
     ###############################  CONVERT TO PDF  ###############################
     subprocess.run(
-        ["doc2pdf", "./files/doc1/document_pdf.docx"],
+        ["doc2pdf", f"./files/doc1/document_pdf{user}.docx"],
         stdout=subprocess.DEVNULL,
         stderr=subprocess.DEVNULL,
         encoding="utf-8",
     )
     ###############################    RENAME FILE   ###############################
     subprocess.run(
-        ["mv", "./files/doc1/document_pdf.pdf", "./files/doc1/document.pdf"],
+        ["mv", f"./files/doc1/document_pdf{user}.pdf", f"./files/doc1/document{user}.pdf"],
         stdout=subprocess.DEVNULL,
         stderr=subprocess.DEVNULL,
         encoding="utf-8",

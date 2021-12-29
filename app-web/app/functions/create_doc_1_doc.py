@@ -13,7 +13,7 @@ from functions.documents_functions import create_table
 from functions.documents_functions import set_table_params
 
 ###########################   CREATE DOC FUNCTION   ############################
-def create_doc_1_doc(data: dict) -> None:
+def create_doc_1_doc(data: dict, user = '') -> None:
     document = Document()
 
     ###########################      DEFAULT STYLE      ############################
@@ -390,5 +390,5 @@ def create_doc_1_doc(data: dict) -> None:
         os.makedirs(os.path.expanduser("./files/doc1/"))
     except:
         pass
-    document.save("./files/doc1/document.docx")
+    document.save(f"./files/doc1/document{user}.docx")
     return None

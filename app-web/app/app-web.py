@@ -2,7 +2,7 @@
 ########################### IMPORT GENERAL MODULES  ############################
 import os
 import yaml
-from flask import Flask, render_template, request, send_file
+from flask import Flask, render_template, request, send_file, session
 from flask_navigation import Navigation
 from random import randrange
 import redis
@@ -17,6 +17,7 @@ from functions.zp import zp
 
 ###########################        NAVIGATION       ############################
 app = Flask(__name__)
+app.secret_key = "super secret key"
 nav = Navigation(app)
 nav.Bar(
     "top",
@@ -39,6 +40,7 @@ if DB_NAME_IP == "None":
 ###########################        WEB PAGE 1       ############################
 @app.route("/doc1", methods=["POST"])
 def get_data():
+    session['user'] = str(randrange(9)) + str(randrange(9)) + str(randrange(9))
     data = {}
     data["email"] = request.form["email"].lower()
     data["name1"] = request.form["name1"]
@@ -140,8 +142,8 @@ def get_data():
 
     result = data_validation_1(data)
     if result == True:
-        result = str(create_doc_1_doc(data))
-        create_doc_1_pdf(data)
+        result = str(create_doc_1_doc(data, session['user']))
+        create_doc_1_pdf(data, session['user'])
         return render_template("results1.html", the_title=title)
     else:
         return render_template(
@@ -245,13 +247,13 @@ def entry():
 
 @app.route("/download_docx")
 def download_file_doc():
-    path = "files/doc1/document.docx"
+    path = f"files/doc1/document{session['user']}.docx"
     return send_file(path, as_attachment=True)
 
 
 @app.route("/download_pdfs")
 def download_file_pdf():
-    path = "files/doc1/document.pdf"
+    path = f"files/doc1/document{session['user']}.pdf"
     return send_file(path, as_attachment=True)
 
 
@@ -259,7 +261,6 @@ def download_file_pdf():
 @app.route("/doc2")
 def entry_page_2():
     title = "Рассчет дохода"
-
     try:
         r = redis.StrictRedis(DB_NAME_IP, 6379, charset="utf-8", decode_responses=True)
         data_currency = r.hgetall("rates")
@@ -273,15 +274,16 @@ def entry_page_2():
 
     return render_template(
         "doc2.html",
-        the_title=title,
-        the_error="",
-        the_forex_usd_rub=usd_rub,
-        the_forex_usd_try=usd_try,
+        the_title = title,
+        the_error = "",
+        the_forex_usd_rub = usd_rub,
+        the_forex_usd_try = usd_try,
     )
 
 
 @app.route("/doc2", methods=["POST"])
 def get_data_2():
+    session['user'] = str(randrange(9)) + str(randrange(9)) + str(randrange(9))
     data = {}
     data["BASE_USDTRY"] = 8.64
     data["BASE_USDRUB"] = 74.89
@@ -345,7 +347,7 @@ def get_data_2():
         result['extra_2_try'] = extra_2_try
         result['extra_2_rub'] = extra_2_rub
         result['extra_2_usd'] = extra_2_usd
-        create_doc_2_pdf(data, result)
+        create_doc_2_pdf(data, result, session['user'])
         return render_template(
             "results2.html",
             the_title = title,
@@ -387,7 +389,7 @@ def get_data_2():
 
 @app.route("/download_pdf2")
 def download_file_pdf2():
-    path = "files/doc2/document.pdf"
+    path = f"files/doc2/document{session['user']}.pdf"
     return send_file(path, as_attachment=True)
 
 if __name__ == "__main__":
