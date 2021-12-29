@@ -1,5 +1,5 @@
 ./app/files/
-!*/web-portal.pdf
+!/Diagram/*.pdf
 *.pdf
 *.docx
 ./app-web/app/.mypy_cache/*
