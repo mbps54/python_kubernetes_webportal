@@ -8,7 +8,9 @@ Python web application allows users to fill in a form ang got a ready document i
 2. Dockerfile to make a Docker container
 3. Kubernetes Deployment, Service and Ingress manifests to get up the service
 
-Docker image is also available on [Docker Hub](https://hub.docker.com/r/mbps54/web-portal)
+Docker images are also available on Docker Hub
+<br />[web-app](https://hub.docker.com/r/mbps54/app-web)
+<br />[web-exchange](https://hub.docker.com/r/mbps54/app-exchange)
 
 ### Usage options:
 1. Python and Bash scripts in TMUX sessions on linux machine
@@ -33,15 +35,15 @@ tmux app-exchange
 - Build images (optional)
 ```
 cd app-web
-docker build . -t mbps54/app-web:1.0.0
+docker build . -t mbps54/app-web:1.0.1
 
 cd app-exchange
-docker build . -t mbps54/app-exchange:1.0.0
+docker build . -t mbps54/app-exchange:1.0.1
 ```
 - Push Docker images to hub (optional)
 ```
-docker push mbps54/app-web:1.0.0
-docker push mbps54/app-exchange:1.0.0
+docker push mbps54/app-web:1.0.1
+docker push mbps54/app-exchange:1.0.1
 ```
 
 - Run Docker containers
@@ -58,13 +60,13 @@ docker run -d \
            -e CRON_SCHEDULE='0 9,11,13,15,17 X X 1-5' \
            --network=multi-host-network \
            --name app-exchange \
-           mbps54/app-exchange:1.0.0
+           mbps54/app-exchange:1.0.1
 docker run -d \
            -e DB_NAME_IP='app-redis' \
            -p 8000:8000 \
            --network=multi-host-network \
            --name app-web \
-           mbps54/app-web:1.0.0
+           mbps54/app-web:1.0.1
 ```
 
 3. Run Docker containes on Kubernetes cluster
@@ -84,6 +86,7 @@ Detailed K8S info in /Diagram/web-portal.pdf
 tree -a -I ".git"
 ├── app-exchange
 │   ├── app
+│   │   ├── app-exchange_cbrf.py
 │   │   ├── app-exchange.py
 │   │   └── start.sh
 │   ├── Dockerfile
@@ -135,6 +138,6 @@ tree -a -I ".git"
 │   └── Service.yaml
 └── README.md
 
-13 directories, 39 files
+13 directories, 40 files
 
 ```

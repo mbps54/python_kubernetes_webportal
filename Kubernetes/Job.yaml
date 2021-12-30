@@ -11,7 +11,7 @@ spec:
     spec:
       restartPolicy: OnFailure
       containers:
-        - image: mbps54/app-exchange:1.0.0
+        - image: mbps54/app-exchange:1.0.1
           imagePullPolicy: Always
           name: job-app-exchange
           env:

@@ -14,7 +14,7 @@ spec:
         spec:
           restartPolicy: OnFailure
           containers:
-            - image: mbps54/app-exchange:1.0.0
+            - image: mbps54/app-exchange:1.0.1
               name: cronjob-app-exchange
               env:
                 - name: DB_NAME_IP
