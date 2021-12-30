@@ -33,15 +33,15 @@ tmux app-exchange
 - Build images (optional)
 ```
 cd app-web
-docker build . -t mbps54/app-web:latest
+docker build . -t mbps54/app-web:1.0.0
 
 cd app-exchange
-docker build . -t mbps54/app-exchange:latest
+docker build . -t mbps54/app-exchange:1.0.0
 ```
 - Push Docker images to hub (optional)
 ```
-docker push mbps54/app-web:latest
-docker push mbps54/app-exchange:latest
+docker push mbps54/app-web:1.0.0
+docker push mbps54/app-exchange:1.0.0
 ```
 
 - Run Docker containers
@@ -54,17 +54,17 @@ docker run -d \
            redis:latest
 docker run -d \
            -e DB_NAME_IP='app-redis' \
-           -e API_KEY='ca0cdd8c332da1840ec1e46a16ece7' \
+           -e API_KEY='ca0cdd8c332da1840ec1e46a16ece708' \
            -e CRON_SCHEDULE='0 9,11,13,15,17 X X 1-5' \
            --network=multi-host-network \
            --name app-exchange \
-           mbps54/app-exchange:latest
+           mbps54/app-exchange:1.0.0
 docker run -d \
            -e DB_NAME_IP='app-redis' \
            -p 8000:8000 \
            --network=multi-host-network \
            --name app-web \
-           mbps54/app-web:latest
+           mbps54/app-web:1.0.0
 ```
 
 3. Run Docker containes on Kubernetes cluster
