@@ -20,6 +20,7 @@ spec:
     spec:
       containers:
         - image: mbps54/app-web:1.0.0
+          imagePullPolicy: Always
           name: app-web
           ports:
             - containerPort: 8000
