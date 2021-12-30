@@ -68,7 +68,6 @@ docker run -d \
 ```
 
 3. Run Docker containes on Kubernetes cluster
-Detailed K8S info in /Diagram/web-portal.pdf
 ```
 cd Kubernetes
 kubectl apply -f Service.yaml
@@ -80,57 +79,62 @@ kubectl apply -f CronJob.yaml
 ```
 
 ### Info
+Detailed K8S info in /Diagram/web-portal.pdf
 ```
 tree -a -I ".git"
-.
+├── app-exchange
+│   ├── app
+│   │   ├── app-exchange.py
+│   │   └── start.sh
+│   ├── Dockerfile
+│   ├── .dockerignore
+│   └── requirements.txt
+├── app-web
+│   ├── app
+│   │   ├── app-web.py
+│   │   ├── data
+│   │   │   ├── test0.yaml
+│   │   │   ├── test1.yaml
+│   │   │   ├── test2.yaml
+│   │   │   ├── test3.yaml
+│   │   │   └── test4.yaml
+│   │   ├── files
+│   │   ├── functions
+│   │   │   ├── check_functions.py
+│   │   │   ├── create_doc_1_doc.py
+│   │   │   ├── create_doc_1_pdf.py
+│   │   │   ├── create_doc_2_pdf.py
+│   │   │   ├── data_validations.py
+│   │   │   ├── documents_functions.py
+│   │   │   └── zp.py
+│   │   ├── static
+│   │   │   └── hf.css
+│   │   └── templates
+│   │       ├── base.html
+│   │       ├── doc1.html
+│   │       ├── doc2.html
+│   │       ├── entry.html
+│   │       ├── results1.html
+│   │       └── results2.html
+│   ├── Dockerfile
+│   ├── .dockerignore
+│   └── requirements.txt
+├── Diagram
+│   ├── web-portal.pdf
+│   └── web-portal.vsdx
 ├── .github
 │   └── workflows
 │       └── ci-process.yaml
 ├── .gitignore
 ├── Kubernetes
 │   ├── CronJob.yaml
-│   ├── Deployment.yaml
 │   ├── Deployment_db.yaml
+│   ├── Deployment.yaml
 │   ├── Ingress.yaml
 │   ├── Job.yaml
 │   └── Service.yaml
-├── README.md
-├── app-exchange
-│   ├── .dockerignore
-│   ├── Dockerfile
-│   ├── app
-│   │   ├── app-exchange.py
-│   │   └── start.sh
-│   └── requirements.txt
-└── app-web
-    ├── .dockerignore
-    ├── Dockerfile
-    ├── app
-    │   ├── app-web.py
-    │   ├── data
-    │   │   ├── test0.yaml
-    │   │   ├── test1.yaml
-    │   │   ├── test2.yaml
-    │   │   ├── test3.yaml
-    │   │   └── test4.yaml
-    │   ├── functions
-    │   │   ├── check_functions.py
-    │   │   ├── create_doc_1_doc.py
-    │   │   ├── create_doc_1_pdf.py
-    │   │   ├── data_validations.py
-    │   │   ├── documents_functions.py
-    │   │   └── zp.py
-    │   ├── static
-    │   │   └── hf.css
-    │   └── templates
-    │       ├── base.html
-    │       ├── doc1.html
-    │       ├── doc2.html
-    │       ├── entry.html
-    │       ├── results1.html
-    │       └── results2.html
-    └── requirements.txt
+└── README.md
 
-11 directories, 36 files
+13 directories, 39 files
 
 ```
