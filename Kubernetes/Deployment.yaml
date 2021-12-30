@@ -19,7 +19,7 @@ spec:
         app: app-web
     spec:
       containers:
-        - image: mbps54/app-web:multisession
+        - image: mbps54/app-web:1.0.0
           name: app-web
           ports:
             - containerPort: 8000

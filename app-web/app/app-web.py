@@ -269,8 +269,8 @@ def entry_page_2():
     if data_currency == {}:
         data_currency = {"usdrub": 74, "usdtry": 10}
 
-    usd_rub = round(float(data_currency["usdrub"]), 3)
-    usd_try = round(float(data_currency["usdtry"]), 3)
+    usd_rub = round(float(data_currency["usdrub"]), 4)
+    usd_try = round(float(data_currency["usdtry"]), 4)
 
     return render_template(
         "doc2.html",
@@ -299,8 +299,8 @@ def get_data_2():
     if data_currency == {}:
         data_currency = {"usdrub": 74, "usdtry": 10}
 
-    usd_rub = round(float(data_currency["usdrub"]), 3)
-    usd_try = round(float(data_currency["usdtry"]), 3)
+    usd_rub = round(float(data_currency["usdrub"]), 4)
+    usd_try = round(float(data_currency["usdtry"]), 4)
 
     input_items = (
         "oklad",
@@ -339,7 +339,7 @@ def get_data_2():
         data["isn"] = round(data["isn"])
         data["extra"] = round(data["extra"])
         data["targetkpi"] = round(data["targetkpi"])
-        data["CURRENT_TRYRUB"] = round(((data["CURRENT_USDRUB"]) / (data["CURRENT_USDTRY"])), 3)
+        data["CURRENT_TRYRUB"] = round(((data["CURRENT_USDRUB"]) / (data["CURRENT_USDTRY"])), 4)
         result = zp(data)
         extra_2_try = result["extra_2"]
         extra_2_usd = round((extra_2_try / data["CURRENT_USDTRY"]))
