@@ -13,48 +13,37 @@
     {% endfor %}
 </ul>
 </nav>
-<br><p>ИСХОДНЫЕ ДАННЫЕ:</p>
-<p>Оклад: {{ the_oklad }} TRY</p>
-<p>ИСН (индивидуальная стимулирующая надбавка): {{ the_isn }} TRY</p>
-<p>Доплата (совмещение и пр.): {{ the_extra }} TRY</p>
-<p>Целевой размер премии по КПЭ: {{ the_targetkpi }} TRY</p>
-<p>Курс USD/RUB: {{ the_usd_rub }}</p>
-<p>Курс USD/TRY: {{ the_usd_try }}</p>
-<p>Курс TRY/RUB: {{ the_try_rub }} (кросс-курс рассчитан автоматически)</p><br>
+
+<h3 style="color:Red">{{ the_attention }}</h3>
 
 <p>ЗАРПЛАТА:</p>
-<p>Эквивалент заработной платы: {{ the_ezp }} У.Е.</p>
-<p>Оклад: {{ the_oklad }} TRY.</p>
-<p>ИСН (индивидуальная стимулирующая надбавка): {{ the_isn }} TRY.</p>
-<p>Индексирующая выплата: {{ the_indincome }} TRY</p>
-<p>Дополнительная доплата до эквивалента: {{ the_zp_extra }} TRY</p>
-<p>Итого к начислению в TRY: {{ the_zp_TRY }}</p>
+<p>Итого к начислению: {{ the_zp_TRY }} TRY</p>
 <p>Итого по курсу в RUB: {{ the_zp_RUB }}</p>
 <p>Итого по курсу в USD: {{ the_zp_USD }}</p><br>
 
 <p>ДОПОЛНИТЕЛЬНЫЙ ДОХОД (совмещение и пр.):</p>
-<p>Доплата (совмещение и пр.): {{ the_extra }} TRY</p>
 <p>Доплата (совмещение и пр.) к начислению: {{ the_extra_2_try }} TRY</p>
-<p>Доплата (совмещение и пр.) к начислению: {{ the_extra_2_rub }} RUB</p>
-<p>Доплата (совмещение и пр.) к начислению: {{ the_extra_2_usd }} USD</p><br>
+<p>Доплата (совмещение и пр.) по курсу в RUB: {{ the_extra_2_rub }}</p>
+<p>Доплата (совмещение и пр.) по курсу в USD: {{ the_extra_2_usd }}</p><br>
 
 <p>ПРЕМИЯ ПО КПЭ:</p>
-<p>Эквивалент целевого размера премии по КПЭ: {{ the_ebonus }} У.Е.</p>
-<p>Индексирующая выплата: {{ the_indbonus }} TRY</p>
-<p>Дополнительная доплата до эквивалента: {{ the_bonus_dop }} TRY</p>
-<p>Итого к начислению в TRY: {{ the_bonus_TRY }}</p>
+<p>Итого к начислению: {{ the_bonus_TRY }} TRY</p>
 <p>Итого по курсу в RUB: {{ the_bonus_RUB }}</p>
 <p>Итого по курсу в USD: {{ the_bonus_USD }}</p>
 
 <p>
 	<a href="{{ url_for('.download_file_pdf2') }}">Скачать результат</a>
 </p>
-<input type="checkbox" id="test2" name="test2" value="true">
-<label for="test2"> I agree with the calculation. For approve, please login:</label><br>
-<p style="color:Red"> {{ the_login_error }} </p>
-<form method="POST">
-	<input name="username" placeholder="i.ivanov">
-	<input name="password" placeholder="password">
-	<input type="submit" value="Done">
+
+<nav>
+    <ul>
+        {% for item in nav.sig %}
+        <li class="{{ 'active' if item.is_active else '' }}">
+            <a href="{{ item.url }}">{{ item.label }}</a>
+        </li>
+        {% endfor %}
+    </ul>
+</nav>
+
 </form>
 {% endblock %}

@@ -158,6 +158,12 @@ def create_doc_2_pdf(data: dict, result: dict, user = '') -> None:
         fontsize=Pt(12),
     )
 
+    ###############################    PARAGRAPH 6   ###############################
+    p6 = document.add_paragraph()
+    p6.style = style
+    p6.alignment = 1
+    p6.add_run(data["attention"]).bold = True
+    p6.paragraph_format.space_before = Pt(12)
 
     ###############################   PAGE BORDERS   ###############################
     sections = document.sections
