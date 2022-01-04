@@ -35,15 +35,15 @@ tmux app-exchange
 - Build images (optional)
 ```
 cd app-web
-docker build . -t mbps54/app-web:1.0.1
+docker build . -t mbps54/app-web:1.0.3
 
 cd app-exchange
-docker build . -t mbps54/app-exchange:1.0.1
+docker build . -t mbps54/app-exchange:1.0.3
 ```
 - Push Docker images to hub (optional)
 ```
-docker push mbps54/app-web:1.0.1
-docker push mbps54/app-exchange:1.0.1
+docker push mbps54/app-web:1.0.3
+docker push mbps54/app-exchange:1.0.3
 ```
 
 - Run Docker containers
@@ -60,13 +60,19 @@ docker run -d \
            -e CRON_SCHEDULE='0 9,11,13,15,17 X X 1-5' \
            --network=multi-host-network \
            --name app-exchange \
-           mbps54/app-exchange:1.0.1
+           mbps54/app-exchange:1.0.3
 docker run -d \
            -e DB_NAME_IP='app-redis' \
            -p 8000:8000 \
+           -e POST_SERVER='mail.akkuyu.com' \
+           -e POST_DOMAIN='mbu' \
+           -e POST_USERNAME='a.utkin' \
+           -e POST_PASSWORD='JKL444jkl444' \
+           -e POST_FROM_ADDRESS='a.utkin@akkuyu.com' \
+           -e POST_TO_ADDRESS_LIST='a.utkin@akkuyu.com' \
            --network=multi-host-network \
            --name app-web \
-           mbps54/app-web:1.0.1
+           mbps54/app-web:1.0.3
 ```
 
 3. Run Docker containes on Kubernetes cluster
@@ -84,60 +90,66 @@ kubectl apply -f CronJob.yaml
 Detailed K8S info in /Diagram/web-portal.pdf
 ```
 tree -a -I ".git"
-├── app-exchange
-│   ├── app
-│   │   ├── app-exchange_cbrf.py
-│   │   ├── app-exchange.py
-│   │   └── start.sh
-│   ├── Dockerfile
-│   ├── .dockerignore
-│   └── requirements.txt
-├── app-web
-│   ├── app
-│   │   ├── app-web.py
-│   │   ├── data
-│   │   │   ├── test0.yaml
-│   │   │   ├── test1.yaml
-│   │   │   ├── test2.yaml
-│   │   │   ├── test3.yaml
-│   │   │   └── test4.yaml
-│   │   ├── files
-│   │   ├── functions
-│   │   │   ├── check_functions.py
-│   │   │   ├── create_doc_1_doc.py
-│   │   │   ├── create_doc_1_pdf.py
-│   │   │   ├── create_doc_2_pdf.py
-│   │   │   ├── data_validations.py
-│   │   │   ├── documents_functions.py
-│   │   │   └── zp.py
-│   │   ├── static
-│   │   │   └── hf.css
-│   │   └── templates
-│   │       ├── base.html
-│   │       ├── doc1.html
-│   │       ├── doc2.html
-│   │       ├── entry.html
-│   │       ├── results1.html
-│   │       └── results2.html
-│   ├── Dockerfile
-│   ├── .dockerignore
-│   └── requirements.txt
-├── Diagram
-│   ├── web-portal.pdf
-│   └── web-portal.vsdx
+
 ├── .github
 │   └── workflows
 │       └── ci-process.yaml
 ├── .gitignore
+├── Diagram
+│   ├── web-portal.pdf
+│   └── web-portal.vsdx
 ├── Kubernetes
 │   ├── CronJob.yaml
-│   ├── Deployment_db.yaml
 │   ├── Deployment.yaml
+│   ├── Deployment_db.yaml
 │   ├── Ingress.yaml
 │   ├── Job.yaml
 │   └── Service.yaml
-└── README.md
+├── README.md
+├── app-exchange
+│   ├── .dockerignore
+│   ├── Dockerfile
+│   ├── app
+│   │   ├── app-exchange.py
+│   │   ├── app-exchange_cbrf.py
+│   │   ├── app-exchange_manual.py
+│   │   └── start.sh
+│   └── requirements.txt
+└── app-web
+    ├── .DS_Store
+    ├── .dockerignore
+    ├── Dockerfile
+    ├── app
+    │   ├── .DS_Store
+    │   ├── app-web.py
+    │   ├── data
+    │   │   ├── test0.yaml
+    │   │   ├── test1.yaml
+    │   │   ├── test2.yaml
+    │   │   ├── test3.yaml
+    │   │   └── test4.yaml
+    │   ├── functions
+    │   │   ├── app_email_sender.py
+    │   │   ├── check_functions.py
+    │   │   ├── create_doc_1_doc.py
+    │   │   ├── create_doc_1_pdf.py
+    │   │   ├── create_doc_2_pdf.py
+    │   │   ├── data_validations.py
+    │   │   ├── documents_functions.py
+    │   │   ├── ldap_connect.py
+    │   │   └── zp.py
+    │   ├── static
+    │   │   └── hf.css
+    │   └── templates
+    │       ├── base.html
+    │       ├── doc1.html
+    │       ├── doc2.html
+    │       ├── entry.html
+    │       ├── results1.html
+    │       ├── results2.html
+    │       └── results2_sig.html
+    └── requirements.txt
 
-13 directories, 40 files
+12 directories, 47 files
 
 ```

@@ -7,7 +7,10 @@ RUN set -ex && apt-get update && apt-get install -y \
     python3-pip=20.0.2-5ubuntu1.6 \
     libreoffice=1:6.4.7-0ubuntu0.20.04.2 \
     unoconv=0.7-2 \
-    curl=0.7-2 \
+    python3-dev=3.8.2-0ubuntu2 \
+    libldap2-dev=2.4.49+dfsg-2ubuntu1.8 \
+    libsasl2-dev=2.1.27+dfsg-2 \
+    libssl-dev=1.1.1f-1ubuntu2.10\
     && apt-get clean && rm -rf /var/cache/apt
 
 COPY requirements.txt /app/

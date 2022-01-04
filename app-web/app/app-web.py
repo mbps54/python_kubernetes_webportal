@@ -17,6 +17,8 @@ from functions.data_validations import data_validation_1
 from functions.data_validations import data_validation_2
 from functions.zp import zp
 from functions.ldap_connect import ldap_connect
+from functions.app_email_sender import app_email_sender
+from functions.documents_functions import round_a
 
 ###########################        NAVIGATION       ############################
 app = Flask(__name__)
@@ -51,6 +53,14 @@ if SERVER_NAME_IP == "None":
 DB_NAME_IP = str(os.environ.get("DB_NAME_IP"))
 if DB_NAME_IP == "None":
     DB_NAME_IP = "localhost"
+
+POSTSERVER = str(os.environ.get("POST_SERVER"))
+POSTDOMAIN = str(os.environ.get("POST_DOMAIN"))
+POSTUSERNAME = str(os.environ.get("POST_USERNAME"))
+POSTPASSWORD = str(os.environ.get("POST_PASSWORD"))
+POSTFROMADDRESS = str(os.environ.get("POST_FROM_ADDRESS"))
+POSTTOADDRESS = str(os.environ.get("POST_TO_ADDRESS_LIST"))
+
 
 ###########################        WEB PAGE 1       ############################
 @app.route("/doc1", methods=["POST"])
@@ -284,8 +294,8 @@ def entry_page_2():
     if data_currency == {}:
         data_currency = {"usdrub": 74.2926, "usdtry": 13.353}
 
-    usd_rub = round(float(data_currency["usdrub"]), 4)
-    usd_try = round(float(data_currency["usdtry"]), 4)
+    usd_rub = round_a(float(data_currency["usdrub"]), 4)
+    usd_try = round_a(float(data_currency["usdtry"]), 4)
 
     return render_template(
         "doc2.html",
@@ -314,8 +324,8 @@ def get_data_2():
     if data_currency == {}:
         data_currency = {"usdrub": 74.2926, "usdtry": 13.353}
 
-    usd_rub = round(float(data_currency["usdrub"]), 4)
-    usd_try = round(float(data_currency["usdtry"]), 4)
+    usd_rub = round_a(float(data_currency["usdrub"]), 4)
+    usd_try = round_a(float(data_currency["usdtry"]), 4)
 
     input_items = (
         "oklad",
@@ -358,15 +368,15 @@ def get_data_2():
     title = "Рассчет дохода"
     result = data_validation_2(data)
     if result == True:
-        data["oklad"] = round(data["oklad"])
-        data["isn"] = round(data["isn"])
-        data["extra"] = round(data["extra"])
-        data["targetkpi"] = round(data["targetkpi"])
-        data["CURRENT_TRYRUB"] = round(((data["CURRENT_USDRUB"]) / (data["CURRENT_USDTRY"])), 4)
+        data["oklad"] = round_a(data["oklad"])
+        data["isn"] = round_a(data["isn"])
+        data["extra"] = round_a(data["extra"])
+        data["targetkpi"] = round_a(data["targetkpi"])
+        data["CURRENT_TRYRUB"] = round_a(((data["CURRENT_USDRUB"]) / (data["CURRENT_USDTRY"])), 4)
         result = zp(data)
         extra_2_try = result["extra_2"]
-        extra_2_usd = round((extra_2_try / data["CURRENT_USDTRY"]))
-        extra_2_rub = round(extra_2_try * data["CURRENT_TRYRUB"])
+        extra_2_usd = round_a((extra_2_try / data["CURRENT_USDTRY"]))
+        extra_2_rub = round_a(extra_2_try * data["CURRENT_TRYRUB"])
         result['extra_2_try'] = extra_2_try
         result['extra_2_rub'] = extra_2_rub
         result['extra_2_usd'] = extra_2_usd
@@ -443,8 +453,9 @@ def entry_page_2_sig():
             log_file = open('/home/artem/logs/logs.txt', 'a')
             log_file.write(log)
             log_file.close()
-            text_to_send = str(name)
-            print(text_to_send)
+            receiver_addresses = list(POSTTOADDRESS.split(","))
+            for receiver_address in receiver_addresses:
+                app_email_sender(receiver_address, "Auto generated message (salary agreement)", name)
         else:
             login_result = 'Ошибка ввода логина или пароля'
         return render_template(

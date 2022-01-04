@@ -88,3 +88,17 @@ def set_table_params_lo(
                         font.name = fontname
                     if fontsize:
                         font.size = fontsize
+
+###########################     ROUND FUNCTION      ############################
+def round_a(number, ndigits=0):
+    ndigits += 1
+    n = round(number, ndigits)*(10**ndigits)
+    m = n % 10
+    n -= m
+    if m >= 5:
+        n += 10
+    n /= (10**ndigits)
+    if n % 1 == 0:
+        return int(n)
+    else:
+        return n
