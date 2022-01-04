@@ -14,6 +14,7 @@ from functions.create_doc_2_pdf import create_doc_2_pdf
 from functions.data_validations import data_validation_1
 from functions.data_validations import data_validation_2
 from functions.zp import zp
+from functions.ldap_connect import ldap_connect
 
 ###########################        NAVIGATION       ############################
 app = Flask(__name__)
@@ -287,111 +288,134 @@ def entry_page_2():
     )
 
 
-@app.route("/doc2", methods=["POST"])
+@app.route("/doc2", methods=["POST", "GET"])
 def get_data_2():
-    session['user'] = str(randrange(9)) + str(randrange(9)) + str(randrange(9))
-    data = {}
-    data["BASE_USDTRY"] = 8.64
-    data["BASE_USDRUB"] = 74.89
-    data["PROCENT"] = 0.185
-    data["Kk"] = 1
-    data["KPI"] = 1
+    test2 = request.form.get("test2", default=False, type=bool)
+    print(test2)
+    if test2 != True:
+        session['user'] = str(randrange(9)) + str(randrange(9)) + str(randrange(9))
+        data = {}
+        data["BASE_USDTRY"] = 8.64
+        data["BASE_USDRUB"] = 74.89
+        data["PROCENT"] = 0.185
+        data["Kk"] = 1
+        data["KPI"] = 1
 
-    try:
-        r = redis.StrictRedis(DB_NAME_IP, 6379, charset="utf-8", decode_responses=True)
-        data_currency = r.hgetall("rates")
-    except:
-        data_currency = {"usdrub": 74, "usdtry": 10}
-    if data_currency == {}:
-        data_currency = {"usdrub": 74, "usdtry": 10}
-
-    usd_rub = round(float(data_currency["usdrub"]), 4)
-    usd_try = round(float(data_currency["usdtry"]), 4)
-
-    input_items = (
-        "oklad",
-        "isn",
-        "extra",
-        "targetkpi",
-        "CURRENT_USDRUB",
-        "CURRENT_USDTRY",
-    )
-    for i in input_items:
-        data[i] = request.form[i]
-
-    for key, value in data.items():
         try:
-            data[key] = float(str(value).replace(",", ".").replace(" ", ""))
+            r = redis.StrictRedis(DB_NAME_IP, 6379, charset="utf-8", decode_responses=True)
+            data_currency = r.hgetall("rates")
         except:
-            data[key] = value
+            data_currency = {"usdrub": 74, "usdtry": 10}
+        if data_currency == {}:
+            data_currency = {"usdrub": 74, "usdtry": 10}
 
-    if data["CURRENT_USDTRY"] == "":
-        data["CURRENT_USDTRY"] = usd_try
-    if data["CURRENT_USDRUB"] == "":
-        data["CURRENT_USDRUB"] = usd_rub
-    if data["oklad"] == "":
-        data["oklad"] = 0
-    if data["isn"] == "":
-        data["isn"] = 0
-    if data["extra"] == "":
-        data["extra"] = 0
-    if data["targetkpi"] == "":
-        data["targetkpi"] = 0
+        usd_rub = round(float(data_currency["usdrub"]), 4)
+        usd_try = round(float(data_currency["usdtry"]), 4)
 
-    title = "Рассчет дохода"
-    result = data_validation_2(data)
-    if result == True:
-        data["oklad"] = round(data["oklad"])
-        data["isn"] = round(data["isn"])
-        data["extra"] = round(data["extra"])
-        data["targetkpi"] = round(data["targetkpi"])
-        data["CURRENT_TRYRUB"] = round(((data["CURRENT_USDRUB"]) / (data["CURRENT_USDTRY"])), 4)
-        result = zp(data)
-        extra_2_try = result["extra_2"]
-        extra_2_usd = round((extra_2_try / data["CURRENT_USDTRY"]))
-        extra_2_rub = round(extra_2_try * data["CURRENT_TRYRUB"])
-        result['extra_2_try'] = extra_2_try
-        result['extra_2_rub'] = extra_2_rub
-        result['extra_2_usd'] = extra_2_usd
-        create_doc_2_pdf(data, result, session['user'])
-        return render_template(
-            "results2.html",
-            the_title = title,
-            the_oklad = data["oklad"],
-            the_isn = data["isn"],
-            the_extra = data["extra"],
-            the_targetkpi = data["targetkpi"],
-            the_usd_try = data["CURRENT_USDTRY"],
-            the_usd_rub = data["CURRENT_USDRUB"],
-            the_try_rub = data["CURRENT_TRYRUB"],
-            the_ezp = result["ezp"],
-            the_indincome = result["indincome"],
-            the_zp_extra = result["zp_extra"],
-            the_zp_TRY = result["zp_TRY"],
-            the_zp_RUB = result["zp_RUB"],
-            the_zp_USD = result["zp_USD"],
-            the_extra_2_try = extra_2_try,
-            the_extra_2_usd = extra_2_usd,
-            the_extra_2_rub = extra_2_rub,
-            the_ebonus = result["ebonus"],
-            the_indbonus = result["indbonus"],
-            the_bonus_dop = result["bonus_dop"],
-            the_bonus_TRY = result["bonus_TRY"],
-            the_bonus_RUB = result["bonus_RUB"],
-            the_bonus_USD = result["bonus_USD"],
+        input_items = (
+            "oklad",
+            "isn",
+            "extra",
+            "targetkpi",
+            "CURRENT_USDRUB",
+            "CURRENT_USDTRY",
         )
+        for i in input_items:
+            data[i] = request.form[i]
+
+        for key, value in data.items():
+            try:
+                data[key] = float(str(value).replace(",", ".").replace(" ", ""))
+            except:
+                data[key] = value
+
+        if data["CURRENT_USDTRY"] == "":
+            data["CURRENT_USDTRY"] = usd_try
+        if data["CURRENT_USDRUB"] == "":
+            data["CURRENT_USDRUB"] = usd_rub
+        if data["oklad"] == "":
+            data["oklad"] = 0
+        if data["isn"] == "":
+            data["isn"] = 0
+        if data["extra"] == "":
+            data["extra"] = 0
+        if data["targetkpi"] == "":
+            data["targetkpi"] = 0
+
+        title = "Рассчет дохода"
+        result = data_validation_2(data)
+        if result == True:
+            data["oklad"] = round(data["oklad"])
+            data["isn"] = round(data["isn"])
+            data["extra"] = round(data["extra"])
+            data["targetkpi"] = round(data["targetkpi"])
+            data["CURRENT_TRYRUB"] = round(((data["CURRENT_USDRUB"]) / (data["CURRENT_USDTRY"])), 4)
+            result = zp(data)
+            extra_2_try = result["extra_2"]
+            extra_2_usd = round((extra_2_try / data["CURRENT_USDTRY"]))
+            extra_2_rub = round(extra_2_try * data["CURRENT_TRYRUB"])
+            result['extra_2_try'] = extra_2_try
+            result['extra_2_rub'] = extra_2_rub
+            result['extra_2_usd'] = extra_2_usd
+            create_doc_2_pdf(data, result, session['user'])
+    
+            return render_template(
+                "results2.html",
+                the_title = title,
+                the_oklad = data["oklad"],
+                the_isn = data["isn"],
+                the_extra = data["extra"],
+                the_targetkpi = data["targetkpi"],
+                the_usd_try = data["CURRENT_USDTRY"],
+                the_usd_rub = data["CURRENT_USDRUB"],
+                the_try_rub = data["CURRENT_TRYRUB"],
+                the_ezp = result["ezp"],
+                the_indincome = result["indincome"],
+                the_zp_extra = result["zp_extra"],
+                the_zp_TRY = result["zp_TRY"],
+                the_zp_RUB = result["zp_RUB"],
+                the_zp_USD = result["zp_USD"],
+                the_extra_2_try = extra_2_try,
+                the_extra_2_usd = extra_2_usd,
+                the_extra_2_rub = extra_2_rub,
+                the_ebonus = result["ebonus"],
+                the_indbonus = result["indbonus"],
+                the_bonus_dop = result["bonus_dop"],
+                the_bonus_TRY = result["bonus_TRY"],
+                the_bonus_RUB = result["bonus_RUB"],
+                the_bonus_USD = result["bonus_USD"],
+                the_login_error = '',
+            )
+        else:
+            return render_template(
+                "doc2.html",
+                the_title=title,
+                the_error=result["error"],
+                the_oklad=result["oklad"],
+                the_isn=result["isn"],
+                the_extra=result["extra"],
+                the_targetkpi=result["targetkpi"],
+                the_CURRENT_USDRUB=result["CURRENT_USDRUB"],
+                the_CURRENT_USDTRY=result["CURRENT_USDTRY"],
+            )
     else:
-        return render_template(
-            "doc2.html",
-            the_title=title,
-            the_error=result["error"],
-            the_oklad=result["oklad"],
-            the_isn=result["isn"],
-            the_extra=result["extra"],
-            the_targetkpi=result["targetkpi"],
-            the_CURRENT_USDRUB=result["CURRENT_USDRUB"],
-            the_CURRENT_USDTRY=result["CURRENT_USDTRY"],
-        )
+        username = request.form.get('username', default = '', type=str)
+        password = request.form.get('password', default = '', type=str)
+        print(username)
+        conn_data = ldap(username, password)
+        if conn_data['boolen']:
+            name = conn_data['data']
+            login_error = 'Data accepted!'
+            print(name)
+            return('Data is accepted!')
+        else:
+            name = ''
+            login_error = 'Login error'
+            return render_template(
+                    "results2.html",
+                    the_login_error = login_error,
+                    )           
+
 
 @app.route("/download_pdf2")
 def download_file_pdf2():
