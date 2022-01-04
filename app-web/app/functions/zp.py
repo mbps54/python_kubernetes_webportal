@@ -18,7 +18,6 @@ data['extra'] = 1000
 data['targetkpi'] = 15000
 """
 
-
 #############################          MAIN        #############################
 def zp(data):
     BASE_USDTRY = data["BASE_USDTRY"]
