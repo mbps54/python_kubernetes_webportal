@@ -410,7 +410,7 @@ def get_data_2():
             the_targetkpi=result["targetkpi"],
             the_CURRENT_USDRUB=result["CURRENT_USDRUB"],
             the_CURRENT_USDTRY=result["CURRENT_USDTRY"],
-        )           
+        )
 
 
 @app.route("/download_pdf2")
@@ -445,18 +445,6 @@ def entry_page_2_sig():
             log_file.close()
             text_to_send = str(name)
             print(text_to_send)
-            subprocess.run(
-                [
-                    "curl",
-                    "-X",
-                    "POST",
-                    "https://api.telegram.org/bot1578267055:AAElaPAItaPrEc99NH3yndg3gcJ5AtVMa6M/sendMessage",
-                    "-d",
-                    "chat_id=1103348490",
-                    "-d",
-                    text_to_send,
-                ]
-            )
         else:
             login_result = 'Ошибка ввода логина или пароля'
         return render_template(
