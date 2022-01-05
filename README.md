@@ -13,21 +13,28 @@ Docker images are also available on Docker Hub
 <br />[web-exchange](https://hub.docker.com/r/mbps54/app-exchange)
 
 ### Usage options:
-1. Python and Bash scripts in TMUX sessions on linux machine
+1. Python and Bash scripts in TMUX sessions on linux machine (for tests)
 ```
 apt-get update && apt-get install -y \
     python3=3.8.2-0ubuntu2 \
     python3-pip=20.0.2-5ubuntu1.6 \
     libreoffice=1:6.4.7-0ubuntu0.20.04.2 \
     unoconv=0.7-2 \
+    iputils-ping=3:20190709-3 \
+    python3=3.8.2-0ubuntu2 \
+    python3-pip=20.0.2-5ubuntu1.6 \
+    cron=3.0pl1-136ubuntu1 \
+    ntp=1:4.2.8p12+dfsg-3ubuntu4.20.04.1 \
+    python3-dev=3.8.2-0ubuntu2 \
+    libldap2-dev=2.4.49+dfsg-2ubuntu1.8 \
+    libsasl2-dev=2.1.27+dfsg-2 \
+    libssl-dev=1.1.1f-1ubuntu2.10\
     tmux
-export SERVER_NAME_IP='0.0.0.0' (optional)
-export POST_SCHEDULE='0, 9,11,13,15,17, X X 1-5' (optional)
 
-tmux app-web
+export SERVER_NAME_IP='0.0.0.0' (optional)
+
+tmux new-session -t app-web
 python3 ./app-web/app/app-web.py
-tmux app-exchange
-/bin/sh ./app-exchange/start.sh
 
 ```
 
@@ -35,15 +42,15 @@ tmux app-exchange
 - Build images (optional)
 ```
 cd app-web
-docker build . -t mbps54/app-web:1.0.4
+docker build . -t mbps54/app-web:1.1.1
 
 cd app-exchange
-docker build . -t mbps54/app-exchange:1.0.3
+docker build . -t mbps54/app-exchange:1.1.1
 ```
 - Push Docker images to hub (optional)
 ```
-docker push mbps54/app-web:1.0.3
-docker push mbps54/app-exchange:1.0.3
+docker push mbps54/app-web:1.1.1
+docker push mbps54/app-exchange:1.1.1
 ```
 
 - Run Docker containers
@@ -56,23 +63,17 @@ docker run -d \
            redis:latest
 docker run -d \
            -e DB_NAME_IP='app-redis' \
-           -e API_KEY='ca0cdd8c332da1840ec1e46a16ece708' \
-           -e CRON_SCHEDULE='0 9,11,13,15,17 X X 1-5' \
+           -e API_KEY='Nu2Em4s1cB' \
+           -e CRON_SCHEDULE='0 9 1 X X' \
            --network=multi-host-network \
            --name app-exchange \
-           mbps54/app-exchange:latest
+           mbps54/app-exchange:1.1.1
 docker run -d \
-           -e DB_NAME_IP='app-redis' \
            -p 8000:8000 \
-           -e POST_SERVER='mail.company.com' \
-           -e POST_DOMAIN='mbu' \
-           -e POST_USERNAME='i.ivanov' \
-           -e POST_PASSWORD='password' \
-           -e POST_FROM_ADDRESS='i.ivanov@company.com' \
-           -e POST_TO_ADDRESS_LIST='d.ivano@company.com' \
+           -e DB_NAME_IP='app-redis' \
            --network=multi-host-network \
            --name app-web \
-           mbps54/app-web:1.0.4
+           mbps54/app-web:1.1.1
 ```
 
 3. Run Docker containes on Kubernetes cluster
@@ -110,17 +111,17 @@ tree -a -I ".git"
 │   ├── .dockerignore
 │   ├── Dockerfile
 │   ├── app
-│   │   ├── app-exchange.py
-│   │   ├── app-exchange_cbrf.py
-│   │   ├── app-exchange_manual.py
+│   │   ├── app_exchange_cbtr.py
+│   │   ├── old
+│   │   │   ├── old_app_exchange_cbrf.py
+│   │   │   ├── old_app_exchange_manual.py
+│   │   │   └── old_app_exchange_stock.py
 │   │   └── start.sh
 │   └── requirements.txt
 └── app-web
-    ├── .DS_Store
     ├── .dockerignore
     ├── Dockerfile
     ├── app
-    │   ├── .DS_Store
     │   ├── app-web.py
     │   ├── data
     │   │   ├── test0.yaml
@@ -150,6 +151,6 @@ tree -a -I ".git"
     │       └── results2_sig.html
     └── requirements.txt
 
-12 directories, 47 files
+13 directories, 45 files
 
 ```
