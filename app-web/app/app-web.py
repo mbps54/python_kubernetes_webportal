@@ -41,6 +41,13 @@ nav.Bar(
     ],
 )
 nav.Bar(
+    "top2",
+    [
+        nav.Item("Главное меню", "entry"),
+        nav.Item("Назад", "get_data_2"),
+    ],
+)
+nav.Bar(
     "all",
     [
         nav.Item("Главное меню", "entry"),

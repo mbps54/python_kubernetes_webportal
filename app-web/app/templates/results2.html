@@ -6,7 +6,7 @@
 
 <nav>
 <ul>
-    {% for item in nav.top %}
+    {% for item in nav.top2 %}
     <li class="{{ 'active' if item.is_active else '' }}">
         <a href="{{ item.url }}">{{ item.label }}</a>
     </li>
@@ -32,7 +32,7 @@
 <p>Итого по курсу в USD: {{ the_bonus_USD }}</p>
 
 <p>
-	<a href="{{ url_for('.download_file_pdf2') }}">Скачать полный отчет в формате .PDF)</a>
+	<a href="{{ url_for('.download_file_pdf2') }}">Скачать полный отчет в формате .PDF</a>
 </p>
 
 <!<nav>                                                             >
