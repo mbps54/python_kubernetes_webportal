@@ -58,10 +58,10 @@ jobs:
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Push Docker image 1
-        run: docker push mbps54/app-web:latest
+        run: docker push mbps54/app-web:1.0.3
 
       - name: Push Docker image 2
-        run: docker push mbps54/app-exchange:latest
+        run: docker push mbps54/app-exchange:1.0.3
 
   deploy_on_aws:
     needs: [build_docker_images]
