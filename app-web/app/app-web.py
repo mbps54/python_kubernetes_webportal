@@ -40,12 +40,12 @@ nav.Bar(
         nav.Item("Релокация. Заявление на билеты и гостиницу", "get_data"),
     ],
 )
-nav.Bar(
-    "sig",
-    [
-        nav.Item("Перейти на форму согласия с рассчетом", "entry_page_2_sig"),
-    ],
-)
+#nav.Bar(
+#    "sig",
+#    [
+#        nav.Item("Перейти на форму согласия с рассчетом", "entry_page_2_sig"),
+#    ],
+#)
 
 ###########################    SYSTEM ENVIRONMENT   ############################
 SERVER_NAME_IP = str(os.environ.get("SERVER_NAME_IP"))
