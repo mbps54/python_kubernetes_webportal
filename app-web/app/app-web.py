@@ -454,8 +454,8 @@ def entry_page_2_sig():
             log_file.write(log)
             log_file.close()
             receiver_addresses = list(POSTTOADDRESS.split(","))
-            for receiver_address in receiver_addresses:
-                app_email_sender(receiver_address, "Auto generated message (salary agreement)", name)
+            #for receiver_address in receiver_addresses:
+            #    app_email_sender(receiver_address, "Auto generated message (salary agreement)", name)
         else:
             login_result = 'Ошибка ввода логина или пароля'
         return render_template(
