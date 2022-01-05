@@ -5,8 +5,6 @@
 # There are 8 system environments needed for this script.
 
 import os
-import time
-from sys import argv
 from exchangelib import DELEGATE, Account, Credentials, Message, Mailbox, Configuration
 from exchangelib.protocol import BaseProtocol, NoVerifyHTTPAdapter
 
@@ -54,6 +52,14 @@ def app_email_sender(receiver_address: str, subject: str, mail_content: str) -> 
 
 
 if __name__ == "__main__":
+    POSTSERVER = str(os.environ.get("POST_SERVER"))
+    POSTDOMAIN = str(os.environ.get("POST_DOMAIN"))
+    POSTUSERNAME = str(os.environ.get("POST_USERNAME"))
+    POSTPASSWORD = str(os.environ.get("POST_PASSWORD"))
+    POSTFROMADDRESS = str(os.environ.get("POST_FROM_ADDRESS"))
+    POSTTOADDRESS = str(os.environ.get("POST_TO_ADDRESS_LIST"))
+    POSTSUBJECT = 'test'
+    POSTMESSAGE = 'test'
     receiver_addresses = list(POSTTOADDRESS.split(","))
     for receiver_address in receiver_addresses:
         app_email_sender(receiver_address, POSTSUBJECT, POSTMESSAGE)
