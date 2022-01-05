@@ -29,10 +29,10 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Build the Docker image 1
-        run: cd app-web && docker build . --tag mbps54/app-web:1.0.4
+        run: cd app-web && docker build . --tag mbps54/app-web:1.1.1
 
       - name: Build the Docker image 2
-        run: cd app-exchange && docker build . --tag mbps54/app-exchange:1.0.4
+        run: cd app-exchange && docker build . --tag mbps54/app-exchange:1.1.1
 
       - name: Create Docker Network
         run: docker network create -d bridge multi-host-network
@@ -41,15 +41,10 @@ jobs:
         run: docker run -d -p 6379:6379 --network=multi-host-network redis:latest
 
       - name: Run Docker image 1
-        run: docker run -d -e DB_NAME_IP='redis' --network=multi-host-network mbps54/app-exchange:1.0.4
+        run: docker run -d -e DB_NAME_IP='redis' --network=multi-host-network mbps54/app-exchange:1.1.1
 
       - name: Run Docker image 1
-        run: docker run -d -p 8000:8000 -e DB_NAME_IP='redis' --network=multi-host-network mbps54/app-web:1.0.4
-
-#      - name: curl
-#        uses: wei/curl@master
-#        with:
-#          args: http://localhost:8000
+        run: docker run -d -p 8000:8000 -e DB_NAME_IP='redis' --network=multi-host-network mbps54/app-web:1.1.1
 
       - name: Login to Docker Registry
         run: docker login -u "$DOCKER_USERNAME" --password-stdin <<< "$DOCKER_PASSWORD"
@@ -58,10 +53,10 @@ jobs:
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Push Docker image 1
-        run: docker push mbps54/app-web:1.0.4
+        run: docker push mbps54/app-web:1.1.1
 
       - name: Push Docker image 2
-        run: docker push mbps54/app-exchange:1.0.4
+        run: docker push mbps54/app-exchange:1.1.1
 
   deploy_on_aws:
     needs: [build_docker_images]
@@ -81,9 +76,9 @@ jobs:
                 docker rm $(docker ps -aq)
                 docker rmi $(docker images -q)
                 docker pull redis:latest
-                docker pull mbps54/app-exchange:1.0.4
-                docker pull mbps54/app-web:1.0.4
+                docker pull mbps54/app-exchange:1.1.1
+                docker pull mbps54/app-web:1.1.1
                 docker network create -d bridge multi-host-network
                 docker run -d -p 6379:6379 --network=multi-host-network --name app-redis redis:latest
-                docker run -d -e DB_NAME_IP='app-redis' -e CRON_SCHEDULE='0 9,11,13,15,17 X X 1-5' -e API_KEY='ca0cdd8c332da1840ec1e46a16ece708' --network=multi-host-network --name app-exchange mbps54/app-exchange:1.0.4
-                docker run -d -p 8000:8000 -e DB_NAME_IP='app-redis' --network=multi-host-network --name app-web mbps54/app-web:1.0.4
+                docker run -d -e DB_NAME_IP='app-redis' -e CRON_SCHEDULE='0 9 1 X X' -e API_KEY='Nu2Em4s1cB' --network=multi-host-network --name app-exchange mbps54/app-exchange:1.1.1
+                docker run -d -p 8000:8000 -e DB_NAME_IP='app-redis' --network=multi-host-network --name app-web mbps54/app-web:1.1.1

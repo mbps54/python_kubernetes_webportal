@@ -2,14 +2,13 @@
 ########################### IMPORT GENERAL MODULES  ############################
 import os
 import yaml
+import subprocess
 from flask import Flask, render_template, request, send_file, session
 from flask_navigation import Navigation
 from random import randrange
 from datetime import datetime
 import redis
-import subprocess
-from exchangelib import DELEGATE, Account, Credentials, Message, Mailbox, Configuration
-from exchangelib.protocol import BaseProtocol, NoVerifyHTTPAdapter
+
 
 ###########################      IMPORT MODULES     ############################
 from functions.create_doc_1_pdf import create_doc_1_pdf
@@ -18,9 +17,18 @@ from functions.create_doc_2_pdf import create_doc_2_pdf
 from functions.data_validations import data_validation_1
 from functions.data_validations import data_validation_2
 from functions.zp import zp
-from functions.ldap_connect import ldap_connect
-from functions.app_email_sender import app_email_sender
 from functions.documents_functions import round_a
+from functions.ldap_connect import ldap_connect
+
+
+###########################        GLOBAL VARS      ############################
+USDRUB = 74.2926
+USDTRY = 13.3530
+BASE_USDTRY = 8.64
+BASE_USDRUB = 74.89
+PROCENT = 0.185
+KK = 1
+KPI = 1
 
 ###########################        NAVIGATION       ############################
 app = Flask(__name__)
@@ -55,13 +63,6 @@ if SERVER_NAME_IP == "None":
 DB_NAME_IP = str(os.environ.get("DB_NAME_IP"))
 if DB_NAME_IP == "None":
     DB_NAME_IP = "localhost"
-
-POSTSERVER = str(os.environ.get("POST_SERVER"))
-POSTDOMAIN = str(os.environ.get("POST_DOMAIN"))
-POSTUSERNAME = str(os.environ.get("POST_USERNAME"))
-POSTPASSWORD = str(os.environ.get("POST_PASSWORD"))
-POSTFROMADDRESS = str(os.environ.get("POST_FROM_ADDRESS"))
-POSTTOADDRESS = str(os.environ.get("POST_TO_ADDRESS_LIST"))
 
 
 ###########################        WEB PAGE 1       ############################
@@ -292,9 +293,9 @@ def entry_page_2():
         r = redis.StrictRedis(DB_NAME_IP, 6379, charset="utf-8", decode_responses=True)
         data_currency = r.hgetall("rates")
     except:
-        data_currency = {"usdrub": 74.2926, "usdtry": 13.353}
+        data_currency = {"usdrub": USDRUB, "usdtry": USDTRY}
     if data_currency == {}:
-        data_currency = {"usdrub": 74.2926, "usdtry": 13.353}
+        data_currency = {"usdrub": USDRUB, "usdtry": USDTRY}
 
     usd_rub = round_a(float(data_currency["usdrub"]), 4)
     usd_try = round_a(float(data_currency["usdtry"]), 4)
@@ -312,19 +313,19 @@ def entry_page_2():
 def get_data_2():
     session['user'] = str(randrange(9)) + str(randrange(9)) + str(randrange(9))
     data = {}
-    data["BASE_USDTRY"] = 8.64
-    data["BASE_USDRUB"] = 74.89
-    data["PROCENT"] = 0.185
-    data["Kk"] = 1
-    data["KPI"] = 1
+    data["BASE_USDTRY"] = BASE_USDTRY
+    data["BASE_USDRUB"] = BASE_USDRUB
+    data["PROCENT"] = PROCENT
+    data["Kk"] = KK
+    data["KPI"] = KPI
 
     try:
         r = redis.StrictRedis(DB_NAME_IP, 6379, charset="utf-8", decode_responses=True)
         data_currency = r.hgetall("rates")
     except:
-        data_currency = {"usdrub": 74.2926, "usdtry": 13.353}
+        data_currency = {"usdrub": USDRUB, "usdtry": USDTRY}
     if data_currency == {}:
-        data_currency = {"usdrub": 74.2926, "usdtry": 13.353}
+        data_currency = {"usdrub": USDRUB, "usdtry": USDTRY}
 
     usd_rub = round_a(float(data_currency["usdrub"]), 4)
     usd_try = round_a(float(data_currency["usdtry"]), 4)
@@ -332,7 +333,7 @@ def get_data_2():
     input_items = (
         "oklad",
         "isn",
-        "extra",
+        "sovm",
         "targetkpi",
         "CURRENT_USDRUB",
         "CURRENT_USDTRY",
@@ -354,8 +355,8 @@ def get_data_2():
         data["oklad"] = 0
     if data["isn"] == "":
         data["isn"] = 0
-    if data["extra"] == "":
-        data["extra"] = 0
+    if data["sovm"] == "":
+        data["sovm"] = 0
     if data["targetkpi"] == "":
         data["targetkpi"] = 0
 
@@ -376,36 +377,18 @@ def get_data_2():
         data["targetkpi"] = round_a(data["targetkpi"])
         data["CURRENT_TRYRUB"] = round_a(((data["CURRENT_USDRUB"]) / (data["CURRENT_USDTRY"])), 4)
         result = zp(data)
-        extra_2_try = result["extra_2"]
-        extra_2_usd = round_a((extra_2_try / data["CURRENT_USDTRY"]))
-        extra_2_rub = round_a(extra_2_try * data["CURRENT_TRYRUB"])
-        result['extra_2_try'] = extra_2_try
-        result['extra_2_rub'] = extra_2_rub
-        result['extra_2_usd'] = extra_2_usd
+
         create_doc_2_pdf(data, result, session['user'])
 
         return render_template(
             "results2.html",
             the_title = title,
-            the_oklad = data["oklad"],
-            the_isn = data["isn"],
-            the_extra = data["extra"],
-            the_targetkpi = data["targetkpi"],
-            the_usd_try = data["CURRENT_USDTRY"],
-            the_usd_rub = data["CURRENT_USDRUB"],
-            the_try_rub = data["CURRENT_TRYRUB"],
-            the_ezp = result["ezp"],
-            the_indincome = result["indincome"],
-            the_zp_extra = result["zp_extra"],
             the_zp_TRY = result["zp_TRY"],
             the_zp_RUB = result["zp_RUB"],
             the_zp_USD = result["zp_USD"],
-            the_extra_2_try = extra_2_try,
-            the_extra_2_usd = extra_2_usd,
-            the_extra_2_rub = extra_2_rub,
-            the_ebonus = result["ebonus"],
-            the_indbonus = result["indbonus"],
-            the_bonus_dop = result["bonus_dop"],
+            the_zp_sovm_TRY = result['zp_sovm_TRY'],
+            the_zp_sovm_RUB = result['zp_sovm_RUB'],
+            the_zp_sovm_USD = result['zp_sovm_USD'],
             the_bonus_TRY = result["bonus_TRY"],
             the_bonus_RUB = result["bonus_RUB"],
             the_bonus_USD = result["bonus_USD"],
@@ -418,7 +401,7 @@ def get_data_2():
             the_error=result["error"],
             the_oklad=result["oklad"],
             the_isn=result["isn"],
-            the_extra=result["extra"],
+            the_extra=result["sovm"],
             the_targetkpi=result["targetkpi"],
             the_CURRENT_USDRUB=result["CURRENT_USDRUB"],
             the_CURRENT_USDTRY=result["CURRENT_USDTRY"],
@@ -434,11 +417,13 @@ def download_file_pdf2():
 ###########################        WEB PAGE 3       ############################
 @app.route("/doc2_sig", methods=["POST", "GET"])
 def entry_page_2_sig():
+    username = 'username'
+    password = 'password'
     login_result = ''
     title = "Согласие с рассчетом дохода"
     test2 = request.form.get("test2", default=False, type=bool)
-    username = request.form.get('username', default = '', type=str)
-    password = request.form.get('password', default = '', type=str)
+    username = request.form.get('username', default = 'username', type=str)
+    password = request.form.get('password', default = 'password', type="password")
     if test2:
         conn_data = ldap_connect(username, password)
         if conn_data['boolen']:
@@ -447,13 +432,9 @@ def entry_page_2_sig():
             t = str(datetime.now())
             ti = t.split('.')[0]
             log = f"{ti};{name}\n"
-            print(log)
             log_file = open('logs.txt', 'a')
             log_file.write(log)
             log_file.close()
-            receiver_addresses = list(POSTTOADDRESS.split(","))
-            for receiver_address in receiver_addresses:
-                app_email_sender(receiver_address, "Auto generated message (salary agreement)", name)
         else:
             login_result = 'Ошибка ввода логина или пароля'
         return render_template(
@@ -465,7 +446,7 @@ def entry_page_2_sig():
         return render_template(
                 "results2_sig.html",
                 the_title = title,
-                the_login_result = login_result,
+                the_login_result = '''Не поставлена "галочка" согласия''',
                 )
 
 

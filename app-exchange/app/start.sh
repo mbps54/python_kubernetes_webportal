@@ -14,14 +14,14 @@ fi
 
 declare -p | grep -Ev 'BASHOPTS|BASH_VERSINFO|EUID|PPID|SHELLOPTS|UID' > /container.env
 
-python3 /app/app-exchange_manual.py
+python3 /app/app_exchange_cbtr.py
 
 if [[ -z $CRON_SCHEDULE ]]; then
     echo "."
 else
     echo "SHELL=/bin/bash
     BASH_ENV=/container.env
-    ${CRON_SCHEDULE//X/*} /app/app-exchange_manual.py
+    ${CRON_SCHEDULE//X/*} /app/app_exchange_cbtr.py
     # This extra line makes it a valid cron" > scheduler.txt
     crontab scheduler.txt
     exec cron -f

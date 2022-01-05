@@ -17,25 +17,25 @@ from functions.documents_functions import set_table_params_lo
 def create_doc_2_pdf(data: dict, result: dict, user = '') -> None:
     document = Document()
 
-    ###########################      DEFAULT STYLE      ############################
+###########################      DEFAULT STYLE      ############################
     style = document.styles["Normal"]
     font = style.font
     font.name = "Times New Roman"
     font.size = Pt(12)
 
-    ###############################    PARAGRAPH 1   ###############################
+###############################    PARAGRAPH 1   ###############################
     p1 = document.add_paragraph()
     p1.style = style
     p1.alignment = 1
     p1.add_run("СТРУКТУРА ЗАРАБОТНОЙ ПЛАТЫ").bold = True
 
-    ###############################    PARAGRAPH 2   ###############################
+###############################    PARAGRAPH 2   ###############################
     p2 = document.add_paragraph()
     p2.style = style
     p2.alignment = 1
     p2.add_run(f"Исходные данные").bold = True
 
-    ###############################      TABLE1      ###############################
+###############################      TABLE1      ###############################
     headers_1 = (
         'Параметр',
         'Значение',
@@ -64,14 +64,14 @@ def create_doc_2_pdf(data: dict, result: dict, user = '') -> None:
         fontsize=Pt(12),
     )
 
-    ###############################    PARAGRAPH 3   ###############################
+###############################    PARAGRAPH 3   ###############################
     p3 = document.add_paragraph()
     p3.style = style
     p3.alignment = 1
     p3.add_run(f"Зарплата").bold = True
     p3.paragraph_format.space_before = Pt(12)
 
-    ###############################      TABLE2      ###############################
+###############################      TABLE2      ###############################
     headers_2 = (
         'Раздел дохода',
         'У.Е.',
@@ -97,14 +97,14 @@ def create_doc_2_pdf(data: dict, result: dict, user = '') -> None:
         fontsize=Pt(12),
     )
 
-    ###############################    PARAGRAPH 4   ###############################
+###############################    PARAGRAPH 4   ###############################
     p4 = document.add_paragraph()
     p4.style = style
     p4.alignment = 1
     p4.add_run(f"Дополнительный доход (совмещение и пр.)").bold = True
     p4.paragraph_format.space_before = Pt(12)
 
-    ###############################      TABLE 3      ###############################
+###############################      TABLE 3      ###############################
     headers_3 = (
         'Раздел дохода',
         'У.Е.',
@@ -113,8 +113,8 @@ def create_doc_2_pdf(data: dict, result: dict, user = '') -> None:
         'USD',
     )
     records_table_3 = []
-    records_table_3.append(['Доплата (совмещение и пр.)', '', data['extra'], '', ''])
-    records_table_3.append(['Итого к начислению', '', result["extra_2_try"], result["extra_2_rub"], result["extra_2_usd"]])
+    records_table_3.append(['Доплата (совмещение и пр.)', '', data['sovm'], '', ''])
+    records_table_3.append(['Итого к начислению', '', result["zp_sovm_TRY"], result["zp_sovm_RUB"], result["zp_sovm_USD"]])
 
     table_3 = create_table(document, headers_3, records_table_3)
     table_3.allow_autofit = False
@@ -126,14 +126,14 @@ def create_doc_2_pdf(data: dict, result: dict, user = '') -> None:
         fontsize=Pt(12),
     )
 
-    ###############################    PARAGRAPH 5   ###############################
+###############################    PARAGRAPH 5   ###############################
     p5 = document.add_paragraph()
     p5.style = style
     p5.alignment = 1
     p5.add_run(f"Премия по КПЭ").bold = True
     p5.paragraph_format.space_before = Pt(12)
 
-    ###############################      TABLE 4      ###############################
+###############################      TABLE 4      ###############################
     headers_4 = (
         'Раздел дохода',
         'У.Е.',
@@ -158,14 +158,14 @@ def create_doc_2_pdf(data: dict, result: dict, user = '') -> None:
         fontsize=Pt(12),
     )
 
-    ###############################    PARAGRAPH 6   ###############################
+###############################    PARAGRAPH 6   ###############################
     p6 = document.add_paragraph()
     p6.style = style
     p6.alignment = 1
     p6.add_run(data["attention"]).bold = True
     p6.paragraph_format.space_before = Pt(12)
 
-    ###############################   PAGE BORDERS   ###############################
+###############################   PAGE BORDERS   ###############################
     sections = document.sections
     for section in sections:
         section.top_margin = Cm(1.0)
@@ -173,28 +173,26 @@ def create_doc_2_pdf(data: dict, result: dict, user = '') -> None:
         section.left_margin = Cm(3.2)
         section.right_margin = Cm(1.7)
 
-
-
-    ###############################    SAVE FILE     ###############################
+###############################    SAVE FILE     ###############################
     try:
         os.makedirs(os.path.expanduser("./files/doc2/"))
     except:
         pass
     document.save(f"./files/doc2/document_pdf{user}.docx")
 
-    ###############################  CONVERT TO PDF  ###############################
+###############################  CONVERT TO PDF  ###############################
     subprocess.run(
         ["doc2pdf", f"./files/doc2/document_pdf{user}.docx"],
         stdout=subprocess.DEVNULL,
-        stderr=subprocess.DEVNULL,  
+        stderr=subprocess.DEVNULL,
         encoding="utf-8",
     )
-    ###############################    RENAME FILE   ###############################
+###############################    RENAME FILE   ###############################
     subprocess.run(
         ["mv", f"./files/doc2/document_pdf{user}.pdf", f"./files/doc2/document{user}.pdf"],
         stdout=subprocess.DEVNULL,
         stderr=subprocess.DEVNULL,
         encoding="utf-8",
     )
-    ###############################        END       ###############################
+###############################        END       ###############################
     return None

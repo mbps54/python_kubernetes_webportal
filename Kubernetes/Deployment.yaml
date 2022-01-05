@@ -19,43 +19,16 @@ spec:
         app: app-web
     spec:
       containers:
-        - image: mbps54/app-web:1.0.2
+        - image: mbps54/app-web:1.1.1
           imagePullPolicy: Always
           name: app-web
           ports:
             - containerPort: 8000
           env:
-            - name: POST_SERVER
-              valueFrom:
-                secretKeyRef:
-                  key: postserver
-                  name: postsecrets
-            - name: POST_DOMAIN
-              valueFrom:
-                secretKeyRef:
-                  key: postdomain
-                  name: postsecrets
-            - name: POST_USERNAME
-              valueFrom:
-                secretKeyRef:
-                  key: postusername
-                  name: postsecrets
-            - name: POST_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  key: postpassword
-                  name: postsecrets
-            - name: POST_FROM_ADDRESS
-              valueFrom:
-                secretKeyRef:
-                  key: postfromaddress
-                  name: postsecrets
             - name: SERVER_NAME_IP
               value: '0.0.0.0'
             - name: DB_NAME_IP
               value: 'app-redis'
-            - name: POST_TO_ADDRESS_LIST
-              value: 'a.utkin@akkuyu.com'
           resources:
             requests:
               cpu: 500m
