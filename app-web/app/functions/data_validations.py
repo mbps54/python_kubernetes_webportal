@@ -44,7 +44,7 @@ def data_validation_2(data: dict) -> Union[bool, dict]:
     elif not check_digit(data["isn"]):
         data["error"] = f'Ошибка ввода данных "ИСН": {data["isn"]}'
         return data
-    elif not check_digit(data["extra"]):
+    elif not check_digit(data["sovm"]):
         data["error"] = f'Ошибка ввода данных "Доплата": {data["extra"]}'
         return data
     elif not check_digit(data["targetkpi"]):
