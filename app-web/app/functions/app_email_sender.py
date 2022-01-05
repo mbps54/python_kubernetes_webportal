@@ -49,6 +49,7 @@ def app_email_sender(receiver_address: str, subject: str, mail_content: str) -> 
     )
     m.send_and_save()
     print("E-mail have been sent to {}".format(POSTTOADDRESS))
+    return(None)
 
 
 if __name__ == "__main__":

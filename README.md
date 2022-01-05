@@ -35,7 +35,7 @@ tmux app-exchange
 - Build images (optional)
 ```
 cd app-web
-docker build . -t mbps54/app-web:1.0.3
+docker build . -t mbps54/app-web:1.0.4
 
 cd app-exchange
 docker build . -t mbps54/app-exchange:1.0.3
@@ -72,7 +72,7 @@ docker run -d \
            -e POST_TO_ADDRESS_LIST='d.ivano@company.com' \
            --network=multi-host-network \
            --name app-web \
-           mbps54/app-web:latest
+           mbps54/app-web:1.0.4
 ```
 
 3. Run Docker containes on Kubernetes cluster

@@ -8,6 +8,8 @@ from random import randrange
 from datetime import datetime
 import redis
 import subprocess
+from exchangelib import DELEGATE, Account, Credentials, Message, Mailbox, Configuration
+from exchangelib.protocol import BaseProtocol, NoVerifyHTTPAdapter
 
 ###########################      IMPORT MODULES     ############################
 from functions.create_doc_1_pdf import create_doc_1_pdf
@@ -428,6 +430,7 @@ def download_file_pdf2():
     path = f"files/doc2/document{session['user']}.pdf"
     return send_file(path, as_attachment=True)
 
+
 ###########################        WEB PAGE 3       ############################
 @app.route("/doc2_sig", methods=["POST", "GET"])
 def entry_page_2_sig():
@@ -441,21 +444,16 @@ def entry_page_2_sig():
         if conn_data['boolen']:
             name = conn_data['data']
             login_result = 'Данные приняты. Спасибо!'
-            try:
-                os.makedirs(os.path.expanduser("/home/artem/logs/"))
-            except:
-                pass
-            os.chdir(os.path.expanduser("/home/artem/logs/"))
             t = str(datetime.now())
             ti = t.split('.')[0]
             log = f"{ti};{name}\n"
             print(log)
-            log_file = open('/home/artem/logs/logs.txt', 'a')
+            log_file = open('logs.txt', 'a')
             log_file.write(log)
             log_file.close()
             receiver_addresses = list(POSTTOADDRESS.split(","))
-            #for receiver_address in receiver_addresses:
-            #    app_email_sender(receiver_address, "Auto generated message (salary agreement)", name)
+            for receiver_address in receiver_addresses:
+                app_email_sender(receiver_address, "Auto generated message (salary agreement)", name)
         else:
             login_result = 'Ошибка ввода логина или пароля'
         return render_template(
