@@ -25,6 +25,12 @@ POSTMESSAGE = str(os.environ.get("POST_MESSAGE"))
 
 def app_email_sender(receiver_address: str, subject: str, mail_content: str) -> None:
     BaseProtocol.HTTP_ADAPTER_CLS = NoVerifyHTTPAdapter
+    POSTSERVER = str(os.environ.get("POST_SERVER"))
+    POSTDOMAIN = str(os.environ.get("POST_DOMAIN"))
+    POSTUSERNAME = str(os.environ.get("POST_USERNAME"))
+    POSTPASSWORD = str(os.environ.get("POST_PASSWORD"))
+    POSTFROMADDRESS = str(os.environ.get("POST_FROM_ADDRESS"))
+    POSTTOADDRESS = str(os.environ.get("POST_TO_ADDRESS_LIST"))
     credentials = Credentials(
         username=POSTDOMAIN + "\\" + POSTUSERNAME, password=POSTPASSWORD
     )

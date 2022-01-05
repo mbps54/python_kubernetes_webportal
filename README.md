@@ -60,19 +60,19 @@ docker run -d \
            -e CRON_SCHEDULE='0 9,11,13,15,17 X X 1-5' \
            --network=multi-host-network \
            --name app-exchange \
-           mbps54/app-exchange:1.0.3
+           mbps54/app-exchange:latest
 docker run -d \
            -e DB_NAME_IP='app-redis' \
            -p 8000:8000 \
-           -e POST_SERVER='mail.akkuyu.com' \
+           -e POST_SERVER='mail.company.com' \
            -e POST_DOMAIN='mbu' \
-           -e POST_USERNAME='a.utkin' \
-           -e POST_PASSWORD='JKL444jkl444' \
-           -e POST_FROM_ADDRESS='a.utkin@akkuyu.com' \
-           -e POST_TO_ADDRESS_LIST='a.utkin@akkuyu.com' \
+           -e POST_USERNAME='i.ivanov' \
+           -e POST_PASSWORD='password' \
+           -e POST_FROM_ADDRESS='i.ivanov@company.com' \
+           -e POST_TO_ADDRESS_LIST='d.ivano@company.com' \
            --network=multi-host-network \
            --name app-web \
-           mbps54/app-web:1.0.3
+           mbps54/app-web:latest
 ```
 
 3. Run Docker containes on Kubernetes cluster
