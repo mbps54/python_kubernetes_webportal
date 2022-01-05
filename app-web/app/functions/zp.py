@@ -70,7 +70,7 @@ def zp(data):
 
     result["zp_sovm_TRY"] = zp_sovm_TRY
     result["zp_sovm_RUB"] = zp_sovm_RUB
-    result["zp_sovm_USD"] = zp_USD
+    result["zp_sovm_USD"] = zp_sovm_USD
 
 #############################         EBONUS       #############################
     indbonus = round_a(targetkpi * PROCENT)
