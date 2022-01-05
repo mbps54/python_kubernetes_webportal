@@ -43,7 +43,7 @@ def create_doc_2_pdf(data: dict, result: dict, user = '') -> None:
     records_table_1 = []
     records_table_1.append(['Оклад (в TRY)', f"{data['oklad']} TRY"])
     records_table_1.append(['ИСН (инд. стимулирующая надбавка)', f"{data['isn']} TRY"])
-    records_table_1.append(['Доплата (совмещение и пр.)', f"{data['extra']} TRY"])
+    records_table_1.append(['Доплата (совмещение и пр.)', f"{data['sovm']} TRY"])
     records_table_1.append(['Целевой размер премии по КПЭ', f"{data['targetkpi']} TRY"])
     records_table_1.append(['Корректирующий коэффициент (Кк)', data["Kk"]])
     records_table_1.append(['Рассчетный коэффициент (Рк), влияние курса RUB/USD и Кк', result["Rk"]])
