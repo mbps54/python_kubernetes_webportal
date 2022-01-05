@@ -373,7 +373,7 @@ def get_data_2():
     if result == True:
         data["oklad"] = round_a(data["oklad"])
         data["isn"] = round_a(data["isn"])
-        data["extra"] = round_a(data["extra"])
+        data["sovm"] = round_a(data["sovm"])
         data["targetkpi"] = round_a(data["targetkpi"])
         data["CURRENT_TRYRUB"] = round_a(((data["CURRENT_USDRUB"]) / (data["CURRENT_USDTRY"])), 4)
         result = zp(data)
