@@ -65,8 +65,8 @@ def zp(data):
     zp_sovm_TRY = round_a(sovm * Kv)
     if zp_sovm_TRY < sovm:
         zp_sovm_TRY = sovm
-    zp_sovm_RUB = round_a(zp_sovm_2_TRY * CURRENT_TRYRUB)
-    zp_sovm_USD = round_a(zp_sovm_2_TRY / CURRENT_USDTRY)
+    zp_sovm_RUB = round_a(zp_sovm_TRY * CURRENT_TRYRUB)
+    zp_sovm_USD = round_a(zp_sovm_TRY / CURRENT_USDTRY)
 
     result["zp_sovm_TRY"] = zp_sovm_TRY
     result["zp_sovm_RUB"] = zp_sovm_RUB
