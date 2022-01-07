@@ -35,15 +35,16 @@
 	<a href="{{ url_for('.download_file_pdf2') }}">Скачать полный отчет в формате .PDF</a>
 </p>
 
-<!<nav>                                                             >
-<!    <ul>                                                          >
-<!        {% for item in nav.sig %}                                 >
-<!        <li class="{{ 'active' if item.is_active else '' }}">     >
-<!            <a href="{{ item.url }}">{{ item.label }}</a>         >
-<!        </li>                                                     >
-<!        {% endfor %}                                              >
-<!    </ul>                                                         >
-<!</nav>                                                            >
+
+<nav>
+    <ul>
+        {% for item in nav.sig %}
+        <li class="{{ 'active' if item.is_active else '' }}">
+            <a href="{{ item.url }}">{{ item.label }}</a>
+        </li>
+        {% endfor %}
+    </ul>
+</nav>
 
 </form>
 {% endblock %}

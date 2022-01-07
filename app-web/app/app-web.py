@@ -55,12 +55,12 @@ nav.Bar(
         nav.Item("Релокация. Заявление на билеты и гостиницу", "get_data"),
     ],
 )
-#nav.Bar(
-#    "sig",
-#    [
-#        nav.Item("Перейти на форму согласия с рассчетом", "entry_page_2_sig"),
-#    ],
-#)
+nav.Bar(
+    "sig",
+    [
+        nav.Item("Опрос (бета-версия)", "entry_page_2_sig"),
+    ],
+)
 
 ###########################    SYSTEM ENVIRONMENT   ############################
 SERVER_NAME_IP = str(os.environ.get("SERVER_NAME_IP"))
@@ -296,6 +296,7 @@ def download_file_pdf():
 @app.route("/doc2")
 def entry_page_2():
     title = "Рассчет дохода"
+    data_currency = {"usdrub": USDRUB, "usdtry": USDTRY}
     try:
         r = redis.StrictRedis(DB_NAME_IP, 6379, charset="utf-8", decode_responses=True)
         data_currency = r.hgetall("rates")
@@ -303,7 +304,7 @@ def entry_page_2():
         data_currency = {"usdrub": USDRUB, "usdtry": USDTRY}
     if data_currency == {}:
         data_currency = {"usdrub": USDRUB, "usdtry": USDTRY}
-
+    print (data_currency)
     usd_rub = round_a(float(data_currency["usdrub"]), 4)
     usd_try = round_a(float(data_currency["usdtry"]), 4)
 
@@ -427,11 +428,12 @@ def entry_page_2_sig():
     username = 'username'
     password = 'password'
     login_result = ''
-    title = "Согласие с рассчетом дохода"
+    title = "Опрос"
     test2 = request.form.get("test2", default=False, type=bool)
-    username = request.form.get('username', default = 'username', type=str)
-    password = request.form.get('password', default = 'password', type="password")
+    
     if test2:
+        username = request.form.get('username', default = 'username', type=str)
+        password = request.form.get('password', default = 'password', type=str)
         conn_data = ldap_connect(username, password)
         if conn_data['boolen']:
             name = conn_data['data']
@@ -442,6 +444,9 @@ def entry_page_2_sig():
             log_file = open('logs.txt', 'a')
             log_file.write(log)
             log_file.close()
+            conn = redis.Redis(DB_NAME_IP, 6379, charset="utf-8", decode_responses=True)
+            data = f"{ti} -- {name}"
+            conn.lpush('userlist', data)
         else:
             login_result = 'Ошибка ввода логина или пароля'
         return render_template(
@@ -449,12 +454,31 @@ def entry_page_2_sig():
                 the_title = title,
                 the_login_result = login_result,
                 )
+    elif request.form.get('username', default = 'username', type=str) != 'username':
+        return render_template(
+                "results2_sig.html",
+                the_title = title,
+                the_login_result = 'Не поставлен флаг согласия',
+                )
     else:
         return render_template(
                 "results2_sig.html",
                 the_title = title,
-                the_login_result = '''Не поставлена "галочка" согласия''',
+                the_login_result = '',
                 )
+
+
+###########################        WEB PAGE 4       ############################
+@app.route("/result")
+def result_page():
+    title = "Результат опроса"
+    conn = redis.Redis(DB_NAME_IP, 6379, charset="utf-8", decode_responses=True)
+    elements = conn.lrange('userlist', 0, -1 )
+    return render_template(
+            "result.html",
+            the_title = title,
+            the_elements = list(elements)
+            )
 
 
 if __name__ == "__main__":
