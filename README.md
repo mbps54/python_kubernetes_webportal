@@ -3,6 +3,10 @@ Status:<br><img src="https://github.com/mbps54/web_doc_app/actions/workflows/ci-
 ### Description
 Python web application allows users to fill in a form ang got a ready document in .docx and .pdf formats, based in input parameters.
 
+### Release notes
+In 1.1.2 a proper crontab job is added  to docker container. It clears generated files (remove "/app/files") directiry each 4 hour.
+Version 1.1.1 contains crontab job files, but it does not work.
+
 ### This git direcory contains:
 1. Python and html codes
 2. Dockerfile to make a Docker container
@@ -42,15 +46,15 @@ python3 ./app-web/app/app-web.py
 - Build images (optional)
 ```
 cd app-web
-docker build . -t mbps54/app-web:1.1.1
+docker build . -t mbps54/app-web:1.1.2
 
 cd app-exchange
-docker build . -t mbps54/app-exchange:1.1.1
+docker build . -t mbps54/app-exchange:1.1.2
 ```
 - Push Docker images to hub (optional)
 ```
-docker push mbps54/app-web:1.1.1
-docker push mbps54/app-exchange:1.1.1
+docker push mbps54/app-web:1.1.2
+docker push mbps54/app-exchange:1.1.2
 ```
 
 - Run Docker containers
@@ -67,13 +71,14 @@ docker run -d \
            -e CRON_SCHEDULE='0 9 1 X X' \
            --network=multi-host-network \
            --name app-exchange \
-           mbps54/app-exchange:1.1.1
+           mbps54/app-exchange:1.1.2
 docker run -d \
            -p 8000:8000 \
            -e DB_NAME_IP='app-redis' \
            --network=multi-host-network \
            --name app-web \
-           mbps54/app-web:1.1.1
+           mbps54/app-web:1.1.2
+
 ```
 
 3. Run Docker containes on Kubernetes cluster
@@ -92,24 +97,7 @@ Detailed K8S info in /Diagram/web-portal.pdf
 ```
 tree -a -I ".git"
 
-├── .github
-│   └── workflows
-│       └── ci-process.yaml
-├── .gitignore
-├── Diagram
-│   ├── web-portal.pdf
-│   └── web-portal.vsdx
-├── Kubernetes
-│   ├── CronJob.yaml
-│   ├── Deployment.yaml
-│   ├── Deployment_db.yaml
-│   ├── Ingress.yaml
-│   ├── Job.yaml
-│   └── Service.yaml
-├── README.md
 ├── app-exchange
-│   ├── .dockerignore
-│   ├── Dockerfile
 │   ├── app
 │   │   ├── app_exchange_cbtr.py
 │   │   ├── old
@@ -117,40 +105,59 @@ tree -a -I ".git"
 │   │   │   ├── old_app_exchange_manual.py
 │   │   │   └── old_app_exchange_stock.py
 │   │   └── start.sh
+│   ├── Dockerfile
+│   ├── .dockerignore
 │   └── requirements.txt
-└── app-web
-    ├── .dockerignore
-    ├── Dockerfile
-    ├── app
-    │   ├── app-web.py
-    │   ├── data
-    │   │   ├── test0.yaml
-    │   │   ├── test1.yaml
-    │   │   ├── test2.yaml
-    │   │   ├── test3.yaml
-    │   │   └── test4.yaml
-    │   ├── functions
-    │   │   ├── app_email_sender.py
-    │   │   ├── check_functions.py
-    │   │   ├── create_doc_1_doc.py
-    │   │   ├── create_doc_1_pdf.py
-    │   │   ├── create_doc_2_pdf.py
-    │   │   ├── data_validations.py
-    │   │   ├── documents_functions.py
-    │   │   ├── ldap_connect.py
-    │   │   └── zp.py
-    │   ├── static
-    │   │   └── hf.css
-    │   └── templates
-    │       ├── base.html
-    │       ├── doc1.html
-    │       ├── doc2.html
-    │       ├── entry.html
-    │       ├── results1.html
-    │       ├── results2.html
-    │       └── results2_sig.html
-    └── requirements.txt
+├── app-web
+│   ├── app
+│   │   ├── app-web.py
+│   │   ├── data
+│   │   │   ├── test0.yaml
+│   │   │   ├── test1.yaml
+│   │   │   ├── test2.yaml
+│   │   │   ├── test3.yaml
+│   │   │   └── test4.yaml
+│   │   ├── functions
+│   │   │   ├── app_email_sender.py
+│   │   │   ├── check_functions.py
+│   │   │   ├── create_doc_1_doc.py
+│   │   │   ├── create_doc_1_pdf.py
+│   │   │   ├── create_doc_2_pdf.py
+│   │   │   ├── data_validations.py
+│   │   │   ├── documents_functions.py
+│   │   │   ├── ldap_connect.py
+│   │   │   └── zp.py
+│   │   ├── start.sh
+│   │   ├── static
+│   │   │   └── hf.css
+│   │   └── templates
+│   │       ├── base.html
+│   │       ├── doc1.html
+│   │       ├── doc2.html
+│   │       ├── entry.html
+│   │       ├── results1.html
+│   │       ├── results2.html
+│   │       └── results2_sig.html
+│   ├── crontab
+│   ├── Dockerfile
+│   ├── .dockerignore
+│   └── requirements.txt
+├── Diagram
+│   ├── web-portal.pdf
+│   └── web-portal.vsdx
+├── .github
+│   └── workflows
+│       └── ci-process.yaml
+├── .gitignore
+├── Kubernetes
+│   ├── CronJob.yaml
+│   ├── Deployment_db.yaml
+│   ├── Deployment.yaml
+│   ├── Ingress.yaml
+│   ├── Job.yaml
+│   └── Service.yaml
+└── README.md
 
-13 directories, 45 files
+13 directories, 47 files
 
 ```
