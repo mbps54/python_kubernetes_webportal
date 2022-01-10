@@ -1,0 +1,2 @@
+0 */4 * * * root rm -rf /app/files/
+# This extra line makes it a valid cron
