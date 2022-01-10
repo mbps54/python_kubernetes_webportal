@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<h2>{{ the_title }}</h2>
+
+<nav>
+<ul>
+    {% for item in nav.top %}
+    <li class="{{ 'active' if item.is_active else '' }}">
+        <a href="{{ item.url }}">{{ item.label }}</a>
+    </li>
+    {% endfor %}
+</ul>
+</nav>
+
+
+<form method='POST' action='/doc1'>
+<table>
+<p>Используйте эту форму для заполнения данных (* обязательные поля):</p>
+<h3 style="color:Red">{{ the_error }}</h3>
+<tr><td colspan="2"; style="font-weight:bold; text-align: center;">Общие данные заявителя</td><td></td>
+<tr><td>E-mail*:</td><td><input name='email' type='text' value="{{ the_email }}" placeholder='example@akkuyu.com' width='60'></td></tr>
+<tr><td>Фамилия (в род. падеже, ОТ кого заявление)*:</td><td><input name='name1' type='text' value="{{ the_name1 }}" placeholder='Уизли' width='60'></td></tr>
+<tr><td>Имя (в род. падеже, ОТ кого заявление)*:</td><td><input name='name2' type='text' value="{{ the_name2 }}" placeholder='Рональда' width='60'></td></tr>
+<tr><td>Отчество (в род. падеже, ОТ кого заявление):</td><td><input name='name3' type='text' value="{{ the_name3 }}" placeholder='Билиуса' width='60'></td></tr>
+<tr><td>Фамилия (в им. падеже, ПОДПИСАНТ заявления)*:</td><td><input name='rabotnik_name1' type='text' value="{{ the_rabotnik_name1 }}" placeholder='Уизли' width='60'></td></tr>
+<tr><td>Имя (в им. падеже, ПОДПИСАНТ заявления)*:</td><td><input name='rabotnik_name2' type='text' value="{{ the_rabotnik_name2 }}" placeholder='Рональд' width='60'></td></tr>
+<tr><td>Отчество (в им. падеже, ПОДПИСАНТ заявления):</td><td><input name='rabotnik_name3' type='text' value="{{ the_rabotnik_name3 }}" placeholder='Билиус' width='60'></td></tr>
+<tr><td>Цех/Отдел/Группа*:</td><td><input name='shop' type='text' value="{{ the_shop }}" placeholder='Цех атомного расщепления' width='60' ></td></tr>
+<tr><td>Телефон (рабочий или мобильный)*:</td><td><input name='phone' type='text' value="{{ the_phone }}" placeholder='9XXX' width='60'></td></tr>
+<tr><td>Кимлик (11 цифр):</td><td><input name='kimlik' type='text' value="{{ the_kimlik }}" placeholder='99XXXXXXXXXXXX'  width='60'></td></tr>
+
+<tr><td colspan="2"; style="font-weight:bold; text-align: center;">Данные для компенсации перевозки багажа и трансфера</td><td></td>
+<tr><td>Сумма на багаж:</td><td><input name='ticket_date' type='text' value="{{ the_ticket_date }}" placeholder='ДД.ММ.ГГГГ' width='60'></td></tr>
+<tr><td>Пункт отправления:</td><td><input name='departure' type='text' value="{{ the_departure }}" placeholder='Литтл Уингинг' width='60'></td></tr>
+<tr><td>Пункт прибытия:</td><td><input name='arrival' type='text' value="{{ the_arrival }}" placeholder='Газипаша' width='60'></td></tr>
+
+<tr><td colspan="2"; style="font-weight:bold; text-align: center;">Данные для бронирования гостиницы (если требуется)</td><td></td>
+<tr><td>Дата заселения в гостиницу:</td><td><input name='hotel_date' type='text' value="{{ the_hotel_date }}" placeholder='ДД.ММ.ГГГГ' width='60'></td></tr>
+<tr><td>Гостиница:</td><td><input name='hotel' type='text' value="{{ the_hotel }}" placeholder='Lords Hotel' width='60'></td></tr>
+
+<tr><td colspan="2"; style="font-weight:bold; text-align: center;">Данные пассажиров</td><td></td>
+<tr><td colspan="2"; style="font-weight:bold; text-align: center;">Работник, указать данные если требуется билет</td><td></td>
+<tr><td>Работник. First Name:</td><td><input name='rabotnik_name_lat1' type='text' value="{{ the_rabotnik_name_lat1 }}" placeholder='Ronald' width='60'></td></tr>
+<tr><td>Работник. Last Name:</td><td><input name='rabotnik_name_lat2' type='text' value="{{ the_rabotnik_name_lat2 }}" placeholder='Weasley ' width='60'></td></tr>
+<tr><td>Работник. Дата рождения:</td><td><input name='rabotnik_birthdate' type='text' value="{{ the_rabotnik_birthdate }}" placeholder='ДД.ММ.ГГГГ' width='60'></td></tr>
+<tr><td>Работник. N загранпаспорта:</td><td><input name='rabotnik_zagran' type='text' value="{{ the_rabotnik_zagran }}" placeholder='XXXXXXXXX' width='60'></td></tr>
+<tr><td>Работник. Срок действия загранпаспорта:</td><td><input name='rabotnik_zagran_srok' type='text' value="{{ the_rabotnik_zagran_srok }}" placeholder='ДД.ММ.ГГГГ' width='60'></td></tr>
+
+<tr><td colspan="2"; style="font-weight:bold; text-align: center;">Супруг(а), указать данные если требуется билет</td><td></td>
+<tr><td>Супруг(а). Фамилия:</td><td><input name='supruga_name1' type='text' value="{{ the_supruga_name1 }}" placeholder='Гермиона' width='60'></td></tr>
+<tr><td>Супруг(а). Имя:</td><td><input name='supruga_name2' type='text' value="{{ the_supruga_name2}}" placeholder='Грейнджер' width='60'></td></tr>
+<tr><td>Супруг(а). Отчество:</td><td><input name='supruga_name3' type='text' value="{{ the_supruga_name3 }}" placeholder='' width='60'></td></tr>
+<tr><td>Супруг(а). First Name:</td><td><input name='supruga_name_lat1' type='text' value="{{ the_supruga_name_lat1 }}" placeholder='Hermione' width='60'></td></tr>
+<tr><td>Супруг(а). Last Name:</td><td><input name='supruga_name_lat2' type='text' value="{{ the_supruga_name_lat2 }}" placeholder='Granger' width='60'></td></tr>
+<tr><td>Супруг(а). Дата рождения:</td><td><input name='supruga_birthdate' type='text' value="{{ the_supruga_birthdate}}" placeholder='ДД.ММ.ГГГГ' width='60'></td></tr>
+<tr><td>Супруг(а). N загранпаспорта:</td><td><input name='supruga_zagran' type='text' value="{{ the_supruga_zagran }}" placeholder='XXXXXXXXX' width='60'></td></tr>
+<tr><td>Супруг(а). Срок действия загранпаспорта:</td><td><input name='supruga_zagran_srok' type='text' value="{{ the_supruga_zagran_srok }}" placeholder='ДД.ММ.ГГГГ' width='60'></td></tr>
+<tr><td>Супруг(а). N свидетельства о регистрации брака:</td><td><input name='supruga_brak_number' type='text' value="{{ the_supruga_brak_number }}" placeholder='XXXXXXXX' width='60'></td></tr>
+<tr><td>Супруг(а). Дата свидетельства о регистрации брака:</td><td><input name='supruga_brak_data' type='text' value="{{ the_supruga_brak_data }}" placeholder='ДД.ММ.ГГГГ' width='60'></td></tr>
+
+<tr><td colspan="2"; style="font-weight:bold; text-align: center;">Ребенок 1, указать данные если требуется билет</td><td></td>
+<tr><td>Ребенок1. Фамилия:</td><td><input name='child1_name1' type='text' value="{{ the_child1_name1 }}" placeholder='' width='60'></td></tr>
+<tr><td>Ребенок1. Имя:</td><td><input name='child1_name2' type='text' value="{{ the_child1_name2 }}" placeholder='' width='60'></td></tr>
+<tr><td>Ребенок1. Отчество:</td><td><input name='child1_name3' type='text' value="{{ the_child1_name3 }}" placeholder='' width='60'></td></tr>
+<tr><td>Ребенок1. First Name:</td><td><input name='child1_name_lat1' type='text' value="{{ the_child1_name_lat1 }}" placeholder='' width='60'></td></tr>
+<tr><td>Ребенок1. Last Name:</td><td><input name='child1_name_lat2' type='text' value="{{ the_child1_name_lat2 }}" placeholder='' width='60'></td></tr>
+<tr><td>Ребенок1. Дата рождения:</td><td><input name='child1_birthdate' type='text' value="{{ the_child1_birthdate }}" placeholder='' width='60'></td></tr>
+<tr><td>Ребенок1. N загранпаспорта:</td><td><input name='child1_zagran' type='text' value="{{ the_child1_zagran }}" placeholder='' width='60'></td></tr>
+<tr><td>Ребенок1. Срок действия загранпаспорта:</td><td><input name='child1_zagran_srok' type='text' value="{{ the_child1_zagran_srok }}" placeholder='' width='60'></td></tr>
+<tr><td>Ребенок1. N свидетельства о рождении:</td><td><input name='child1_svidetelstvo_number' type='text' value="{{ the_child1_svidetelstvo_number }}" placeholder='' width='60'></td></tr>
+<tr><td>Ребенок1. Дата свидетельства о рождении:</td><td><input name='child1_svidetelstvo_data' type='text' value="{{ the_child1_svidetelstvo_data }}" placeholder='' width='60'></td></tr>
+
+<tr><td colspan="2"; style="font-weight:bold; text-align: center;">Ребенок 2, указать данные если требуется билет</td><td></td>
+<tr><td>Ребенок2. Фамилия:</td><td><input name='child2_name1' type='text' value="{{ the_child2_name1 }}" placeholder='' width='60'></td></tr>
+<tr><td>Ребенок2. Имя:</td><td><input name='child2_name2' type='text' value="{{ the_child2_name2 }}" placeholder='' width='60'></td></tr>
+<tr><td>Ребенок2. Отчество:</td><td><input name='child2_name3' type='text' value="{{ the_child2_name3 }}" placeholder='' width='60'></td></tr>
+<tr><td>Ребенок2. First Name:</td><td><input name='child2_name_lat1' type='text' value="{{ the_child2_name_lat1 }}" placeholder='' width='60'></td></tr>
+<tr><td>Ребенок2. Last Name:</td><td><input name='child2_name_lat2' type='text' value="{{ the_child2_name_lat2 }}" placeholder='' width='60'></td></tr>
+<tr><td>Ребенок2. Дата рождения:</td><td><input name='child2_birthdate' type='text' value="{{ the_child2_birthdate }}" placeholder='' width='60'></td></tr>
+<tr><td>Ребенок2. N загранпаспорта:</td><td><input name='child2_zagran' type='text' value="{{ the_child2_zagran }}" placeholder='' width='60'></td></tr>
+<tr><td>Ребенок2. Срок действия загранпаспорта:</td><td><input name='child2_zagran_srok' type='text' value="{{ the_child2_zagran_srok }}" placeholder='' width='60'></td></tr>
+<tr><td>Ребенок2. N свидетельства о рождении:</td><td><input name='child2_svidetelstvo_number' type='text' value="{{ the_child2_svidetelstvo_number }}" placeholder='' width='60'></td></tr>
+<tr><td>Ребенок2. Дата свидетельства о рождении:</td><td><input name='child2_svidetelstvo_data' type='text' value="{{ the_child2_svidetelstvo_data }}" placeholder='' width='60'></td></tr>
+
+<tr><td colspan="2"; style="font-weight:bold; text-align: center;">Ребенок 3, указать данные если требуется билет</td><td></td>
+<tr><td>Ребенок3. Фамилия:</td><td><input name='child3_name1' type='text' value="{{ the_child3_name1 }}" placeholder='' width='60'></td></tr>
+<tr><td>Ребенок3. Имя:</td><td><input name='child3_name2' type='text' value="{{ the_child3_name2 }}" placeholder='' width='60'></td></tr>
+<tr><td>Ребенок3. Отчество:</td><td><input name='child3_name3' type='text' value="{{ the_child3_name3 }}" placeholder='' width='60'></td></tr>
+<tr><td>Ребенок3. First Name:</td><td><input name='child3_name_lat1' type='text' value="{{ the_child3_name_lat1 }}" placeholder='' width='60'></td></tr>
+<tr><td>Ребенок3. Last Name:</td><td><input name='child3_name_lat2' type='text' value="{{ the_child3_name_lat2 }}" placeholder='' width='60'></td></tr>
+<tr><td>Ребенок3. Дата рождения:</td><td><input name='child3_birthdate' type='text' value="{{ the_child3_birthdate }}" placeholder='' width='60'></td></tr>
+<tr><td>Ребенок3. N загранпаспорта:</td><td><input name='child3_zagran' type='text' value="{{ the_child3_zagran }}" placeholder='' width='60'></td></tr>
+<tr><td>Ребенок3. Срок действия загранпаспорта:</td><td><input name='child3_zagran_srok' type='text' value="{{ the_child3_zagran_srok }}" placeholder='' width='60'></td></tr>
+<tr><td>Ребенок3. N свидетельства о рождении:</td><td><input name='child3_svidetelstvo_number' type='text' value="{{ the_child3_svidetelstvo_number }}" placeholder='' width='60'></td></tr>
+<tr><td>Ребенок3. Дата свидетельства о рождении:</td><td><input name='child3_svidetelstvo_data' type='text' value="{{ the_child3_svidetelstvo_data }}" placeholder='' width='60'></td></tr>
+
+<tr><td colspan="2"; style="font-weight:bold; text-align: center;">Ребенок 4, указать данные если требуется билет</td><td></td>
+<tr><td>Ребенок4. Фамилия:</td><td><input name='child4_name1' type='text' value="{{ the_child4_name1 }}" placeholder='' width='60'></td></tr>
+<tr><td>Ребенок4. Имя:</td><td><input name='child4_name2' type='text' value="{{ the_child4_name2 }}" placeholder='' width='60'></td></tr>
+<tr><td>Ребенок4. Отчество:</td><td><input name='child4_name3' type='text' value="{{ the_child4_name3 }}" placeholder='' width='60'></td></tr>
+<tr><td>Ребенок4. First Name:</td><td><input name='child4_name_lat1' type='text' value="{{ the_child4_name_lat1 }}" placeholder='' width='60'></td></tr>
+<tr><td>Ребенок4. Last Name:</td><td><input name='child4_name_lat2' type='text' value="{{ the_child4_name_lat2 }}" placeholder='' width='60'></td></tr>
+<tr><td>Ребенок4. Дата рождения:</td><td><input name='child4_birthdate' type='text' value="{{ the_child4_birthdate }}" placeholder='' width='60'></td></tr>
+<tr><td>Ребенок4. N загранпаспорта:</td><td><input name='child4_zagran' type='text' value="{{ the_child4_zagran }}" placeholder='' width='60'></td></tr>
+<tr><td>Ребенок4. Срок действия загранпаспорта:</td><td><input name='child4_zagran_srok' type='text' value="{{ the_child4_zagran_srok }}" placeholder='' width='60'></td></tr>
+<tr><td>Ребенок4. N свидетельства о рождении:</td><td><input name='child4_svidetelstvo_number' type='text' value="{{ the_child4_svidetelstvo_number }}" placeholder='' width='60'></td></tr>
+<tr><td>Ребенок4. Дата свидетельства о рождении:</td><td><input name='child4_svidetelstvo_data' type='text' value="{{ the_child4_svidetelstvo_data }}" placeholder='' width='60'></td></tr>
+
+<tr><td colspan="2"; style="font-weight:bold; text-align: center;">Ребенок 5, указать данные если требуется билет</td><td></td>
+<tr><td>Ребенок5. Фамилия:</td><td><input name='child5_name1' type='text' value="{{ the_child5_name1 }}" placeholder='' width='60'></td></tr>
+<tr><td>Ребенок5. Имя:</td><td><input name='child5_name2' type='text' value="{{ the_child5_name2 }}" placeholder='' width='60'></td></tr>
+<tr><td>Ребенок5. Отчество:</td><td><input name='child5_name3' type='text' value="{{ the_child5_name3 }}" placeholder='' width='60'></td></tr>
+<tr><td>Ребенок5. First Name:</td><td><input name='child5_name_lat1' type='text' value="{{ the_child5_name_lat1 }}" placeholder='' width='60'></td></tr>
+<tr><td>Ребенок5. Last Name:</td><td><input name='child5_name_lat2' type='text' value="{{ the_child5_name_lat2 }}" placeholder='' width='60'></td></tr>
+<tr><td>Ребенок5. Дата рождения:</td><td><input name='child5_birthdate' type='text' value="{{ the_child5_birthdate }}" placeholder='' width='60'></td></tr>
+<tr><td>Ребенок5. N загранпаспорта:</td><td><input name='child5_zagran' type='text' value="{{ the_child5_zagran }}" placeholder='' width='60'></td></tr>
+<tr><td>Ребенок5. Срок действия загранпаспорта:</td><td><input name='child5_zagran_srok' type='text' value="{{ the_child5_zagran_srok }}" placeholder='' width='60'></td></tr>
+<tr><td>Ребенок5. N свидетельства о рождении:</td><td><input name='child5_svidetelstvo_number' type='text' value="{{ the_child5_svidetelstvo_number }}" placeholder='' width='60'></td></tr>
+<tr><td>Ребенок5. Дата свидетельства о рождении:</td><td><input name='child5_svidetelstvo_data' type='text' value="{{ the_child5_svidetelstvo_data }}" placeholder='' width='60'></td></tr>
+
+</table>
+<p> </p>
+<p><input value='Готово' type='SUBMIT'></p>
+  <input type="checkbox" id="test1" name="test1" value="true">
+  <label for="test1"> Автоматически заполнить форму для теста</label><br>
+</form>
+{% endblock %}
