@@ -54,7 +54,7 @@ docker build . -t mbps54/app-exchange:1.1.2
 ```
 - Push Docker images to hub (optional)
 ```
-docker push mbps54/app-web:1.1.2
+docker push mbps54/app-web:1.3.1
 docker push mbps54/app-exchange:1.1.2
 ```
 
@@ -74,7 +74,7 @@ docker run -d \
            --name app-exchange \
            mbps54/app-exchange:1.1.2
 docker run -d \
-           -p 8000:8000 \
+           -p 80:8000 \
            -e DB_NAME_IP='app-redis' \
            --network=multi-host-network \
            --name app-web \
