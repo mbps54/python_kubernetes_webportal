@@ -34,7 +34,7 @@ nav = Navigation(app)
 nav.Bar(
     "top2",
     [
-        nav.Item("Назад", "get_data_2"),
+        nav.Item("Назад", "entry_page_2"),
     ],
 )
 
@@ -72,7 +72,7 @@ def entry_page_2():
     )
 
 
-@app.route("/", methods=["POST"])
+@app.route("/doc2", methods=["POST"])
 def get_data_2():
     session['user'] = str(randrange(9)) + str(randrange(9)) + str(randrange(9))
     data = {}
