@@ -5,7 +5,7 @@ Python web application allows users to fill in a form ang got a ready document i
 
 ### Release notes
 In 1.1.2 a proper crontab job is added  to docker container. It clears generated files (remove "/app/files") directiry each 4 hour.
-Version 1.1.1 contains crontab job files, but it does not work.
+Version 1.1.1 contains crontab job files, but it does not work.<br>
 In 1.3.1 only calc is left.
 
 ### This git direcory contains:
