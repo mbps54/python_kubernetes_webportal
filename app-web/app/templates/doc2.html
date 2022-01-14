@@ -4,15 +4,6 @@
 
 <h2>{{ the_title }}</h2>
 
-<nav>
-<ul>
-    {% for item in nav.top %}
-    <li class="{{ 'active' if item.is_active else '' }}">
-        <a href="{{ item.url }}">{{ item.label }}</a>
-    </li>
-    {% endfor %}
-</ul>
-</nav>
 
 <form method='POST' action='/doc2'>
 <p>Текущий курс USD/RUB={{ the_forex_usd_rub }}</p>
